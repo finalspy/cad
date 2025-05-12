@@ -1,0 +1,163 @@
+<!-- Slides pour Doctolib -->
+<section data-background-image="/public/backgrounds/doctolib.png" data-background-size="cover">
+    <aside class="notes">
+        <ul>
+            <li></li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+  <h2>Doctolib — Point de départ</h2>
+  <p>Monolithe difficile à faire évoluer rapidement, besoin critique de scalabilité.</p>
+</section>
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Temps de réponse variables</li>
+    <li>Maintenance complexe</li>
+  </ul>
+</section>
+<section>
+  <h2>🌟 Objectifs</h2>
+  <ul>
+    <li>Scalabilité rapide</li>
+    <li>Faciliter la maintenance et l'évolution</li>
+  </ul>
+</section>
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Refactorisation en services par domaine</li>
+    <li>Organisation orientée produit</li>
+  </ul>
+</section>
+<section>
+  <h2>📊 Résultats chiffrés</h2>
+  <ul>
+    <li>Maintien de la stabilité durant les pics COVID</li>
+    <li>Amélioration du délai de mise en production</li>
+    <li>Moins d'incidents critiques</li>
+  </ul>
+</section>
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Système résilient, réactif, et durable.</p>
+</section>
+
+<section>
+  <h1>Déclencheur chez Doctolib</h1>
+  <p>Explosion de l'usage, complexité croissante, et enjeux de fiabilité critique</p>
+  <ul>
+    <li>2019-2021 : COVID → pics de charge massifs (vaccinations, RDV en ligne)</li>
+    <li>Base : monolithe Ruby on Rails structuré, mais limité</li>
+    <li>Plus de 500 ingénieurs, forte pression sur les délais de livraison</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Doctolib a multiplié par 10 ses volumes de RDV en ligne pendant la crise COVID</li>
+      <li>La croissance de l'effectif tech (passé de 100 à 500+ devs) rendait le monolithe difficile à maintenir seul</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature du problème</h1>
+  <p>Friction dans le delivery, difficulté à isoler les domaines métier critiques</p>
+  <ul>
+    <li>Le codebase monolithique devenait trop large pour une équipe unique</li>
+    <li>Dépendances fortes entre modules (agenda, patient, téléconsultation...)</li>
+    <li>Complexité des tests, allongement des cycles de release</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>La coordination devenait difficile : plusieurs équipes modifiaient les mêmes zones du code</li>
+      <li>Les tests en bout en bout étaient longs et fragiles</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Objectifs visés</h1>
+  <p>Maintenir la vélocité malgré l'échelle, sans compromettre la fiabilité</p>
+  <ul>
+    <li>Permettre aux équipes produit de livrer en autonomie</li>
+    <li>Séparer les domaines critiques (paiement, consultation, planning…)</li>
+    <li>Garantir la sécurité et la conformité (HDS, RGPD)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les contraintes légales (hébergement HDS, données de santé) rendaient les tests et déploiements sensibles</li>
+      <li>Il fallait un compromis entre découplage technique et contraintes réglementaires</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Solution mise en œuvre</h1>
+  <p>Approche modulaire avec services internes spécialisés et "backend-for-frontend"</p>
+  <ul>
+    <li>Conservation d'un noyau Rails pour certains domaines</li>
+    <li>Introduction de services spécialisés (ex: Search, Identity, Teleconsultation)</li>
+    <li>Utilisation de Backend-for-Frontend (BFF) pour découpler les interfaces</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les BFF permettent à chaque équipe front d'avoir son propre backend dédié à son domaine</li>
+      <li>Certains modules critiques sont externalisés mais conservés dans l'infrastructure HDS</li>
+      <li>Doctolib utilise aussi des outils internes pour gérer le cycle de vie des services</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Résultats observés</h1>
+  <p>Vélocité retrouvée, fiabilité renforcée, autonomie des équipes</p>
+  <ul>
+    <li>Déploiements plus fréquents et plus sûrs</li>
+    <li>Meilleure spécialisation des équipes produit-tech</li>
+    <li>Architecture évolutive adaptée à de nouveaux services (Doctolib Team, Mobilité, Pro Santé)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Chaque domaine peut désormais être traité avec sa propre stack, métriques, monitoring</li>
+      <li>Doctolib a pu lancer rapidement de nouvelles offres (pro santé, agenda partagé, documents médicaux…)</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>Doctolib a adopté une architecture hybride, scalable et sécurisée</p>
+  <ul>
+    <li>Pas de big bang : évolution incrémentale depuis un Rails monolithique</li>
+    <li>Services par domaine métier, usage de BFF, outillage interne</li>
+    <li>Réussite guidée par les besoins de résilience et de conformité</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Doctolib illustre une refonte guidée par la **charge**, la **réglementation** et la **croissance produit**</li>
+      <li>Le modèle reste compatible avec les exigences d'hébergement de données de santé</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Doctolib – Pour aller plus loin</h1>
+  <ul>
+    <li><a href="https://medium.com/doctolib/scaling-making-doctolib-small-again-ff1268607c40" target="_blank">Scaling: Making Doctolib Small Again – Medium</a></li>
+    <li><a href="https://medium.com/doctolib/tagged/architecture" target="_blank">Doctolib – Articles sur l'architecture</a></li>
+    <li><a href="https://medium.com/doctolib/how-we-built-our-infrastructure-fail-over-checklist-5b31d4623136" target="_blank">How we built our infrastructure fail-over checklist – Medium</a></li>
+    <li><a href="https://medium.com/doctolib/integrating-an-https-interface-in-hospitals-using-mirth-connect-communication-server-55d178c31d45" target="_blank">Integrating an HTTPS interface in hospitals using Mirth Connect – Medium</a></li>
+    <li><a href="https://devoxx.be/talk/?id=20068" target="_blank">Devoxx Belgium – From monolith to multi-services, how a platform engineering approach transforms your business?</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>L'article "Scaling: Making Doctolib Small Again" décrit la transition vers une architecture modulaire avec des Rails Engines.</li>
+      <li>La section "Architecture" du blog Medium de Doctolib contient divers articles sur leurs choix techniques.</li>
+      <li>L'article sur la checklist de basculement d'infrastructure explique comment Doctolib gère la résilience de son infrastructure.</li>
+      <li>L'article sur l'intégration avec Mirth Connect détaille les défis techniques liés à l'intégration avec les systèmes hospitaliers.</li>
+      <li>La conférence Devoxx présente la transformation de Doctolib d'un monolithe vers une architecture multi-services.</li>
+    </ul>
+  </aside>
+</section>

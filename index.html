@@ -1,40 +1,84 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/yann.css">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  </head>
+  <body>
+    <div class="reveal">
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+      <div class="slides">
+        <section data-background-image="/public/backgrounds/accueil.png"
+                  data-background-size="cover"
+                  data-background-opacity="1">
+          <h1>Conception<br/>d'applications distribuées</h1>
+        </section>
+        <section data-load="slides/01_presentation.html" 
+                  data-background-image="/public/backgrounds/oeil.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.7"
+                  data-background-gradient="linear-gradient(to bottom, #283b95, #17b2a3)"></section>
+        <section data-load="slides/02_auditoire.html"
+                  data-background-image="/public/backgrounds/fouillis.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.7"
+                  data-background-gradient="linear-gradient(to bottom, #113322, #112233)"></section>
+        <section data-load="slides/03_programme.html"
+                  data-background-image="/public/backgrounds/programme.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.5"></section>
+        <section data-load="slides/04_histoire.html" 
+                  data-background-image="/public/backgrounds/connected-dots-2.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.5"></section>
+        <section data-load="slides/05_questions.html"
+                  data-background-image="/public/backgrounds/questions.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.5"></section>
+        <section data-load="slides/06_casdecole.html"></section>
+        <section data-load="slides/07_concepts.html"></section>
+        <section data-load="slides/08_communication.html"></section>
+        <section data-load="slides/09_TPmonolithtodistributed.html"></section>
+        <section data-load="slides/10_advancedpatterns.html"></section>
+      </div>
+    
+    </div>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+    <script src="dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/loadcontent/plugin.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealLoadContent, RevealMarkdown, RevealHighlight, RevealNotes ],
+        backgroundTransition: 'fade',
+        //showNotes: true,
+        transition: 'slide',  // none/fade/slide/convex/concave/zoom
+        transitionSpeed: 'fast', // default/fast/slow
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+        loop: false,
+
+
+      });
+    </script>
+  </body>
 </html>

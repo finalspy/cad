@@ -1,0 +1,181 @@
+<!-- Netflix -->
+<section data-background-image="/public/backgrounds/netflix.jpg" data-background-size="cover">
+    <aside class="notes">
+        <ul>
+            <li>Qui sait quel était le premier business de Netflix ?</li>
+            <li>Netflix est devenu un pionnier du cloud et des microservices</li>
+            <li>Leur histoire est emblématique de la transformation numérique</li>
+            <li>Ils ont su tirer parti des échecs pour innover</li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+  <h2>Netflix — Point de départ</h2>
+  <p>Gros monolithe Java déployé en datacenter. Incident majeur en 2008.</p>
+</section>
+
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Pannes critiques</li>
+    <li>Lenteur des déploiements</li>
+    <li>Scalabilité limitée</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🎯 Objectifs</h2>
+  <ul>
+    <li>Résilience et haute dispo</li>
+    <li>Migration vers le cloud (AWS)</li>
+    <li>Scalabilité horizontale</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Microservices REST & messaging</li>
+    <li>Infrastructure Cloud Native</li>
+    <li>Outils internes (Eureka, Hystrix, Spinnaker)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Résilience extrême, déploiement continu, pionnier du DevOps.</p>
+</section>
+
+<section>
+  <h1>Incident Netflix (2008)</h1>
+  <p>Panne critique de plusieurs jours sur le service historique de location de DVD.</p>
+  <ul>
+    <li>Août 2008 : arrêt complet du traitement des commandes</li>
+    <li>Plusieurs millions d'utilisateurs impactés</li>
+    <li>Déclencheur majeur de la transition vers le cloud et les microservices</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Netflix était encore centré sur la location de DVD par la poste</li>
+      <li>L'incident est survenu sur l'infrastructure interne, avant la migration vers AWS</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature de l'incident</h1>
+  <p>Blocage complet du système de gestion des expéditions de DVD</p>
+  <ul>
+    <li>Panne logicielle sur une mise à jour déployée en production</li>
+    <li>Impact : 3 jours d'interruption des expéditions</li>
+    <li>Aucune commande client traitée pendant la durée</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le système ne permettait pas de rollback ou de traitement partiel</li>
+      <li>Problème aggravé par le couplage fort des composants</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Causes techniques</h1>
+  <p>Défaillances d'architecture et manque de résilience</p>
+  <ul>
+    <li>Monolithe centralisé dans des datacenters internes</li>
+    <li>Mise à jour défectueuse sans environnement isolé</li>
+    <li>Propagation rapide de la panne sans cloisonnement</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Pas de stratégie de circuit breaker ou fallback</li>
+      <li>Absence de tests de résilience ou de chaos engineering</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Réaction de Netflix</h1>
+  <p>Communication de crise rapide et gestes commerciaux</p>
+  <ul>
+    <li>Excuses publiques du CEO Reed Hastings</li>
+    <li>Compensations financières aux abonnés</li>
+    <li>Refonte en profondeur des pratiques d'ingénierie</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Hastings a reconnu un échec systémique</li>
+      <li>La confiance client a été priorisée dans la réponse</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Conséquences à long terme</h1>
+  <p>L'incident a déclenché une transformation architecturale majeure</p>
+  <ul>
+    <li>Accélération de la migration vers le cloud AWS</li>
+    <li>Adoption des microservices pour découpler les responsabilités</li>
+    <li>Création d'outils comme Chaos Monkey pour tester la résilience</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>La migration complète vers AWS prendra près de 8 ans</li>
+      <li>Naissance d'une culture DevOps et de la résilience par le chaos</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Timeline post-incident (2008-2016)</h1>
+  <p>Les grandes étapes de la transformation technologique de Netflix</p>
+  <ul>
+    <li>📉 <strong>2008</strong> - Incident majeur sur le système DVD</li>
+    <li>☁️ <strong>2009</strong> - Début réel de la migration vers AWS</li>
+    <li>🧪 <strong>2010</strong> - Création de Chaos Monkey (test de résilience)</li>
+    <li>🔧 <strong>2012</strong> - Adoption généralisée des microservices</li>
+    <li>🎥 <strong>2013</strong> - Streaming devient l'activité principale</li>
+    <li>🚀 <strong>2015</strong> - 100 % des nouveaux services déployés sur AWS</li>
+    <li>✅ <strong>2016</strong> - Netflix annonce la fin complète de sa migration cloud</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Chaque année a représenté une étape clé dans la transition vers une architecture distribuée cloud-native</li>
+      <li>Le changement a été progressif mais guidé par une vision forte de résilience et de scalabilité</li>
+      <li>Le streaming a pris le pas sur le DVD à partir de 2013, justifiant les investissements massifs</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>L'incident de 2008 a façonné le Netflix moderne et résilient</p>
+  <ul>
+    <li>Prise de conscience brutale des limites du monolithe</li>
+    <li>Virage stratégique vers l'architecture distribuée</li>
+    <li>Modèle devenu référence dans l'ingénierie moderne</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Netflix est devenu une vitrine mondiale des bonnes pratiques microservices/cloud-native</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Netflix - Pour aller plus loin</h1>
+  <ul>
+    <li><a target="_blank" href="https://medium.com/@NetflixTechBlog">Netflix Tech Blog</a></li>
+    <li><a target="_blank" href="https://github.com/Netflix/chaosmonkey">GitHub - Netflix Chaos Monkey</a></li>
+    <li><a target="_blank" href="https://www.infoq.com/presentations/netflix-architecture/">Architecture de Netflix - InfoQ</a></li>
+     <li><a target="_blank" href="https://www.youtube.com/watch?v=CZ3wIuvmHeM">Mastering Chaos - A Netflix guide to MicroServices</a>
+    <li><a target="_blank" href="https://netflixtechblog.com/the-netflix-simian-army-16e57fbab116">The Netflix Simian Army</a></li>
+</ul>
+  <aside class="notes">
+    <ul>
+      <li>Le blog technique Netflix contient des articles très détaillés sur leurs outils internes</li>
+      <li>Chaos Engineering est devenu une discipline à part entière grâce à eux</li>
+    </ul>
+  </aside>
+</section>

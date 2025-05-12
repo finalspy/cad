@@ -1,0 +1,185 @@
+<!-- Slides pour LinkedIn -->
+<section data-background-image="/public/backgrounds/linkedin.webp" data-background-size="cover">
+    <aside class="notes">
+        <ul>
+            <li>
+                LinkedIn a migré vers une architecture microservices pour améliorer la scalabilité et la performance.
+            </li>
+            <li>
+                La migration a permis de réduire la latence et d'optimiser les connexions réseau.
+            </li>
+            <li>
+                L'utilisation de HTTP/2 a permis de réduire le nombre de connexions simultanées.
+            </li>
+            <li>
+                La gestion des flux a été améliorée grâce à une meilleure intégration avec Netty.
+            </li>
+            <li>
+                Résultat : une infrastructure plus performante et fluide.
+            </li>
+            <li>
+                La migration a été progressive, permettant de tester et d'itérer sur les nouvelles fonctionnalités.
+            </li>
+            <li>
+                LinkedIn a également mis en place des outils de monitoring pour suivre les performances et détecter les problèmes.
+            </li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+  <h2>LinkedIn — Point de départ</h2>
+  <p>Backend monolithique sur HTTP/1.1 avec limitations réseau.</p>
+</section>
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Connexion excessive</li>
+    <li>Temps de réponse élevés</li>
+    <li>Garbage collection fréquente</li>
+  </ul>
+</section>
+<section>
+  <h2>🌟 Objectifs</h2>
+  <ul>
+    <li>Optimisation du transport réseau</li>
+    <li>Améliorer la scalabilité</li>
+  </ul>
+</section>
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Migration vers HTTP/2</li>
+    <li>Amélioration de Netty et gestion de flux</li>
+  </ul>
+</section>
+<section>
+  <h2>📊 Résultats chiffrés</h2>
+  <ul>
+    <li>Moins de connexions simultanées</li>
+    <li>Latence réduite</li>
+    <li>Moins de temps de GC</li>
+  </ul>
+</section>
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Infrastructure plus performante et fluide.</p>
+</section>
+
+<section>
+  <h1>Incident / Déclencheur : LinkedIn</h1>
+  <p>Saturation du monolithe face à la croissance explosive des données et des usages</p>
+  <ul>
+    <li>2009 : explosion des volumes de données (profil, feed, recherche)</li>
+    <li>Dépendance à une base Oracle centralisée</li>
+    <li>Difficultés à tenir la charge et à itérer rapidement</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>LinkedIn dépassait déjà 50 millions de membres en 2009, et franchira les 100 millions en 2011</li>
+      <li>Le backend monolithique Java reposait fortement sur une base Oracle pour tout : messages, relations, profils</li>
+      <li>Les performances de recherche et de mise à jour devenaient problématiques</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature du problème</h1>
+  <p>Scalabilité limitée et goulots d'étranglement dans les composants critiques</p>
+  <ul>
+    <li>Base Oracle saturée : requêtes longues et blocantes</li>
+    <li>Monolithe trop rigide pour innover rapidement</li>
+    <li>Pas de mécanisme de propagation d'événements entre modules</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Des équipes voulaient déployer des nouveautés (feed, notifications) mais les dépendances bloquaient tout</li>
+      <li>Une modification dans le profil utilisateur pouvait casser la recherche ou les suggestions</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Objectifs visés</h1>
+  <p>Repenser l'architecture pour la rendre scalable, modulaire et orientée événement</p>
+  <ul>
+    <li>Découpler les composants via des systèmes de messaging</li>
+    <li>Supporter des pics de charge (recherches, notifications)</li>
+    <li>Permettre le scaling indépendant des services</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>LinkedIn vise une architecture où chaque module (feed, profil, messagerie) peut évoluer seul</li>
+      <li>L'objectif est aussi de permettre un traitement asynchrone massif</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Solution mise en œuvre</h1>
+  <p>Mise en place d'une architecture orientée événements + microservices</p>
+  <ul>
+    <li>Création de Kafka (2011) pour la diffusion d'événements en temps réel</li>
+    <li>Développement de Samza (2013) pour le traitement distribué de flux</li>
+    <li>Transition vers des services spécialisés : feed, profil, recherche, messagerie…</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Kafka devient la colonne vertébrale de la communication inter-services</li>
+      <li>Chaque événement (nouvelle relation, update de profil) est publié et traité de manière indépendante</li>
+      <li>Samza permet de faire du streaming analytics en ligne pour l'engagement, le ranking du feed…</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Résultats observés</h1>
+  <p>Des performances, une modularité et une robustesse accrues</p>
+  <ul>
+    <li>Kafka traite aujourd'hui plus de <strong>7 000 milliards de messages par jour</strong></li>
+    <li>Des centaines de microservices consomment les flux en parallèle</li>
+    <li>Feed personnalisé, alertes, stats temps réel : tous pilotés par événement</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Kafka est utilisé pour la persistance, le log, le traitement de flux, la réplication de données</li>
+      <li>Architecture plus résiliente : chaque service peut chuter ou redémarrer sans bloquer l'écosystème</li>
+      <li>LinkedIn open-sourcera Kafka (2011), Samza (2013), Voldemort (clé-valeur), Brooklin (2017)...</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>Un virage pionnier vers l'event-driven architecture dans un contexte Big Data</p>
+  <ul>
+    <li>Saturation du monolithe Oracle en 2009 → refonte radicale</li>
+    <li>Création d'outils devenus des standards open source (Kafka, Samza…)</li>
+    <li>Scalabilité et innovation accrues dans les services métier</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>LinkedIn est devenu un pionnier de l'event streaming à l'échelle internet</li>
+      <li>La logique asynchrone a permis de mieux absorber les pics de charge (notamment après l'acquisition par Microsoft en 2016)</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>LinkedIn - Pour aller plus loin</h1>
+  <ul>
+    <li><a href="https://engineering.linkedin.com/" target="_blank">LinkedIn Engineering - Blog officiel</a></li>
+    <li><a href="https://engineering.linkedin.com/kafka/running-kafka-scale" target="_blank">Running Kafka at Scale - LinkedIn Engineering</a></li>
+    <li><a href="https://engineering.linkedin.com/kafka/kafka-linkedin-current-and-future" target="_blank">Kafka at LinkedIn: Current and Future</a></li>
+    <li><a href="https://www.slideshare.net/slideshow/apache-kafka-at-linkedin-how-linkedin-customizes-kafka-to-work-at-the-trillion-scale/229555971" target="_blank">Présentation - Apache Kafka at LinkedIn (SlideShare)</a></li>
+    <li><a href="https://samza.apache.org/">Apache Samza (LinkedIn)</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le blog LinkedIn Engineering propose des articles détaillés sur l'architecture, l'infrastructure et les innovations techniques de l'entreprise.</li>
+      <li>Les articles sur Kafka décrivent comment LinkedIn utilise et adapte Apache Kafka pour gérer des volumes massifs de données en temps réel.</li>
+      <li>La présentation sur SlideShare offre un aperçu de la personnalisation de Kafka par LinkedIn pour répondre à ses besoins spécifiques.</li>
+    </ul>
+  </aside>
+</section>
+

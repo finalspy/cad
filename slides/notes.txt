@@ -1,0 +1,96 @@
+
+CAP Theorem https://code-garage.com/blog/comprendre-le-theoreme-cap
+SAGA Pattern
+DDD
+EventSourcing
+CQRS
+
+
+CAP Theorem
+  Consistence (Cohérence)
+  Availability (Disponibilité)
+  Partition Tolerance (Tolérance aux partitions)
+
+Saga Pattern - Modèle de saga
+  Choreography - Chorégraphie
+  Orchestration - Orchestration 
+
+DDD - Domain Driven Design (Conception pilotée par le domaine)
+  Domain
+    Domain Model
+    Domain Layer
+    Domain Service
+    Domain Repository
+  Bounded Context
+  Ubiquitous Language
+  Aggregate
+  Entity
+  Value Object
+  Domain Event
+
+DatabasePerDomain
+Event Sourcing
+CQRS - Command Query Responsibility Segregation
+  Command
+  Query
+
+Event
+  Event Store
+  Event Handler
+  Event Bus
+
+  
+Consistence Eventuelle
+Idempotence
+
+DORA Metrics
+TeamTopologies
+
+Loose Coupling - Couplage faible
+
+
+
+Robustesse Evolutiovité Maintenabilité
+
+
+
+
+
+Scalabilité Resilience Testabilité Observabilité
+
+Scalability - scalabilité
+  vertical scaling
+  horizontal scaling
+  elastic scaling
+  auto-scaling
+  load balancing
+  sharding
+  partitioning
+  caching
+  replication
+  clustering
+
+Resilience - résilience
+  fault tolerance
+  graceful degradation
+  self-healing
+  circuit breaker
+  retry
+  bulkhead
+  timeout
+  rate limiting
+
+Testability - testabilité
+  unit test
+  integration test
+  contract test
+  end-to-end test
+  performance test
+  chaos engineering
+
+Observability - obervabilité
+  logging
+  metrics
+  tracing
+  alerting
+  monitoring

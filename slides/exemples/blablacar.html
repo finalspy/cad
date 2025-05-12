@@ -1,0 +1,172 @@
+<!-- BlaBlaCar -->
+<section data-background-image="/public/backgrounds/blablacar.jpg" data-background-size="cover">
+    <aside class="notes">
+        <ul>
+            <li></li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+  <h2>BlaBlaCar — Point de départ</h2>
+  <p>Application monolithique PHP/MySQL avec croissance rapide en Europe.</p>
+</section>
+
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Problèmes de performance</li>
+    <li>Complexité de déploiement</li>
+    <li>Difficultés à innover rapidement</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🎯 Objectifs</h2>
+  <ul>
+    <li>Scalabilité technique</li>
+    <li>Meilleure productivité des équipes</li>
+    <li>Migration cloud-first</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Microservices Kotlin + Kafka</li>
+    <li>Infrastructure sur Google Cloud</li>
+    <li>Feature flags et canary releases</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Meilleure réactivité, uptime amélioré, déploiements sécurisés.</p>
+</section>
+
+<section>
+  <h2>🔍 Conclusion</h2>
+  <ul>
+    <li>Pas de solution unique — chaque entreprise choisit sa voie</li>
+    <li>Organisation et tech avancent ensemble</li>
+    <li>Migration progressive → clé du succès</li>
+  </ul>
+</section>
+
+<section>
+  <h1>Incident / Déclencheur : BlaBlaCar</h1>
+  <p>Pas de panne majeure publique, mais un tournant organisationnel et technique lié à l'expansion</p>
+  <ul>
+    <li>2014-2016 : forte croissance internationale (Europe, Inde, Brésil)</li>
+    <li>Monolithe PHP difficile à faire évoluer</li>
+    <li>Code couplé, difficile à maintenir par des équipes réparties</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>BlaBlaCar devient rapidement multi-pays après 2014 (20+ marchés à terme)</li>
+      <li>Chaque pays avait des règles métier légèrement différentes, rendant la généralisation difficile dans un code monolithique</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature du problème</h1>
+  <p>Limitations structurelles liées à un code monolithique centré sur un seul modèle de covoiturage</p>
+  <ul>
+    <li>Rigidité dans la gestion des spécificités locales</li>
+    <li>Complexité croissante des déploiements</li>
+    <li>Problèmes de scalabilité organisationnelle</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le même back-end devait servir des règles différentes selon les pays (ex : covoiturage rémunéré ou non, assurances, interface utilisateur)</li>
+      <li>Temps de livraison ralentis par conflits de merge et interdépendances</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Objectifs visés</h1>
+  <p>Permettre l'autonomie des équipes et la rapidité des évolutions produit</p>
+  <ul>
+    <li>Diminuer le couplage entre les domaines fonctionnels</li>
+    <li>Faciliter l'expérimentation locale (A/B testing, MVP)</li>
+    <li>Simplifier la maintenance et améliorer la résilience</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Chaque équipe devait pouvoir livrer et itérer sur son propre périmètre</li>
+      <li>Besoin de flexibilité sur le produit selon les régions</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Solution mise en œuvre</h1>
+  <p>Refonte progressive vers une architecture modulaire orientée services</p>
+  <ul>
+    <li>Découpage progressif du monolithe en services métier autonomes</li>
+    <li>Mise en place d'une plateforme interne pour les développeurs</li>
+    <li>Adoption du modèle Domain-Driven Design (DDD)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Pas de big bang : transition progressive en gardant certaines briques centrales</li>
+      <li>Création de "bounded contexts" autour des principaux domaines (utilisateurs, trajets, paiements…)</li>
+      <li>Les équipes gagnent en autonomie et peuvent itérer plus vite</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Résultats observés</h1>
+  <p>Amélioration de la vélocité, de la stabilité et de la gouvernance technique</p>
+  <ul>
+    <li>Déploiements plus rapides et plus sûrs</li>
+    <li>Meilleure spécialisation des équipes produit-tech</li>
+    <li>Plateforme scalable pour l'expansion future (BlaBlaBus, BlaBlaCar Daily…)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Réduction du time-to-market pour de nouvelles fonctionnalités</li>
+      <li>Architecture plus adaptable pour intégrer de nouveaux modèles (bus, domicile-travail…)</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>Une transition guidée par la croissance et la diversité des besoins locaux</p>
+  <ul>
+    <li>Aucune panne majeure mais des limitations bloquantes</li>
+    <li>Transition douce vers des services métiers indépendants</li>
+    <li>Base saine pour les évolutions futures et l'internationalisation</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>BlaBlaCar illustre une transition "pragmatique", sans rupture brutale</li>
+      <li>Le facteur clé : adaptation à l'organisation et aux contraintes produit/terrain</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>BlaBlaCar - Pour aller plus loin</h1>
+  <ul>
+    <li><a href="https://medium.com/blablacar" target="_blank">BlaBlaCar sur Medium - Articles techniques et culture d'entreprise</a></li>
+    <li><a href="https://www.youtube.com/watch?v=xPYRPIu1C6c" target="_blank">Conférence - Metrics on the Move: BlaBlaCar's Co-founder Frédéric Mazzella</a></li>
+    <li><a href="https://www.welcometothejungle.com/en/companies/blablacar/tech-2" target="_blank">BlaBlaCar - Culture tech & organisation</a></li>
+    <li><a href="https://cloud.google.com/customers/blablacar" target="_blank">Étude de cas - Migration de BlaBlaCar vers Google Cloud</a></li>
+    <li><a href="https://www.montecarlodata.com/blog-building-a-data-mesh-to-support-self-serve-analytics-at-scale/" target="_blank">Article - Mise en place d'un Data Mesh chez BlaBlaCar</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le blog Medium de BlaBlaCar propose des articles détaillés sur leurs choix techniques et leur culture d'entreprise.</li>
+      <li>La conférence de Frédéric Mazzella offre un aperçu des métriques et de la croissance de BlaBlaCar.</li>
+      <li>La page Welcome to the Jungle présente l'organisation technique et les valeurs de l'entreprise.</li>
+      <li>L'étude de cas Google Cloud détaille la migration de leur infrastructure vers le cloud pour soutenir leur croissance.</li>
+      <li>L'article sur le Data Mesh explique comment BlaBlaCar a structuré ses données pour une meilleure accessibilité et scalabilité.</li>
+    </ul>
+  </aside>
+</section>
+

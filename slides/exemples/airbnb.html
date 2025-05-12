@@ -1,0 +1,165 @@
+<!-- Airbnb -->
+<section data-background-image="/public/backgrounds/airbnb.png" data-background-size="cover">
+    <aside class="notes">
+        <ul>
+            <li></li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+  <h2>Airbnb — Point de départ</h2>
+  <p>Gros monolithe Ruby on Rails avec une base de code complexe et difficile à maintenir.</p>
+</section>
+
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Couplage fort entre modules</li>
+    <li>Tests fragiles</li>
+    <li>Déploiement risqué</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🎯 Objectifs</h2>
+  <ul>
+    <li>Modularisation</li>
+    <li>Maintenabilité</li>
+    <li>Déploiements sélectifs</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Microservices + shared libraries</li>
+    <li>Migration progressive</li>
+    <li>Observabilité accrue</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Code plus stable, innovation plus rapide, meilleure gestion des incidents.</p>
+</section>
+
+<section>
+  <h1>Déclencheur chez Airbnb</h1>
+  <p>Dette technique et friction croissante sur un monolithe Rails devenu trop complexe</p>
+  <ul>
+    <li>2008 : lancement avec un monolithe Ruby on Rails</li>
+    <li>2016-2018 : dette technique massive, builds lents, codebase énorme</li>
+    <li>Freins à l'onboarding et au delivery rapide</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Airbnb a utilisé Ruby on Rails dès le premier jour, ce qui a permis d'itérer très vite</li>
+      <li>Mais au bout de 8-10 ans, le monolithe était devenu difficile à tester, à modifier et à comprendre</li>
+      <li>Le temps moyen pour exécuter les tests dépassait parfois 1 heure</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature du problème</h1>
+  <p>Complexité technique et organisationnelle sur un codebase unique</p>
+  <ul>
+    <li>300 000+ lignes de code dans le monolithe Rails principal</li>
+    <li>Temps de compilation / test de plus en plus long</li>
+    <li>Confusion sur les responsabilités des modules</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le code contenait une grande variété de modèles métiers entremêlés</li>
+      <li>Impossible pour les développeurs d'avoir une vision claire des impacts</li>
+      <li>Les erreurs dans un service impactaient d'autres services (ex: paiement, messagerie, réservation)</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Objectifs visés</h1>
+  <p>Réduire la friction technique tout en préservant la cohérence produit</p>
+  <ul>
+    <li>Permettre aux équipes de livrer plus vite</li>
+    <li>Faciliter l'onboarding des nouveaux développeurs</li>
+    <li>Améliorer la qualité et la testabilité du code</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Airbnb souhaitait retrouver une vélocité comparable à celle des débuts</li>
+      <li>Le monolithe devenait un frein au recrutement : la courbe d'apprentissage était trop raide</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Solution mise en œuvre</h1>
+  <p>Transition vers une architecture modulaire basée sur des "pods"</p>
+  <ul>
+    <li>Pas de passage complet aux microservices</li>
+    <li>Création de "pods" : modules indépendants mais toujours dans le monolithe</li>
+    <li>Introduction progressive d'outils de gestion de dépendances, interfaces stables</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Chaque pod regroupe les contrôleurs, modèles, services, et tests liés à un domaine fonctionnel</li>
+      <li>Exemples : pod "Bookings", pod "Payments", pod "Messaging"</li>
+      <li>C'est une architecture modulaire monolithique, pas microservices</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Résultats observés</h1>
+  <p>Amélioration de la productivité sans exploser la complexité d'infrastructure</p>
+  <ul>
+    <li>Réduction du temps de test / build par pod</li>
+    <li>Plus de clarté dans la responsabilité des équipes</li>
+    <li>Scalabilité organisationnelle sans explosion des microservices</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les pods sont assignés à des équipes spécifiques, avec une vraie propriété technique</li>
+      <li>Déploiements possibles par domaine, sans coordination globale</li>
+      <li>Moins d'overhead que les microservices pour un produit fortement intégré</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>Airbnb a opté pour une refonte modulaire du monolithe, pas pour des microservices purs</p>
+  <ul>
+    <li>Endettement technique sur Rails → nécessité de modulariser</li>
+    <li>Approche pragmatique avec des pods métiers</li>
+    <li>Scalabilité interne sans alourdir l'infra</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Airbnb montre qu'il n'existe pas une seule bonne architecture</li>
+      <li>Le choix dépend du contexte : produit, organisation, tooling, recrutement…</li>
+      <li>Leur choix leur a permis d'évoluer sans tout réécrire</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Airbnb - Pour aller plus loin</h1>
+  <ul>
+    <li><a target="_blank" href="https://medium.com/airbnb-engineering/tagged/microservices" target="_blank">Airbnb Engineering - Articles sur les microservices</a></li>
+    <li><a target="_blank" href="https://www.infoq.com/presentations/airbnb-culture-soa/" target="_blank">Conférence - The Human Side of Airbnb’s Microservice Architecture</a></li>
+    <li><a target="_blank" href="https://blog.bytebytego.com/p/a-brief-history-of-airbnbs-architecture" target="_blank">ByteByteGo - A Brief History of Airbnb's Architecture</a></li>
+    <li><a target="_blank" href="https://blog.quastor.org/p/airbnbs-architecture" target="_blank">Quastor - Airbnb's Architecture</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Airbnb est transparent sur ses choix hybrides et sa gestion de la dette technique</li>
+      <li>Approche modulaire plutôt que microservices, très documentée</li>
+      <li>Le blog Medium d'Airbnb propose des articles détaillés sur leurs choix techniques et leur culture d'entreprise.</li>
+      <li>La conférence sur InfoQ offre un aperçu des défis humains et techniques lors de la transition vers une architecture en microservices.</li>
+      <li>Les articles de ByteByteGo et Quastor retracent l'évolution de l'architecture d'Airbnb, du monolithe aux microservices, puis vers une approche hybride.</li>
+    </ul>
+  </aside>
+</section>
