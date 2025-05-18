@@ -1,5 +1,5 @@
 <section>
-  <h1>Domain Driven Design (DDD)</h1>
+  <h2>Domain Driven Design (DDD)</h2>
   <p>Introduction au Domain Driven Design dans le cadre de la conception d'applications distribuées.</p>
   <aside class="notes">
     <ul>
@@ -28,7 +28,7 @@
 
 <section>
   <h1>Pourquoi Domain Driven Design ?</h1>
-  <p>Le DDD permet d’adresser la complexité des domaines métiers avec une architecture logicielle centrée sur le métier.</p>
+  <p>Le DDD permet d'adresser la complexité des domaines métiers avec une architecture logicielle centrée sur le métier.</p>
   <ul>
     <li>Aligner technique et métier</li>
     <li>Faciliter la communication</li>
@@ -54,7 +54,7 @@
     <ul>
       <li>Insister sur les enjeux des systèmes distribués : multiples équipes, microservices, transactions partielles.</li>
       <li>Expliquer comment un langage commun (Ubiquitous Language) évite les malentendus entre développeurs et experts métier.</li>
-      <li>Montrer qu’un bon découpage en bounded contexts limite la propagation des changements et favorise l’autonomie des équipes.</li>
+      <li>Montrer qu'un bon découpage en bounded contexts limite la propagation des changements et favorise l'autonomie des équipes.</li>
     </ul>
   </aside>
 </section>
@@ -65,13 +65,13 @@
   <ul>
     <li>📖 Décrit précisément les concepts métier</li>
     <li>🔄 Utilisé dans les tests, la documentation et le code</li>
-    <li>🤓 Évolue avec le domaine et s’adapte aux retours métier</li>
+    <li>🤓 Évolue avec le domaine et s'adapte aux retours métier</li>
   </ul>
   <aside class="notes">
     <ul>
-      <li>Donner l’exemple d’un “Order ” vs “Purchase ”: mêmes mots, sens différents selon le contexte.</li>
+      <li>Donner l'exemple d'un “Order ” vs “Purchase ”: mêmes mots, sens différents selon le contexte.</li>
       <li>Montrer comment les reviewers de PR vérifient la cohérence du langage omniprésent.</li>
-      <li>Avantage : détecter tôt les mauvaises compréhensions avant qu’elles n’atterrissent en prod.</li>
+      <li>Avantage : détecter tôt les mauvaises compréhensions avant qu'elles n'atterrissent en prod.</li>
     </ul>
   </aside>
 </section>
@@ -90,13 +90,13 @@
       <li>Présenter les patterns de relation :  
         <ul>
           <li><strong>Partnership</strong> : deux équipes coopèrent étroitement.</li>
-          <li><strong>Shared Kernel</strong> : partage d’un sous-modèle commun.</li>
+          <li><strong>Shared Kernel</strong> : partage d'un sous-modèle commun.</li>
           <li><strong>Customer–Supplier</strong> : un contexte proveedor dicte le contrat.</li>
-          <li><strong>Conformist</strong> : on s’aligne sur le modèle d’un fournisseur sans négociation.</li>
-          <li><strong>Anti-Corruption Layer</strong> : adapter/transformer pour éviter la « pollution » d’un modèle externe.</li>
+          <li><strong>Conformist</strong> : on s'aligne sur le modèle d'un fournisseur sans négociation.</li>
+          <li><strong>Anti-Corruption Layer</strong> : adapter/transformer pour éviter la « pollution » d'un modèle externe.</li>
         </ul>
       </li>
-      <li>Expliquer l’importance de choisir le bon pattern selon le découpage organisationnel.</li>
+      <li>Expliquer l'importance de choisir le bon pattern selon le découpage organisationnel.</li>
     </ul>
   </aside>
 </section>
@@ -113,7 +113,7 @@
     <ul>
       <li>Exemple : <em>Commande</em> avec son ID et son statut ; même contenu, deux commandes diffèrent.</li>
       <li>Invariants : date de livraison ≥ date de commande, montant total ≥ 0.</li>
-      <li>Montrer un diagramme UML d’une entité simple avec attributs et méthodes métier.</li>
+      <li>Montrer un diagramme UML d'une entité simple avec attributs et méthodes métier.</li>
     </ul>
   </aside>
 </section>
@@ -129,17 +129,17 @@
   <aside class="notes">
     <ul>
       <li>Exemple : adresse de livraison. Deux adresses avec mêmes champs sont interchangeables.</li>
-      <li>Eviter les setters ; recréer l’objet pour « modifier » une valeur.</li>
-      <li>Avantage performance : caches, partages d’instances identiques.</li>
+      <li>Eviter les setters ; recréer l'objet pour « modifier » une valeur.</li>
+      <li>Avantage performance : caches, partages d'instances identiques.</li>
     </ul>
   </aside>
 </section>
 
 <section>
   <h1>Agrégats (Aggregates)</h1>
-  <p>Regroupent des entités et des value objects autour d’une racine (Aggregate Root).</p>
+  <p>Regroupent des entités et des value objects autour d'une racine (Aggregate Root).</p>
   <ul>
-    <li>🌳 Racine unique contrôlant l’accès externe</li>
+    <li>🌳 Racine unique contrôlant l'accès externe</li>
     <li>🔗 Garantissent les invariants transactionnels</li>
     <li>🛡️ Limite de consistance : pas de référence directe hors agrégat</li>
   </ul>
@@ -147,24 +147,24 @@
   <aside class="notes">
     <ul>
       <li>Montrer comment la racine coordonne la création et les règles (p.ex. ajout de ligne de commande).</li>
-      <li>Expliquer la notion de « Transactional Boundary » : tout dans l’agrégat est atomique.</li>
+      <li>Expliquer la notion de « Transactional Boundary » : tout dans l'agrégat est atomique.</li>
     </ul>
   </aside>
 </section>
 
 <section>
   <h1>Domain Services & Factories & Repositories</h1>
-  <p>Composants supports ne tenant pas directement d’état à long terme.</p>
+  <p>Composants supports ne tenant pas directement d'état à long terme.</p>
   <ul>
     <li>⚙️ <strong>Domain Service</strong> : opérations métier sans entité propriétaire</li>
-    <li>🏭 <strong>Factory</strong> : encapsule la création complexe d’objets</li>
+    <li>🏭 <strong>Factory</strong> : encapsule la création complexe d'objets</li>
     <li>💾 <strong>Repository</strong> : interface entre le domaine et la persistance</li>
   </ul>
   <aside class="notes">
     <ul>
       <li>Domain Service : calcul de remise globale, orchestration de plusieurs agrégats.</li>
-      <li>Factory : création d’un agrégat avec ID, champs calculés, règles de construction.</li>
-      <li>Repository : expose save(), findById(), findBySpec() ; respecte l’Interface Segregation.</li>
+      <li>Factory : création d'un agrégat avec ID, champs calculés, règles de construction.</li>
+      <li>Repository : expose save(), findById(), findBySpec() ; respecte l'Interface Segregation.</li>
     </ul>
   </aside>
 </section>
@@ -173,22 +173,22 @@
   <h1>Domain Events</h1>
   <p>Événements immuables déclenchés lors de changements significatifs du domaine.</p>
   <ul>
-    <li>📣 Notifier d’autres contextes ou sous-domaines</li>
-    <li>⏱️ Souvent utilisés pour l’asynchronisme et l’évolutivité</li>
+    <li>📣 Notifier d'autres contextes ou sous-domaines</li>
+    <li>⏱️ Souvent utilisés pour l'asynchronisme et l'évolutivité</li>
     <li>🔄 Favorisent la consistance éventuelle</li>
   </ul>
   <aside class="notes">
     <ul>
       <li>Exemple : “OrderPaid” publié après validation du paiement.</li>
       <li>Patron Pub/Sub : les autres bounded contexts réagissent pour déclencher des workflows.</li>
-      <li>Attention à la duplication de données et à l’ordonnancement.</li>
+      <li>Attention à la duplication de données et à l'ordonnancement.</li>
     </ul>
   </aside>
 </section>
 
 <section>
   <h1>Modélisation stratégique détaillée</h1>
-  <p>Définir le paysage global avant d’entrer dans le détail tactique.</p>
+  <p>Définir le paysage global avant d'entrer dans le détail tactique.</p>
   <ul>
     <li>📍 Identification des sous-domaines (core, supporting, generic)</li>
     <li>🗺️ Dessiner la Context Map et choisir les patterns</li>
@@ -216,7 +216,7 @@
     <ul>
       <li>Montrer un extrait de code TypeScript pour chaque building block.</li>
       <li>Expliquer le test unitaire par agrégat en simulant les invariants.</li>
-      <li>Illustrer l’injection de dépendances pour factories et repositories.</li>
+      <li>Illustrer l'injection de dépendances pour factories et repositories.</li>
     </ul>
   </aside>
 </section>
@@ -249,7 +249,7 @@
   <img src="https://miro.medium.com/v2/resize:fit:1200/format:webp/1*CIbJ3VRJb0wxIYchS9PduA.png" alt="Context Map Example" style="width:80%">
   <aside class="notes">
     <ul>
-      <li>Montrer qu’un contexte borné contient son propre modèle et langage. La context map est essentielle à l’alignement entre domaines.</li>
+      <li>Montrer qu'un contexte borné contient son propre modèle et langage. La context map est essentielle à l'alignement entre domaines.</li>
     </ul>
   </aside>
 </section>
@@ -267,7 +267,7 @@
   <img src="https://www.codingthearchitecture.com/assets/images/ddd-building-blocks.png" alt="DDD building blocks" style="width:70%">
   <aside class="notes">
     <ul>
-      <li>Important de montrer que l’implémentation suit le modèle métier. Bien distinguer entités et value objects.</li>
+      <li>Important de montrer que l'implémentation suit le modèle métier. Bien distinguer entités et value objects.</li>
     </ul>
   </aside>
 </section>
@@ -327,7 +327,7 @@
     <li>🧠 Qu'est-ce qu'un Bounded Context ?</li>
     <li>📦 Quelle est la différence entre une Entity et un Value Object ?</li>
     <li>🧾 Pourquoi le langage omniprésent est-il central dans DDD ?</li>
-    <li>📐 Quel est le rôle d’un agrégat ?</li>
+    <li>📐 Quel est le rôle d'un agrégat ?</li>
     <li>🌍 À quoi sert une context map ?</li>
   </ul>
   <aside class="notes">
@@ -376,7 +376,7 @@ class Commande {
 }</code></pre>
   <aside class="notes">
     <ul>
-      <li>Utilisation de TypeScript pour expliciter les types. L’adresse est un Value Object. Commande est une entité avec logique métier.</li>
+      <li>Utilisation de TypeScript pour expliciter les types. L'adresse est un Value Object. Commande est une entité avec logique métier.</li>
     </ul>
   </aside>
 </section>

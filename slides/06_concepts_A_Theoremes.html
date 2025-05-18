@@ -1,26 +1,15 @@
-<!-- Slide d’introduction générale -->
+<!-- Slide d'introduction générale -->
 <section data-background-image="/public/images/titre_concepts.jpg" 
           data-background-size="cover"
           data-background-opacity="0.5">
-  <h1>Concepts clés des applications distribuées</h1>
-  <aside class="notes">
-    Présentation des notions fondamentales pour comprendre et concevoir des systèmes distribués modernes.
-  </aside>
-</section>
-
-<!-- Organisation générale -->
-<section>
-  <h2>Organisation des concepts</h2>
+  <h1>Concepts clés</h1>
   <ul>
-    <li>🔺 Théorèmes fondamentaux</li>
+    <li><b>🔺 Théorèmes fondamentaux</b></li>
     <li>🧩 Architecture et Design</li>
     <li>🛡️ Résilience et Scalabilité</li>
     <li>🧪 Tests et Observabilité</li>
     <li>🧠 Gouvernance et Équipes</li>
   </ul>
-  <aside class="notes">
-    Voici les cinq grands ensembles qui structurent ce module. Nous allons explorer chaque groupe de concepts à travers des exemples concrets.
-  </aside>
 </section>
 
 <!-- === SECTION 1 : Théorèmes fondamentaux === -->
@@ -51,10 +40,11 @@
 </section>
 
 <section>
-  <h2>🔺 CAP Theorem</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/CAP_theorem.svg/500px-CAP_theorem.svg.png" alt="Diagramme CAP" style="max-height: 400px;" />
+  <h2>CAP Theorem</h2>
+  <!-- img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/CAP_theorem.svg/500px-CAP_theorem.svg.png" alt="Diagramme CAP" style="max-height: 400px;" /-->
+  <img src="/public/schemas/cap.jpg" alt="Diagramme CAP" style="max-height: 400px;" />
   <aside class="notes">
-    Le théorème CAP (Brewer, 2000) dit qu’un système distribué ne peut garantir simultanément Cohérence, Disponibilité et Tolérance au partitionnement.  
+    Le théorème CAP (Brewer, 2000) dit qu'un système distribué ne peut garantir simultanément Cohérence, Disponibilité et Tolérance au partitionnement.  
     Il faut choisir deux propriétés selon le besoin.
   </aside>
 </section>
@@ -62,21 +52,21 @@
 <section>
   <h2>Les 3 propriétés CAP</h2>
   <ul>
-    <li><strong>C</strong> – Consistency : Tous les nœuds voient les mêmes données en même temps.</li>
-    <li><strong>A</strong> – Availability : Chaque requête reçoit une réponse, même en cas de panne.</li>
-    <li><strong>P</strong> – Partition Tolerance : Le système continue à fonctionner malgré des défaillances réseau.</li>
+    <li><strong>C</strong> - Consistency : Tous les nœuds voient les mêmes données en même temps.</li>
+    <li><strong>A</strong> - Availability : Chaque requête reçoit une réponse, même en cas de panne.</li>
+    <li><strong>P</strong> - Partition Tolerance : Le système continue à fonctionner malgré des défaillances réseau.</li>
   </ul>
   <aside class="notes">
-    Lorsqu’une partition réseau survient, vous devez sacrifier soit la cohérence soit la disponibilité. Ce choix dépend du cas d’usage.
+    Lorsqu'une partition réseau survient, vous devez sacrifier soit la cohérence soit la disponibilité. Ce choix dépend du cas d'usage.
   </aside>
 </section>
 
 <section>
-  <h2>🟢 CA : Consistency + Availability</h2>
+  <h2>🔵 CA : Consistency + Availability</h2>
   <ul>
     <li><strong>Avantages :</strong> réponses cohérentes et toujours disponibles tant que le réseau est fiable</li>
     <li><strong>Inconvénients :</strong> si une partition survient, le système devient indisponible</li>
-    <li><strong>Cas d’usage :</strong> systèmes en cluster local (pas répartis sur Internet)</li>
+    <li><strong>Cas d'usage :</strong> systèmes en cluster local (pas répartis sur Internet)</li>
     <li><strong>Bases de données :</strong> PostgreSQL, Oracle (hors configuration distribuée)</li>
   </ul>
   <aside class="notes">
@@ -86,11 +76,11 @@
 </section>
 
 <section>
-  <h2>🟡 AP : Availability + Partition Tolerance</h2>
+  <h2>🟢 AP : Availability + Partition Tolerance</h2>
   <ul>
     <li><strong>Avantages :</strong> haute disponibilité même en cas de partitions</li>
     <li><strong>Inconvénients :</strong> possible incohérence temporaire des données</li>
-    <li><strong>Cas d’usage :</strong> systèmes web hautement disponibles (réseaux distribués mondiaux)</li>
+    <li><strong>Cas d'usage :</strong> systèmes web hautement disponibles (réseaux distribués mondiaux)</li>
     <li><strong>Bases de données :</strong> CouchDB, Cassandra, DynamoDB</li>
   </ul>
   <aside class="notes">
@@ -100,11 +90,11 @@
 </section>
 
 <section>
-  <h2>🔵 CP : Consistency + Partition Tolerance</h2>
+  <h2>🔴 CP : Consistency + Partition Tolerance</h2>
   <ul>
     <li><strong>Avantages :</strong> forte cohérence même en présence de partitions</li>
     <li><strong>Inconvénients :</strong> certaines requêtes échouent (sacrifiant la disponibilité)</li>
-    <li><strong>Cas d’usage :</strong> systèmes bancaires, réservations</li>
+    <li><strong>Cas d'usage :</strong> systèmes bancaires, réservations</li>
     <li><strong>Bases de données :</strong> MongoDB (avec writeConcern élevé), HBase, Zookeeper</li>
   </ul>
   <aside class="notes">
@@ -113,10 +103,9 @@
   </aside>
 </section>
 
-
 <section>
   <h2>📦 Bases de données et modèle CAP</h2>
-  <table style="font-size: 0.8em;">
+  <table style="font-size: 0.7em;">
     <thead>
       <tr>
         <th>Type</th>
@@ -129,99 +118,77 @@
       <tr>
         <td>Relationnel</td>
         <td>MySQL, PostgreSQL, Oracle, SQL Server, DB2</td>
-        <td>CA</td>
+        <td>🔵 CA</td>
         <td>Pas tolérant aux partitions ; modèle ACID classique</td>
       </tr>
       <tr>
         <td>Clé-Valeur</td>
         <td>Redis, Memcached, DynamoDB, CosmosDB</td>
-        <td>AP<br>(DynamoDB configurable, CosmosDB PACELC)</td>
-        <td>Redis peut être CP avec Sentinel ; CosmosDB propose plusieurs niveaux de cohérence</td>
+        <td>🟢 AP (DynamoDB configurable, CosmosDB PACELC)</td>
+        <td>Redis peut être 🔴 CP avec Sentinel ; CosmosDB propose plusieurs niveaux de cohérence</td>
       </tr>
       <tr>
         <td>Colonne</td>
         <td>Cassandra, HBase, BigTable, Elasticsearch</td>
-        <td>Cassandra : AP<br>HBase, BigTable : CP<br>Elasticsearch : AP</td>
+        <td>
+          Cassandra : 🟢 AP<br>
+          HBase, BigTable : 🔴 CP<br>
+          Elasticsearch : 🟢 AP
+        </td>
         <td>Cassandra dérivé de Dynamo ; HBase/BigTable visent la cohérence forte ; Elasticsearch tolère l’incohérence</td>
       </tr>
       <tr>
         <td>Document</td>
         <td>MongoDB, Couchbase</td>
-        <td>Mongo : CP (par défaut)<br>Couchbase : AP</td>
-        <td>Mongo configurable via writeConcern/readConcern</td>
+        <td>
+          MongoDB : 🔴 CP (par défaut)<br>
+          Couchbase : 🟢 AP
+        </td>
+        <td>MongoDB configurable via readConcern/writeConcern</td>
       </tr>
       <tr>
         <td>Graph</td>
-        <td>Neo4J, OrientDB, FlockDB</td>
-        <td>AP</td>
+        <td>Neo4j, OrientDB, FlockDB</td>
+        <td>🟢 AP</td>
         <td>Généralement utilisés en cluster limité, peu orientés partitionnement</td>
       </tr>
     </tbody>
   </table>
   <aside class="notes">
     Ce tableau positionne les bases selon leurs garanties CAP dominantes.  
-    La colonne "Remarques" aide à comprendre les compromis internes ou les capacités de configuration avancée (ex : CosmosDB, MongoDB).  
+    La colonne "Remarques" aide à comprendre les compromis internes ou les capacités de configuration avancée (ex. : CosmosDB, MongoDB).  
     Spark et SimpleDB ont été retirés pour clarté.
-  </aside>
-</section>
-
-
-<section>
-  <h2>🗃️ Bases de données et CAP</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Base de données</th>
-        <th>Profil CAP</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Relationnel</td><td>MySQL, PostgreSQL, Oracle, SQL Server, DB2</td><td>CA</td></tr>
-      <tr><td>Clé-Valeur</td><td>Redis, Memcached, SimpleDB, CosmosDB</td><td>AP (Redis), AP/CP (Memcached, SimpleDB, CosmosDB)</td></tr>
-      <tr><td>Colonne</td><td>Elasticsearch, Apache Spark, HBase, BigTable</td><td>AP (Elastic, Spark), CP (HBase, BigTable)</td></tr>
-      <tr><td>Document</td><td>MongoDB, DynamoDB, Couchbase, Cassandra</td><td>CP/AP (selon config)</td></tr>
-      <tr><td>Graph</td><td>Neo4j, OrientDB, FlockDB</td><td>AP</td></tr>
-    </tbody>
-  </table>
-  <aside class="notes">
-    Ce tableau donne un aperçu des bases populaires et de leur alignement au modèle CAP.  
-    ⚠️ Attention : certaines bases comme MongoDB ou Cassandra sont **configurables** et peuvent opérer soit en AP soit en CP selon le niveau de cohérence exigé (readConcern/writeConcern, quorum...).
   </aside>
 </section>
 
 <section>
   <h2>🔧 Usages typiques et CAP</h2>
   <ul>
-    <li><strong>CA (bases relationnelles)</strong> :
+    <li><strong>🔵 CA (bases relationnelles)</strong> :
       <ul>
         <li>ERP, gestion comptable, systèmes de facturation</li>
         <li>Utilisés là où la <strong>cohérence forte</strong> est cruciale</li>
       </ul>
     </li>
-    <li><strong>AP (bases clé-valeur, colonne, document)</strong> :
+    <li><strong>🟢 AP (bases clé-valeur, colonne, document, graph)</strong> :
       <ul>
         <li>Applications web globales, réseaux sociaux, moteurs de recommandation</li>
+        <li>Analyse de réseaux sociaux, gestion de dépendances (recommandations, chaînes logistiques)</li>
         <li>Favorisent la <strong>disponibilité</strong> et la <strong>latence faible</strong></li>
+        <li>Besoin de <strong>traversée rapide</strong> plutôt que cohérence forte</li>
       </ul>
     </li>
-    <li><strong>CP (bases colonne/document)</strong> :
+    <li><strong>🔴 CP (bases colonne/document)</strong> :
       <ul>
         <li>Systèmes de messagerie, logs critiques, configuration distribuée</li>
-        <li>La <strong>cohérence</strong> est maintenue même au prix d’un blocage temporaire</li>
-      </ul>
-    </li>
-    <li><strong>Graph (souvent AP)</strong> :
-      <ul>
-        <li>Analyse de réseaux sociaux, gestion de dépendances (ex: recommandations, chaînes logistiques)</li>
-        <li>Besoin de <strong>traversée rapide</strong> plutôt que cohérence forte</li>
+        <li>La <strong>cohérence</strong> est maintenue même au prix d'un blocage temporaire</li>
       </ul>
     </li>
   </ul>
   <aside class="notes">
     Ces usages illustrent pourquoi toutes les bases ne se valent pas :  
     le choix dépend du métier, du besoin de cohérence, de disponibilité, et des contraintes réseau.  
-    CAP est un outil d’orientation, pas une règle rigide.
+    CAP est un outil d'orientation, pas une règle rigide.
   </aside>
 </section>
 
@@ -229,10 +196,10 @@
 <section>
   <h2>🔗 Sources</h2>
   <ul>
-    <li><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank">Wikipedia – CAP Theorem</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank">Wikipedia - CAP Theorem</a></li>
     <li><a href="https://code-garage.com/blog/comprendre-le-theoreme-cap" target="_blank">Comprendre le CAP theorem</a></li>
     <li><a href="https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/" target="_blank">CAP Twelve Years Later (InfoQ)</a></li>
-    <li><a href="https://aws.amazon.com/nosql/" target="_blank">AWS – NoSQL et CAP</a></li>
+    <li><a href="https://aws.amazon.com/nosql/" target="_blank">AWS - NoSQL et CAP</a></li>
   </ul>
   <aside class="notes">
     Ces ressources approfondissent les compromis concrets du CAP dans des cas industriels réels.
@@ -254,7 +221,7 @@
   <h2>🚫 Théorème de FLP</h2>
   <ul>
     <li>Dans un système distribué <strong>asynchrone</strong> où un processus peut échouer,</li>
-    <li>Il est <strong>impossible</strong> de garantir qu’un protocole atteindra toujours un consensus,</li>
+    <li>Il est <strong>impossible</strong> de garantir qu'un protocole atteindra toujours un consensus,</li>
     <li>même avec des canaux fiables.</li>
   </ul>
   <aside class="notes">
@@ -272,8 +239,8 @@
   </ul>
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lamport%27s_logical_clocks.svg/480px-Lamport%27s_logical_clocks.svg.png" alt="Lamport Clock" style="max-height: 250px;" />
   <aside class="notes">
-    Dans un système distribué, il n’y a pas de temps universel.  
-    L’algorithme de Lamport attribue des timestamps logiques pour ordonner les événements.  
+    Dans un système distribué, il n'y a pas de temps universel.  
+    L'algorithme de Lamport attribue des timestamps logiques pour ordonner les événements.  
     Base des CRDT, des systèmes à journal distribué, etc.
   </aside>
 </section -->
@@ -287,7 +254,7 @@
   </ul>
   <aside class="notes">
     PACELC ajoute une dimension : même sans partition, les bases doivent arbitrer entre latence et cohérence.  
-    C’est un modèle plus réaliste pour les bases modernes comme DynamoDB ou CosmosDB.
+    C'est un modèle plus réaliste pour les bases modernes comme DynamoDB ou CosmosDB.
   </aside>
 </section>
 
@@ -299,7 +266,7 @@
     <li><strong>Cassandra</strong> : PA/EL (réplication et latence faible)</li>
   </ul>
   <aside class="notes">
-    Dynamo et Cassandra privilégient la rapidité même en cas d’incohérence temporaire.  
+    Dynamo et Cassandra privilégient la rapidité même en cas d'incohérence temporaire.  
     BigTable, au contraire, préfère garantir des lectures cohérentes.  
     Le choix PACELC influence la conception applicative.
   </aside>
@@ -396,7 +363,7 @@
 </section>
 
 <section>
-  <h2>ACID – Avantages et limites</h2>
+  <h2>ACID - Avantages et limites</h2>
   <ul>
     <li><strong>✅ Avantages :</strong> sécurité des données, cohérence garantie</li>
     <li><strong>⚠️ Inconvénients :</strong> faible scalabilité, complexité en distribution</li>
@@ -404,7 +371,7 @@
   </ul>
   <aside class="notes">
     Les bases ACID excellent sur un seul nœud, mais se complexifient fortement en environnement distribué.  
-    Elles sont néanmoins indispensables dans des cas comme les paiements ou l’ERP.
+    Elles sont néanmoins indispensables dans des cas comme les paiements ou l'ERP.
   </aside>
 </section>
 
@@ -412,7 +379,7 @@
   <h2>🌊 Modèle BASE</h2>
   <ul>
     <li><strong>Basically Available</strong> : le système répond toujours, même partiellement</li>
-    <li><strong>Soft state</strong> : l’état peut changer sans nouvelle écriture</li>
+    <li><strong>Soft state</strong> : l'état peut changer sans nouvelle écriture</li>
     <li><strong>Eventual consistency</strong> : la cohérence est atteinte à terme</li>
   </ul>
   <aside class="notes">
@@ -422,7 +389,7 @@
 </section>
 
 <section>
-  <h2>BASE – Avantages et limites</h2>
+  <h2>BASE - Avantages et limites</h2>
   <ul>
     <li><strong>✅ Avantages :</strong> haute disponibilité, performance, tolérance réseau</li>
     <li><strong>⚠️ Inconvénients :</strong> incohérences temporaires, gestion des conflits</li>
@@ -448,190 +415,20 @@
   </table>
   <aside class="notes">
     Ce tableau aide à choisir la bonne approche selon le contexte métier.  
-    ACID = rigueur, BASE = scalabilité. Le choix n’est pas technique, il est fonctionnel.
+    ACID = rigueur, BASE = scalabilité. Le choix n'est pas technique, il est fonctionnel.
   </aside>
 </section>
 
 <section>
   <h2>🔗 Sources</h2>
   <ul>
-    <li><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">Wikipedia – ACID</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Eventual_consistency" target="_blank">Wikipedia – Eventual Consistency</a></li>
-    <li><a href="https://www.infoq.com/articles/base-an-acid-alternative/" target="_blank">InfoQ – BASE: An ACID Alternative</a></li>
-    <li><a href="https://martinfowler.com/articles/nosql-intro.html" target="_blank">Martin Fowler – NoSQL Intro</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">Wikipedia - ACID</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Eventual_consistency" target="_blank">Wikipedia - Eventual Consistency</a></li>
+    <li><a href="https://www.infoq.com/articles/base-an-acid-alternative/" target="_blank">InfoQ - BASE: An ACID Alternative</a></li>
+    <li><a href="https://martinfowler.com/articles/nosql-intro.html" target="_blank">Martin Fowler - NoSQL Intro</a></li>
   </ul>
   <aside class="notes">
     Vous pouvez approfondir la théorie et les cas pratiques de BASE et ACID à travers ces articles.  
     Martin Fowler donne aussi un bon aperçu des implications dans les architectures NoSQL.
-  </aside>
-</section>
-
-
-<!-- === SECTION 2 : Architecture et Design === -->
-<section>
-  <h2>🧩 Architecture et Design</h2>
-  <aside class="notes">
-    Ces patterns aident à structurer votre code et votre base de données autour de la logique métier, tout en favorisant l’indépendance des services.
-  </aside>
-</section>
-
-<section>
-  <h2>Domain Driven Design (DDD)</h2>
-  <ul>
-    <li>Ubiquitous Language, Bounded Context</li>
-    <li>Entities, Value Objects, Aggregates</li>
-    <li>Domain Services, Domain Events, Repositories</li>
-  </ul>
-  <aside class="notes">
-    La DDD permet de faire correspondre la structure du code à celle du métier. On isole les responsabilités métier dans des contextes bien délimités.
-  </aside>
-</section>
-
-<section>
-  <h2>Database per Domain</h2>
-  <ul>
-    <li>Chaque service a sa propre base</li>
-    <li>Pas de couplage via la base de données</li>
-  </ul>
-  <aside class="notes">
-    Cela permet une indépendance de déploiement, et évite les verrouillages entre équipes ou modules.
-  </aside>
-</section>
-
-<section>
-  <h2>CQRS & Event Sourcing</h2>
-  <ul>
-    <li><strong>CQRS</strong> : séparation écriture/lecture</li>
-    <li><strong>Event Sourcing</strong> : reconstruction via les événements</li>
-  </ul>
-  <aside class="notes">
-    Ces patterns apportent traçabilité et performance, mais compliquent le modèle conceptuel.
-  </aside>
-</section>
-
-<section>
-  <h2>Saga Pattern</h2>
-  <ul>
-    <li><strong>Choreography</strong> : réaction en chaîne sans chef d’orchestre</li>
-    <li><strong>Orchestration</strong> : coordination centralisée</li>
-  </ul>
-  <aside class="notes">
-    Permet de gérer des transactions longues et distribuées sans rollback global.
-  </aside>
-</section>
-
-<section>
-  <h2>Couplage faible</h2>
-  <ul>
-    <li>Isolation des services</li>
-    <li>Utilisation d’événements ou d’API explicites</li>
-  </ul>
-  <aside class="notes">
-    Un service doit pouvoir évoluer ou tomber sans mettre à mal les autres.
-  </aside>
-</section>
-
-<!-- === SECTION 3 : Résilience & Scalabilité === -->
-<section>
-  <h2>🛡️ Résilience et Scalabilité</h2>
-  <aside class="notes">
-    Objectif : garantir le bon fonctionnement, même en cas de panne ou de montée en charge.
-  </aside>
-</section>
-
-<section>
-  <h2>Scalabilité</h2>
-  <ul>
-    <li>Verticale / Horizontale / Élastique</li>
-    <li>Auto-scaling, Load balancing, Sharding</li>
-  </ul>
-  <aside class="notes">
-    Scalabilité = capacité à croître avec la demande. On vise souvent une architecture "cloud-native".
-  </aside>
-</section>
-
-<section>
-  <h2>Résilience</h2>
-  <ul>
-    <li>Circuit Breaker, Retry, Timeout</li>
-    <li>Graceful Degradation, Self-Healing</li>
-  </ul>
-  <aside class="notes">
-    La résilience est essentielle dans des environnements instables ou à forte latence.
-  </aside>
-</section>
-
-<!-- === SECTION 4 : Testabilité & Observabilité === -->
-<section>
-  <h2>🧪 Testabilité et Observabilité</h2>
-  <aside class="notes">
-    Ces dimensions garantissent la qualité et la compréhension du système dans la durée.
-  </aside>
-</section>
-
-<section>
-  <h2>Testabilité</h2>
-  <ul>
-    <li>Unit, Integration, Contract, E2E tests</li>
-    <li>Performance, Chaos engineering</li>
-  </ul>
-  <aside class="notes">
-    Les tests contractuels sont particulièrement importants dans les systèmes distribués.
-  </aside>
-</section>
-
-<section>
-  <h2>Observabilité</h2>
-  <ul>
-    <li>Logging, Metrics, Tracing</li>
-    <li>Monitoring, Alerting</li>
-  </ul>
-  <aside class="notes">
-    Sans observabilité, on ne comprend pas ce qui se passe, on subit.
-  </aside>
-</section>
-
-<!-- === SECTION 5 : Gouvernance & Équipes === -->
-<section>
-  <h2>🧠 Gouvernance et Équipes</h2>
-  <aside class="notes">
-    Un bon système distribué dépend aussi de l'organisation des équipes et de leur capacité à livrer vite.
-  </aside>
-</section>
-
-<section>
-  <h2>DORA Metrics</h2>
-  <ul>
-    <li>Lead Time for Changes</li>
-    <li>Deployment Frequency</li>
-    <li>Time to Restore Service</li>
-    <li>Change Failure Rate</li>
-  </ul>
-  <aside class="notes">
-    Ces métriques permettent de piloter les performances DevOps de manière objective.
-  </aside>
-</section>
-
-<section>
-  <h2>Team Topologies</h2>
-  <ul>
-    <li>Stream-aligned, Enabling, Platform, Complicated Subsystem</li>
-    <li>Interactions : X-as-a-Service, Collaboration, Facilitation</li>
-  </ul>
-  <aside class="notes">
-    Ce modèle aide à organiser les équipes pour refléter les objectifs de l’architecture logicielle.
-  </aside>
-</section>
-
-<!-- Slide de conclusion -->
-<section>
-  <h2>Conclusion</h2>
-  <ul>
-    <li>Architecture = équilibre entre métier, technologie et organisation</li>
-    <li>Ces concepts sont vos briques de construction</li>
-    <li>Adaptez-les à vos cas d’usage</li>
-  </ul>
-  <aside class="notes">
-    L’objectif n’est pas de tout appliquer, mais de faire les bons choix pour chaque projet.
   </aside>
 </section>

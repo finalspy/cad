@@ -1,0 +1,185 @@
+<!-- Slide d'introduction générale -->
+<section data-background-image="/public/images/titre_concepts.jpg" 
+          data-background-size="cover"
+          data-background-opacity="0.5">
+  <h1>Concepts clés</h1>
+  <ul>
+    <li>🔺 Théorèmes fondamentaux</li>
+    <li><b>🧩 Architecture et Design</b></li>
+    <li>🛡️ Résilience et Scalabilité</li>
+    <li>🧪 Tests et Observabilité</li>
+    <li>🧠 Gouvernance et Équipes</li>
+  </ul>
+  <aside class="notes">
+    Voici les cinq grands ensembles qui structurent ce module. Nous allons explorer chaque groupe de concepts à travers des exemples concrets.
+  </aside>
+</section>
+
+<!-- === SECTION 2 : Architecture et Design === -->
+<section>
+  <h2>🧩 Architecture et Design</h2>
+  <aside class="notes">
+    Ces patterns aident à structurer votre code et votre base de données autour de la logique métier, tout en favorisant l'indépendance des services.
+  </aside>
+</section>
+
+<section>
+  <h2>Domain Driven Design (DDD)</h2>
+  <ul>
+    <li>Ubiquitous Language, Bounded Context</li>
+    <li>Entities, Value Objects, Aggregates</li>
+    <li>Domain Services, Domain Events, Repositories</li>
+  </ul>
+  <aside class="notes">
+    La DDD permet de faire correspondre la structure du code à celle du métier. On isole les responsabilités métier dans des contextes bien délimités.
+  </aside>
+</section>
+
+<section>
+  <h2>Database per Domain</h2>
+  <ul>
+    <li>Chaque service a sa propre base</li>
+    <li>Pas de couplage via la base de données</li>
+  </ul>
+  <aside class="notes">
+    Cela permet une indépendance de déploiement, et évite les verrouillages entre équipes ou modules.
+  </aside>
+</section>
+
+<section>
+  <h2>CQRS & Event Sourcing</h2>
+  <ul>
+    <li><strong>CQRS</strong> : séparation écriture/lecture</li>
+    <li><strong>Event Sourcing</strong> : reconstruction via les événements</li>
+  </ul>
+  <aside class="notes">
+    Ces patterns apportent traçabilité et performance, mais compliquent le modèle conceptuel.
+  </aside>
+</section>
+
+<section>
+  <h2>Saga Pattern</h2>
+  <ul>
+    <li><strong>Choreography</strong> : réaction en chaîne sans chef d'orchestre</li>
+    <li><strong>Orchestration</strong> : coordination centralisée</li>
+  </ul>
+  <aside class="notes">
+    Permet de gérer des transactions longues et distribuées sans rollback global.
+  </aside>
+</section>
+
+<section>
+  <h2>Couplage faible</h2>
+  <ul>
+    <li>Isolation des services</li>
+    <li>Utilisation d'événements ou d'API explicites</li>
+  </ul>
+  <aside class="notes">
+    Un service doit pouvoir évoluer ou tomber sans mettre à mal les autres.
+  </aside>
+</section>
+
+<!-- === SECTION 3 : Résilience & Scalabilité === -->
+<section>
+  <h2>🛡️ Résilience et Scalabilité</h2>
+  <aside class="notes">
+    Objectif : garantir le bon fonctionnement, même en cas de panne ou de montée en charge.
+  </aside>
+</section>
+
+<section>
+  <h2>Scalabilité</h2>
+  <ul>
+    <li>Verticale / Horizontale / Élastique</li>
+    <li>Auto-scaling, Load balancing, Sharding</li>
+  </ul>
+  <aside class="notes">
+    Scalabilité = capacité à croître avec la demande. On vise souvent une architecture "cloud-native".
+  </aside>
+</section>
+
+<section>
+  <h2>Résilience</h2>
+  <ul>
+    <li>Circuit Breaker, Retry, Timeout</li>
+    <li>Graceful Degradation, Self-Healing</li>
+  </ul>
+  <aside class="notes">
+    La résilience est essentielle dans des environnements instables ou à forte latence.
+  </aside>
+</section>
+
+<!-- === SECTION 4 : Testabilité & Observabilité === -->
+<section>
+  <h2>🧪 Testabilité et Observabilité</h2>
+  <aside class="notes">
+    Ces dimensions garantissent la qualité et la compréhension du système dans la durée.
+  </aside>
+</section>
+
+<section>
+  <h2>Testabilité</h2>
+  <ul>
+    <li>Unit, Integration, Contract, E2E tests</li>
+    <li>Performance, Chaos engineering</li>
+  </ul>
+  <aside class="notes">
+    Les tests contractuels sont particulièrement importants dans les systèmes distribués.
+  </aside>
+</section>
+
+<section>
+  <h2>Observabilité</h2>
+  <ul>
+    <li>Logging, Metrics, Tracing</li>
+    <li>Monitoring, Alerting</li>
+  </ul>
+  <aside class="notes">
+    Sans observabilité, on ne comprend pas ce qui se passe, on subit.
+  </aside>
+</section>
+
+<!-- === SECTION 5 : Gouvernance & Équipes === -->
+<section>
+  <h2>🧠 Gouvernance et Équipes</h2>
+  <aside class="notes">
+    Un bon système distribué dépend aussi de l'organisation des équipes et de leur capacité à livrer vite.
+  </aside>
+</section>
+
+<section>
+  <h2>DORA Metrics</h2>
+  <ul>
+    <li>Lead Time for Changes</li>
+    <li>Deployment Frequency</li>
+    <li>Time to Restore Service</li>
+    <li>Change Failure Rate</li>
+  </ul>
+  <aside class="notes">
+    Ces métriques permettent de piloter les performances DevOps de manière objective.
+  </aside>
+</section>
+
+<section>
+  <h2>Team Topologies</h2>
+  <ul>
+    <li>Stream-aligned, Enabling, Platform, Complicated Subsystem</li>
+    <li>Interactions : X-as-a-Service, Collaboration, Facilitation</li>
+  </ul>
+  <aside class="notes">
+    Ce modèle aide à organiser les équipes pour refléter les objectifs de l'architecture logicielle.
+  </aside>
+</section>
+
+<!-- Slide de conclusion -->
+<section>
+  <h2>Conclusion</h2>
+  <ul>
+    <li>Architecture = équilibre entre métier, technologie et organisation</li>
+    <li>Ces concepts sont vos briques de construction</li>
+    <li>Adaptez-les à vos cas d'usage</li>
+  </ul>
+  <aside class="notes">
+    L'objectif n'est pas de tout appliquer, mais de faire les bons choix pour chaque projet.
+  </aside>
+</section>

@@ -1,0 +1,183 @@
+<!-- Slide d'introduction générale -->
+<section data-background-image="/public/images/titre_concepts.jpg" 
+          data-background-size="cover"
+          data-background-opacity="0.5">
+  <h2>Concepts clés des applications distribuées</h2>
+  <ul>
+    <li>🔺 Théorèmes fondamentaux</li>
+    <li>🧩 Architecture et Design</li>
+    <li><b>🛡️ Résilience et Scalabilité</b></li>
+    <li>🧪 Tests et Observabilité</li>
+    <li>🧠 Gouvernance et Équipes</li>
+  </ul>
+  <aside class="notes">
+    Voici les cinq grands ensembles qui structurent ce module. Nous allons explorer chaque groupe de concepts à travers des exemples concrets.
+  </aside>
+</section>
+
+<!-- === SECTION 3 : Résilience & Scalabilité === -->
+<section>
+  <h2>🛡️ Résilience et Scalabilité</h2>
+  <aside class="notes">
+    Objectif : garantir une continuité de service face aux pics de trafic et aux pannes partielles, en minimisant l’impact sur l’utilisateur.  
+    Principes clés : « design for failure », isolation des composants, élasticité et observabilité.
+  </aside>
+</section>
+<section>
+  <h2>Scalabilité</h2>
+  <li><strong>Types de scalabilité</strong>
+    <ul>
+      <li><em>Verticale</em> : augmentation des ressources (CPU, RAM) d’un seul nœud — simple mais limitée par le matériel.</li>
+      <li><em>Horizontale</em> : ajout de nouveaux nœuds identiques — limite théorique forte, nécessite répartition de charge et cohérence.</li>
+      <li><em>Élastique</em> : ajustement automatique en fonction de la charge (montée et descente) — optimise coût et performance.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    Historiquement, la scalabilité verticale était privilégiée pour sa simplicité.
+    Cependant, elle est limitée par la capacité physique des machines, et la fin de la loi de Moore.
+    La scalabilité horizontale est souvent privilégiée dans les architectures cloud-native, car elle permet de gérer des charges de travail variables.  
+    L'élasticité est essentielle pour optimiser les coûts dans le cloud, où vous ne payez que pour ce que vous utilisez.
+  </aside>
+</section>
+<section>
+  <h2>Scalabilité</h2>
+  <li><strong>Mécanismes cloud-native</strong>
+    <ul>
+      <li><em>Auto-scaling</em> : règles basées sur métriques (CPU, latence, file d’attente).</li>
+      <li><em>Load balancing</em> : DNS round-robin, appliances matérielles, équilibreurs logiciels (NGINX, ELB).</li>
+      <li><em>Sharding / Partitioning</em> : découpage des données selon clé, plage ou hash pour répartir la charge I/O.</li>
+      <li><em>Caching distribué</em> : CDN, Redis/Memcached en cluster pour soulager la base.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    L'auto-scaling est un mécanisme clé pour gérer les pics de charge sans intervention humaine.  
+    Le load balancing est essentiel pour répartir la charge entre plusieurs instances, garantissant ainsi une haute disponibilité.
+    Le sharding et le partitioning sont cruciaux pour les bases de données, permettant de répartir la charge et d'améliorer la performance.  
+    Le caching distribué réduit la latence et la charge sur les bases de données, en stockant les données fréquemment demandées.
+  </aside>
+</section>
+<section>
+  <h2>Scalabilité</h2>
+  <li><strong>Stratégies avancées</strong>
+    <ul>
+      <li><em>Pattern CQRS</em> : séparation des lectures et écritures pour optimiser chaque flux.</li>
+      <li><em>Event sourcing</em> : stockage des événements pour reconstruire l’état, faciliter la réplication.</li>
+      <li><em>Serverless / FaaS</em> : exécution à la demande, facturation à l’usage, montée en charge transparente.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    CQRS et event sourcing sont souvent utilisés ensemble pour optimiser la performance et la traçabilité des données.  
+    Le serverless est idéal pour des charges de travail imprévisibles, mais nécessite une bonne gestion des dépendances et des latences.
+    Il est important de bien comprendre les limites de chaque service serverless, notamment en termes de temps d'exécution et de ressources.
+  </aside>
+</section>
+<section>
+  <h2>Scalabilité</h2>
+  <li><strong>Aspects opérationnels</strong>
+    <ul>
+      <li>Coût vs performance : choisir le bon ratio instances réservées / à la demande.</li>
+      <li>Monitoring & alerting : CPU, latence, taux d’erreur, file d’attente.</li>
+      <li>Tests de charge réguliers pour valider la dimensionnement.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    La scalabilité implique non seulement la capacité à ajouter des ressources, mais aussi à les retirer efficacement pour maîtriser les coûts.  
+    Les patterns CQRS et event sourcing sont très appréciés dans les architectures microservices pour séparer les préoccupations.
+  </aside>
+</section>
+<section>
+  <h2>Résilience</h2>
+  <li><strong>Patterns de résilience</strong>
+    <ul>
+      <li><em>Circuit Breaker</em> : détecte les appels défaillants, coupe la connexion pour éviter l’engorgement.</li>
+      <li><em>Retry</em> : nouvelle tentative automatique, idéalement avec backoff exponentiel et jitter.</li>
+      <li><em>Timeout</em> : arrêt rapide des appels trop lents, évite de bloquer les ressources.</li>
+      <li><em>Bulkhead</em> : isolation de sous-systèmes pour empêcher la propagation des pannes.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    Ces patterns permettent de gérer les pannes de manière proactive, en évitant que des erreurs dans un service n'affectent l'ensemble du système.  
+    Le circuit breaker est particulièrement utile pour éviter les appels en cascade vers des services défaillants.
+    Le retry est utile pour les erreurs temporaires, mais doit être utilisé avec précaution pour éviter de surcharger le service.
+    Le timeout est essentiel pour éviter que des appels bloquants n'affectent la réactivité de l'application.
+    Le bulkhead pattern est inspiré des navires : compartimenter pour éviter la propagation d'une fuite.
+  </aside>
+</section>
+<section>
+  <h2>Résilience</h2>
+  <li><strong>Dégradation gracieuse & autoguérison</strong>
+    <ul>
+      <li><em>Graceful degradation</em> : désactivation de fonctionnalités non critiques (ex. retrait de certaines UI) sous forte charge.</li>
+      <li><em>Self-Healing</em> : redémarrage automatique de conteneurs défaillants, probes Kubernetes (liveness/readiness).</li>
+      <li><em>Failover</em> : configuration active-passive ou active-active pour basculer vers un site de secours.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    La dégradation gracieuse permet de maintenir une partie du service opérationnelle même en cas de surcharge.  
+    L'autoguérison est essentielle pour réduire le temps d'arrêt et garantir la disponibilité.
+    Le failover est crucial pour les applications critiques, garantissant une continuité de service même en cas de panne majeure.
+    La configuration active-active est plus complexe mais offre une meilleure tolérance aux pannes.
+    La configuration active-passive est plus simple mais peut entraîner des temps d'arrêt lors de la bascule.
+  </aside>
+</section>
+<section>
+  <h2>Résilience</h2>
+  <li><strong>Chaos Engineering & tests de résilience</strong>
+    <ul>
+      <li>Injection de pannes (latence, coupure réseau) avec outils comme Chaos Monkey.</li>
+      <li>Scénarios de basculement planifiés pour valider les procédures de récupération.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    Le chaos engineering est une pratique proactive qui permet de tester la résilience d'un système en simulant des pannes réelles.  
+    Cela aide à identifier les points faibles et à améliorer la robustesse de l'architecture.
+    Les tests de résilience doivent être intégrés dans le cycle de développement pour garantir une couverture continue.
+    Il est important de documenter les scénarios de basculement et de s'assurer que toutes les équipes sont formées aux procédures de récupération.
+    Le chaos engineering est inspiré des pratiques militaires de simulation de crise pour préparer les équipes à réagir rapidement.
+  </aside>
+</section>
+<section>
+  <h2>Résilience</h2>
+  <li><strong>Observabilité pour la résilience</strong>
+    <ul>
+      <li>Métriques (latence, taux d’erreur), logs structurés, traces distribuées (OpenTelemetry).</li>
+      <li>SLO / SLA / SLIs pour définir et surveiller les objectifs de fiabilité.</li>
+      <li>Alertes intelligentes (anomalies basées sur le machine learning).</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    L'observabilité est essentielle pour comprendre le comportement du système en temps réel et détecter les anomalies.  
+    Les SLO, SLA et SLIs aident à définir des attentes claires en matière de performance et de disponibilité.
+    Les alertes intelligentes permettent de réduire le bruit des faux positifs et d'alerter uniquement sur des anomalies significatives.
+    L'utilisation de traces distribuées permet de suivre le parcours d'une requête à travers plusieurs services, facilitant ainsi le diagnostic des problèmes.
+    L'OpenTelemetry est un standard ouvert pour la collecte de métriques, logs et traces, facilitant l'intégration avec divers outils d'observabilité.
+  </aside>
+</section>
+<section>
+  <h2>Résilience</h2>
+  <li><strong>Conception pour l’échec</strong>
+    <ul>
+      <li>Idempotence des opérations pour retrys sûrs.</li>
+      <li>Découplage via files d’attente (Kafka, RabbitMQ) pour absorber les pics.</li>
+      <li>Réplication multi-zones et multi-régions pour tolérance maximale.</li>
+    </ul>
+  </li>
+  <aside class="notes">
+    Une architecture résiliente ne se contente pas de réagir aux pannes mais les anticipe et les simule.  
+    L’observabilité est le socle pour détecter et diagnostiquer rapidement tout incident.
+  </aside>
+</section>
+
+<section>
+  <h2>🔗 Sources</h2>
+  <ul>
+    <li><a href="https://en.wikipedia.org/wiki/Scalability" target="_blank">Wikipedia – Scalability</a></li>
+    <li><a href="https://martinfowler.com/articles/resilience.html" target="_blank">Martin Fowler – Patterns for Resilience</a></li>
+    <li><a href="https://microservices.io/patterns/reliability/index.html" target="_blank">Microservices.io – Reliability Patterns</a></li>
+    <li><a href="https://aws.amazon.com/autoscaling/" target="_blank">AWS – Auto Scaling</a></li>
+  </ul>
+  <aside class="notes">
+    Ces références offrent un panorama complet des patterns et bonnes pratiques pour des architectures distribuées fiables et évolutives.  
+    AWS et Martin Fowler illustrent des cas concrets d’implémentation en production.
+  </aside>
+</section>
