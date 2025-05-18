@@ -1,0 +1,112 @@
+<!-- Slide 1 -->
+<section>
+<h2>Exercice 1 : Présentation de l'application de base</h2>
+<p>Explorez le monolithe modulaire fourni (arborescence src.zip).</p>
+<aside class="notes">
+    • Ouvrez le dossier src/ et identifiez les couches (routes, controllers, services, models, utils).
+    <br>• Discutez brièvement du rôle de chaque dossier.
+</aside>
+</section>
+
+<!-- Slide 2 -->
+<section>
+<h2>Exercice 2 : Analyse des points faibles</h2>
+<ul>
+    <li>Quelles limitations de scalabilité et de maintenance observez-vous ?</li>
+    <li>Où se situent les risques de couplage fort ?</li>
+</ul>
+<aside class="notes">
+    • Faites la liste des dépendances directes entre modules.
+    <br>• Identifiez toute logique métier couverte par plusieurs services.
+</aside>
+</section>
+
+<!-- Slide 3 -->
+<section>
+<h2>Exercice 3 : Raisons de migrer vers une architecture distribuée</h2>
+<ol>
+    <li>Scalabilité indépendante des composants</li>
+    <li>Haute disponibilité et tolérance aux pannes</li>
+    <li>Déploiements autonomes et rapide</li>
+</ol>
+<aside class="notes">
+    • Pour chaque raison, donnez un exemple concret dans ce projet.
+    <br>• Discutez des gains et des coûts associés.
+</aside>
+</section>
+
+<!-- Slide 4 -->
+<section>
+<h2>Exercice 4 : Domain-Driven Design</h2>
+<p>Définissez les Bounded Contexts et entités principales.</p>
+<aside class="notes">
+    • Identifiez les domaines : Authentification, Présentations, Utilisateurs.
+    <br>• Pour chaque domaine, listez les agrégats et leurs invariants.
+</aside>
+</section>
+
+<!-- Slide 5 -->
+<section>
+<h2>Exercice 5 : Clean Architecture</h2>
+<p>Refactorez un module (e.g., Présentations) en couches :</p>
+<ul>
+    <li>Entities (domain)</li>
+    <li>Use Cases (application)</li>
+    <li>Interface Adapters (controllers, presenters)</li>
+    <li>Frameworks & DB (infrastructure)</li>
+</ul>
+<aside class="notes">
+    • Créez les dossiers correspondants et déplacez le code.
+    <br>• Assurez la dépendance unidirectionnelle vers le domaine.
+</aside>
+</section>
+
+<!-- Slide 6 -->
+<section>
+<h2>Exercice 6 : Architecture Hexagonale</h2>
+<p>Implémentez ports et adapters pour l'accès DB.</p>
+<aside class="notes">
+    • Définissez une interface (port) pour le repository Présentations.
+    <br>• Créez l'adapter MongoDB qui implémente ce port.
+</aside>
+</section>
+
+<!-- Slide 7 -->
+<section>
+<h2>Exercice 7 : Communication REST</h2>
+<p>Exposez le service Présentations en microservice REST indépendant.</p>
+<aside class="notes">
+    • Dockerisez-le avec un Dockerfile minimal.
+    <br>• Testez les endpoints via Postman ou curl.
+</aside>
+</section>
+
+<!-- Slide 8 -->
+<section>
+<h2>Exercice 8 : Communication gRPC</h2>
+<p>Ajoutez une API gRPC pour la création de présentations.</p>
+<aside class="notes">
+    • Définissez un fichier .proto pour CreatePresentation.
+    <br>• Générez les stub Node.js et implémentez le serveur.
+</aside>
+</section>
+
+<!-- Slide 9 -->
+<section>
+<h2>Exercice 9 : Event Sourcing</h2>
+<p>Stockez chaque création/modification comme un événement.</p>
+<aside class="notes">
+    • Choisissez un store d'événements (e.g., Kafka, simple table Mongo).
+    <br>• Implémentez l'émission et la lecture des events.
+</aside>
+</section>
+
+<!-- Slide 10 -->
+<section>
+<h2>Exercice 10 : CQRS</h2>
+<p>Séparez les modèles lecture/écriture pour Présentations.</p>
+<aside class="notes">
+    • Créez une projection read-model optimisée pour le front.
+    <br>• Mettez à jour la projection via les events du store.
+</aside>
+</section>

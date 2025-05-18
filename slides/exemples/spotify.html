@@ -1,0 +1,224 @@
+<!-- Spotify -->
+<section data-background-image="/public/backgrounds/spotify.jpg" data-background-size="cover"></section>
+
+<section>
+  <h2>Spotify — Point de départ</h2>
+  <p>Architecture initialement distribuée, mais peu structurée. Back-end Python, RPC internes.</p>
+  <aside class="notes">
+    Spotify n'était pas un monolithe complet, mais manquait de structuration.
+  </aside>
+</section>
+
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Manque de scalabilité organisationnelle</li>
+    <li>Problèmes de communication entre équipes</li>
+    <li>Difficultés de déploiement</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🎯 Objectifs</h2>
+  <ul>
+    <li>Indépendance des équipes (Squads)</li>
+    <li>Autonomie sur le cycle de vie produit</li>
+    <li>Meilleure collaboration inter-équipe</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Architecture microservices</li>
+    <li>Organisation par squads, tribes, chapters</li>
+    <li>CI/CD et outillage interne (Backstage)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Organisation en Squads</h2>
+  <img src="https://www.atlassian.com/dam/jcr:e96390c6-c34b-4e52-aec6-3f3f170b7dfb/spotify-team-structure.svg" alt="Spotify Squad Model" style="max-width: 90%; border-radius: 8px;">
+  <aside class="notes">
+    Spotify a adopté un modèle d'organisation très influent dans le monde tech : les "Squads". Ce sont de petites équipes autonomes, un peu comme des mini-startups internes, responsables d'une fonctionnalité ou d'un produit.
+    <br><br>
+    Elles sont regroupées en "Tribes", coordonnées par des "Chapters" pour le partage des bonnes pratiques. Ce modèle est souvent opposé aux structures hiérarchiques classiques.
+  </aside>
+</section>
+
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Agilité accrue, innovation rapide, scaling organisationnel réussi.</p>
+</section>
+
+<section>
+  <h2>📈 Avant / Après</h2>
+  <table>
+    <tr><th></th><th>Avant</th><th>Après</th></tr>
+    <tr><td>Langage principal</td><td>Python (monoculture)</td><td>Polyglotte (Java, Scala, Go...)</td></tr>
+    <tr><td>Déploiement</td><td>Centralisé, peu fréquent</td><td>CI/CD automatisé</td></tr>
+    <tr><td>Organisation</td><td>Équipes cloisonnées</td><td>Squads autonomes</td></tr>
+    <tr><td>Montée en charge</td><td>Difficile</td><td>Scalabilité horizontale</td></tr>
+  </table>
+  <aside class="notes">
+    Ce tableau illustre les gains du passage aux microservices : plus de flexibilité, moins de dépendances entre équipes, déploiements plus fréquents et plus fiables.
+  </aside>
+</section>
+
+<section>
+  <h2>📊 Résultats chiffrés</h2>
+  <ul>
+    <li>2 000+ microservices en production</li>
+    <li>1 000+ déploiements par jour</li>
+    <li>75 % de CPU Memcached économisés après migration d'un service</li>
+    <li>10 M+ de builds CI mensuels</li>
+    <li>Backstage adopté par +200 entreprises tech (Netflix, Unity, Spotify...)</li>
+  </ul>
+  <aside class="notes">
+    Ces chiffres montrent que Spotify a non seulement réussi à scaler sa plateforme techniquement, mais aussi organisationnellement. 
+    <br><br>
+    L'outillage développé en interne, comme Backstage, a même été adopté par d'autres géants.
+  </aside>
+</section>
+
+<section>
+  <h2>🧰 Backstage — Plateforme de développement interne</h2>
+  <img src="https://backstage.io/img/logo.svg" alt="Backstage logo" style="max-height: 100px;">
+  <p><a href="https://backstage.io" target="_blank">backstage.io</a></p>
+  <aside class="notes">
+    Quand on a des milliers de microservices, il faut bien s'organiser !
+    <br><br>
+    Spotify a donc créé un outil maison, **Backstage**, pour aider les développeurs à s'y retrouver.
+    <br><br>
+    C'est un **portail interne** : il liste les services, la documentation, les pipelines de build, les outils disponibles…
+    <br><br>
+    Backstage a été ensuite rendu open-source, et adopté par d'autres grandes entreprises (Netflix, SoundCloud, Unity…).
+  </aside>
+</section>
+
+<section>
+  <h1>Déclencheur chez Spotify</h1>
+  <p>Pas de panne majeure, mais une organisation en hypercroissance impossible à gérer sur un monolithe</p>
+  <ul>
+    <li>2008-2011 : croissance rapide des équipes produit et développement</li>
+    <li>Structure monolithique freinant l'innovation</li>
+    <li>Risque d'effet tunnel, conflits de merge, déploiements lents</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Spotify est lancé en 2008, et connaît une adoption rapide dans plusieurs pays européens dès 2009</li>
+      <li>À mesure que les équipes grandissent (50 → 200 développeurs en quelques années), le monolithe devient un point d'étranglement</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature du problème</h1>
+  <p>Freins organisationnels et techniques à la scalabilité</p>
+  <ul>
+    <li>Un codebase monolithique partagé par toutes les équipes</li>
+    <li>Dépendances fortes entre modules (lecture, playlist, recherche...)</li>
+    <li>Obligation de synchroniser les déploiements</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Un changement dans une brique impacte facilement d'autres fonctionnalités non liées</li>
+      <li>Les équipes ne peuvent pas livrer indépendamment</li>
+      <li>Chaque release majeure devient une source de tension et de bugs croisés</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Objectifs visés</h1>
+  <p>Redonner de l'agilité aux équipes de développement</p>
+  <ul>
+    <li>Favoriser l'autonomie des équipes ("You build it, you run it")</li>
+    <li>Permettre des livraisons indépendantes</li>
+    <li>Créer une organisation technique adaptée à la croissance</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Inspiré par les travaux de Conway (les organisations reflètent les architectures qu'elles conçoivent)</li>
+      <li>Spotify veut des équipes multi-disciplinaires capables d'aller vite sur leur scope</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Solution mise en œuvre</h1>
+  <p>Transition vers une architecture microservices + organisation par squads</p>
+  <ul>
+    <li>Équipes autonomes appelées <strong>Squads</strong>, regroupées en <strong>Tribes</strong></li>
+    <li>Chaque squad est responsable d'un microservice ou d'un domaine fonctionnel</li>
+    <li>Création de <strong>Backstage</strong> pour gérer les services et documenter l'architecture</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Modèle d'organisation rendu public en 2012 par Henrik Kniberg</li>
+      <li>Squads ont leur propre stack, leurs outils, leur rythme de livraison</li>
+      <li>Backstage (open source depuis 2020) aide à gérer la prolifération de services et documentations</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Résultats observés</h1>
+  <p>Scalabilité organisationnelle et rapidité d'innovation</p>
+  <ul>
+    <li>Déploiements quotidiens par les squads indépendamment</li>
+    <li>Des centaines de microservices interconnectés</li>
+    <li>Backstage utilisé en interne par plus de 200 équipes en 2022</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Spotify affirme livrer plusieurs centaines de fois par jour</li>
+      <li>La flexibilité permise par l'architecture et l'organisation a facilité l'introduction de podcasts, vidéo, AI...</li>
+      <li>Le modèle Spotify inspire d'autres entreprises (ING, LEGO, Zalando…)</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>Un cas emblématique de transformation organisationnelle dictant l'architecture</p>
+  <ul>
+    <li>Pas de panne → mais une organisation ingérable sur monolithe</li>
+    <li>Modèle microservices + squads = réponse au besoin d'autonomie</li>
+    <li>Spotify a influencé toute une génération de DSI</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Spotify montre qu'une refonte technique peut être motivée par la structure humaine plus que par des problèmes techniques</li>
+      <li>Le "modèle Spotify" n'est pas universel mais reste une référence en ingénierie organisationnelle</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h2>🔗 Sources</h2>
+  <ul>
+    <li><a href="https://engineering.atspotify.com/2022/07/what-it-took-to-scale-spotifys-marketing-efforts/" target="_blank">Engineering at Spotify (2022)</a></li>
+    <li><a href="https://backstage.io" target="_blank">Présentation officielle de Backstage</a></li>
+    <li><a href="https://www.atlassian.com/agile/agile-at-scale/spotify" target="_blank">Modèle Spotify par Atlassian</a></li>
+  </ul>
+  <aside class="notes">
+    Sources recommandées pour aller plus loin sur la structuration organisationnelle et technique de Spotify.
+  </aside>
+</section>
+
+<section>
+  <h1>Spotify - Pour aller plus loin</h1>
+  <ul>
+    <li><a target="_blank" href="https://engineering.atspotify.com/">Spotify Engineering Blog</a></li>
+    <li><a target="_blank" href="https://www.youtube.com/watch?v=RYtqI2d45ik">Spotify Engineering Culture - Henrik Kniberg (YouTube)</a></li>
+    <li><a target="_blank" href="https://backstage.io">Backstage.io - Dev Portal</a></li>
+    <li><a target="_blank" href="https://martinfowler.com/articles/microservice-trade-offs.html">Martin Fowler - Tradeoffs in Microservices (Spotify cited)</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le modèle "Squad/Tribe/Chapter" est détaillé dans la vidéo culte d'Henrik Kniberg</li>
+      <li>Backstage est devenu un outil open-source majeur pour la gestion des microservices</li>
+    </ul>
+  </aside>
+</section>

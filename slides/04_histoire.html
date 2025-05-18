@@ -1,0 +1,377 @@
+<!-- Historique des architectures -->
+<section 
+         data-background-image="/public/backgrounds/titre_histoire.jpg"
+         data-background-size="cover"
+         data-background-opacity="0.5">
+  <h1>Historique et types d'architectures</h1>
+</section>
+
+<section>
+  <h2>Historique des architectures logicielles</h2>
+  <ul>
+    <li><strong>Mainframe</strong> (années 1960-1970)</li>
+    <li><strong>Client-serveur</strong> (années 1980-1990)</li>
+    <li><strong>Multi-tiers</strong> (années 1990-2000)</li>
+    <li><strong>SOA</strong> (années 2000-2010)</li>
+    <li><strong>Microservices</strong> (depuis 2010)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les architectures logicielles ont évolué au fil du temps pour répondre aux besoins croissants de scalabilité, de flexibilité et de résilience.</li>
+      <li>Chaque architecture a ses propres avantages et inconvénients, influençant le choix en fonction des exigences du projet.</li>
+      <li>Nous allons explorer chacune de ces architectures en détail.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>Mainframe (1960-1970)</h3>
+  <ul>
+    <li><strong>Architecture centralisée</strong> : tout le traitement sur un unique ordinateur</li>
+    <li>Terminaux légers (dumb terminals) pour l'IHM</li>
+    <li>Pas de distribution de la logique métier ni des données<br/>&nbsp;</li>
+    <li><em>Avantages</em> : simplicité, maintenance unifiée</li>
+    <li><em>Limites</em> : scalabilité verticale, point de défaillance unique</li>
+  </ul>
+</section>
+<section>
+  <img src="/public/schemas/mainframe.png"/>
+    <aside class="notes">
+    <ul>
+      <li>Toute la logique et les données sont concentrées dans le serveur mainframe</li>
+      <li>Les terminaux légers n'ont pas de puissance de calcul, ils se contentent d'afficher les résultats</li>
+      <li>Les utilisateurs interagissent avec le mainframe via des terminaux, souvent en mode texte</li>
+      <li>Les mainframes sont souvent utilisés pour des applications critiques, comme la gestion de bases de données ou le traitement de transactions financières</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <img src="/public/images/mainframe_clients.png"/>
+  <aside class="notes">
+    <ul>
+      <li>Une variété de client existent pour se connecter plus besoin d'avoir un terminal dédié, des émulateurs font l'affaire</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="width: 48%;">
+      <a href="https://www.ibm.com/history/system-370" target="_blank">IBM System/370</a>
+      <img src="/public/images/04_mainframe_1970.jpg" height="300px"/>
+      <div style="text-align: left; font-size: xx-small">https://www.ibm.com/history/system-370</div>
+      <aside class="notes">
+        <ul>
+          <li>Peut gérer de 40 à 200 terminaux simultanés.!.</li>
+          <li>Mémoire de 256 Ko à 8 Mo, extensible à plusieurs dizaines de Mo</li>
+          <li>Architecture processeur 32 bits</li>
+          <li>Performances de 1 à 3 millions d'instructions par seconde (MIPS)</li>
+          <li>Stockage externe typique autour de 100 Mo par unité (disque dur), mais extensible par ajout d'unités supplémentaires</li>
+          <li>Permet de générer quotidiennement des rapports de plusieurs dizaines de milliers d'entrées</li>
+          <li>Taille imposante : plusieurs armoires d'environ 1 à 2 m de largeur/profondeur et 2 m de hauteur</li>
+          <li>Prix correspondant à plusieurs millions d'euros actuels</li>
+        </ul>
+      </aside>
+    </div>
+     <div style="width: 48%;">
+      <a href="https://www.redbooks.ibm.com/feature/z16" target="_blank">IBM z16</a>
+      <img src="/public/images/04_mainframe_2020.jpg" height="300px"/>
+      <div style="text-align: left; font-size: xx-small">
+        https://www.redbooks.ibm.com/feature/z16
+      </div>
+      <aside class="notes">
+        <ul>
+          <li>Peut gérer des milliers de terminaux et de connexions simultanées</li>
+          <li>Jusqu'à 40 To de mémoire RAM avec chiffrement transparent</li>
+          <li>Architecture z/Architecture 64 bits (CISC)</li>
+          <li>Processeur Telum à 5,2 GHz avec accélérateur IA intégré</li>
+          <li>Jusqu'à 200 cœurs processeurs par système</li>
+          <li>Capable de traiter jusqu'à 300 milliards d'inférences IA par jour avec une latence de 1 ms</li>
+          <li>Peut exécuter jusqu'à 25 milliards de transactions OLTP z/OS chiffrées par jour</li>
+          <li>Conception modulaire : configurations en simple cadre, multi-cadres ou montage en rack</li>
+          <li>Dimensions physiques : environ 2 mètres de hauteur, 1 mètre de largeur et de profondeur par cadre</li>
+          <li>Consommation énergétique optimisée : jusqu'à 75 % de réduction par rapport à des charges Linux équivalentes sur x86</li>
+          <li>Prix variable selon la configuration ; généralement plusieurs millions d'euros</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Client-serveur (1980-1990)</h3>
+  <ul>
+    <li>Séparation en deux entités : <em>clients</em> (UI) et <em>serveurs</em> (stockage & logique)
+    <li>Communication via protocoles réseau (RPC, sockets)<br/>&nbsp;</li>
+    <li><em>Avantages</em> : répartition de charge, meilleure réactivité</li>
+    <li><em>Limites</em> : couplage fort, difficulté de montée en charge</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>On parle aussi parfois d'architecture centralisée, du fait que le serveur reste un point central.</li>
+      <li>Les clients peuvent être des applications de bureau, des terminaux ou des navigateurs web.</li>
+      <li>Les serveurs gèrent la logique métier et l'accès aux données.</li>
+      <li>Cette architecture a permis de décharger le traitement des clients, mais a introduit des défis de scalabilité.</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <img src="/public/schemas/clientServer.png"/>
+  <aside class="notes">
+    <ul>
+      <li>Dans les architectures client/serveur, La logique est répartie entre les applications sur le client et le serveur.</li>
+      <li>La répartition la plus classique consiste a avoir la logique de présentation sur le client et tout ce qui est directment liés aux données sur le serveur (procédures stockées...)</li>
+      <li>La logique métier quand à elle peut être répartie entre les 2 comme soit sur le serveur ou uniquement le client léger/lourd ...</li>
+      <li>Cela implique que les misesa jour lgicielle nécessientet la mise a jour des clients et pas que du serveur</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>Multi-tiers (1990-2000)</h3>
+  <ul>
+    <li>Au moins trois couches distinctes : présentation, métier, données</li>
+    <li>Possibilité de scaler chaque couche indépendamment</li>
+    <li>Communication synchrone entre tiers (HTTP, JDBC, RPC)<br/>&nbsp;</li>
+    <li><em>Avantages</em> : modularité, testabilité, maintenance facilitée</li>
+    <li><em>Limites</em> : overhead réseau, gestion des transactions distribuées</li>
+  </ul>
+   <aside class="notes">
+    <ul>
+      <li>L'architecture multi-tiers permet de séparer les préoccupations, facilitant ainsi la maintenance et l'évolution des applications.</li>
+      <li>Chaque couche peut être développée, testée et déployée indépendamment.</li>
+      <li>La communication entre les couches peut introduire des latences.</li>
+      <li>La gestion de la cohérence des données entre les couches est un défi majeur.</li>
+      <li>Les transactions distribuées peuvent être complexes à gérer, surtout en cas de défaillance.</li>
+</section>
+<section>
+  <img src="/public/schemas/3tiers.png"/>
+  <aside class="notes">
+    <ul>
+      <li>Les applications multi-tiers sont souvent utilisées dans les systèmes d'entreprise, où la séparation des préoccupations est cruciale.</li>
+      <li>Les applications web modernes utilisent souvent une architecture multi-tiers, avec une séparation claire entre le front-end et le back-end.</li>
+      <li>Les applications multi-tiers peuvent être déployées sur des serveurs physiques ou virtuels, et peuvent utiliser des conteneurs pour faciliter la gestion et le déploiement.</li>
+    </ul>
+</section>
+
+<section>
+  <h3>SOA (2000-2010)</h3>
+  <ul>
+    <li>Services métier grossiers exposés via ESB, SOAP, WSDL</li>
+    <li>Bus de service centralisé pour orchestrer les échanges<br/>&nbsp;</li>
+    <li><em>Avantages</em> : réutilisation des services, gouvernance centralisée</li>
+    <li><em>Limites</em> : complexité de l'infrastructure, coût de mise en œuvre</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>SOA a introduit la notion de services réutilisables, mais a également ajouté une couche de complexité avec le bus de service.</li>
+      <li>Les services sont souvent plus gros que ceux des microservices, ce qui peut entraîner des problèmes de scalabilité.</li>
+      <li><ul>
+        <li>ESB - Enterprise Service Bus </li>
+        <li>SOA - Service Oriented Architecture </li>
+        <li>WSDL - Seb Service Description Language </li>
+      </ul></li>
+    </ul>
+</section>
+<section>
+  <!-- TODO image illustrant SOA --> 
+</section>
+
+<section>
+  <h3>Microservices (depuis 2010)</h3>
+  <ul>
+    <li>Services très granulaires, déployés indépendamment</li>
+    <li>Communication via API REST, gRPC, messages asynchrones</li>
+    <li>Data ownership décentralisé (base de données par service)<br/>&nbsp;</li>
+    <li><em>Avantages</em> : scalabilité fine, résilience, CI/CD accéléré</li>
+    <li><em>Limites</em> : complexité opérationnelle (orchestration, monitoring), latence inter-services</li>
+  </ul>
+</section>
+<section>
+  <!-- TODO image illustrant Microservices --> 
+</section>
+
+<section>
+  <h2>Synthèse de l'évolution</h2>
+  <table>
+    <thead>
+      <tr><th>Période</th><th>Architecture</th><th>Scalabilité</th><th>Complexité</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1960-1990</td><td>Monolithe/Mainframe</td><td>Verticale</td><td>Faible</td></tr>
+      <tr><td>1990-2005</td><td>Multi-tiers</td><td>Par couche</td><td>Moyenne</td></tr>
+      <tr><td>2005-2010</td><td>SOA</td><td>Par service</td><td>Élevée</td></tr>
+      <tr><td>Depuis 2010</td><td>Microservices</td><td>Fine</td><td>Très élevée</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- Types d'architectures -->
+<section data-background-image="/public/backgrounds/architecture-chats.jpg"
+         data-background-size="cover"
+         data-background-opacity="0.5">
+  <h2>Types d'architectures</h2>
+  <p>Oublions la notion de client et concentrons nous sur la partie serveur</p>.
+</section>
+
+<section>
+  <h3>Architecture Monolithe</h3>
+  <ul>
+    <li>Codebase unique et déploiement centralisé</li>
+    <li>Une seule base de données partagée<br/>&nbsp;</li>
+    <li><em>Avantages</em> : simplicité initiale, performances intra-processus</li>
+    <li><em>Inconvénients</em> : scalabilité globale, couplage fort, maintenance lourde</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Une application monolithique est une application unique et indivisible qui gère toutes les fonctionnalités d'un système.</li>
+      <li>Elle est généralement développée en une seule fois et déployée comme une seule unité.</li>
+      <li>Les applications monolithiques sont souvent plus simples à développer et à déployer, mais elles peuvent devenir difficiles à maintenir et à faire évoluer au fil du temps.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>Architecture Multi-tiers</h3>
+  <ul>
+    <li>Séparation en 3 couches : présentation, métier, données</li>
+    <li>Scalabilité indépendante par couche</li>
+    <li>Communication réseau entre tiers<br/>&nbsp;</li>
+    <li><em>Avantages</em> : modularité, testabilité</li>
+    <li><em>Inconvénients</em> : overhead réseau, gestion cohérence</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Chaque couche peut être développée, testée et déployée indépendamment.</li>
+      <li>La communication entre les couches peut introduire des latences.</li>
+      <li>La gestion de la cohérence des données entre les couches est un défi majeur.</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <h3>Modéle MVC</h3>
+  <ul>
+    <li>Séparation en 3 couches : présentation, métier, données</li>
+    <li>Scalabilité indépendante par couche</li>
+    <li>Communication réseau entre tiers<br/>&nbsp;</li>
+    <li><em>Avantages</em> : modularité, testabilité</li>
+    <li><em>Inconvénients</em> : overhead réseau, gestion cohérence</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le modèle MVC (Modèle-Vue-Contrôleur) est une architecture logicielle qui sépare une application en trois composants principaux : le Modèle, la Vue et le Contrôleur.</li>
+      <li>Le Modèle gère les données et la logique métier, la Vue est responsable de l'affichage des données à l'utilisateur, et le Contrôleur gère les interactions entre le Modèle et la Vue.</li>
+      <li>Cette séparation permet de rendre l'application plus modulaire et facilite la maintenance et les tests.</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <img src="/public/schemas/mvc.png"/>
+  <aside class="notes">
+    <ul>
+      <li>Attention a ne pas confondre 3 tiers et MVC</li>
+      <li>Le MVC est un modèle d'architecture logicielle qui peut être utilisé dans une application multi-tiers.</li>
+      <ul>
+      <li>pour structurer la couche de présentation.</li>
+      <li>gérer la communication entre la couche de présentation et la couche métier</li>
+      </ul>
+      <li>Le modèle MVC permet de séparer la logique de présentation de la logique métier et des données, ce qui facilite la maintenance et les tests.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>Architecture Microservices</h3>
+  <ul>
+    <li>Services autonomes, petite granularité</li>
+    <li>Communication via API REST / messaging</li>
+    <li>Data décentralisée (base par service)<br/>&nbsp;</li>
+    <li><em>Avantages</em> : scalabilité fine, résilience, CI/CD rapide</li>
+    <li><em>Inconvénients</em> : complexité opérationnelle, monitoring distribué</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les microservices sont des services autonomes qui communiquent entre eux via des API (REST, gRPC, messaging...).</li>
+      <li>Chaque microservice est responsable d'une fonctionnalité spécifique et peut être développé, déployé et mis à l'échelle indépendamment.</li>
+      <li>Cette architecture permet une grande flexibilité et une scalabilité fine, mais elle introduit également une complexité opérationnelle accrue.</li>
+    </ul>
+</section>
+
+<section>
+  <h3>Event Driven Architecture</h3>
+  <ul>
+    <li>Services réactifs aux événements</li>
+    <li>Communication asynchrone via messages ou événements</li>
+    <li>Data décentralisée (base par service)<br/>&nbsp;</li>
+    <li><em>Avantages</em> : scalabilité, résilience, découplage</li>
+    <li><em>Inconvénients</em> : complexité de gestion des événements, latence</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les architectures orientées événements sont basées sur la publication et l'abonnement à des événements.</li>
+      <li>Les services réagissent aux événements générés par d'autres services, ce qui permet une communication asynchrone.</li>
+      <li>Cette architecture favorise le découplage entre les services, mais peut introduire des défis en matière de gestion des événements et de latence.</li>
+    </ul>
+</section>
+
+<!-- TODO illustration event driven architecture -->
+
+<section>
+  <h3>Serverless / Faas</h3>
+  <ul>
+    <li>Exécution de fonctions en réponse à des événements</li>
+    <li>Pas de gestion d'infrastructure par le développeur</li>
+    <li>Facturation à l'utilisation (pay-per-execution)<br/>&nbsp;</li>
+    <li><em>Avantages</em> : scalabilité automatique, réduction des coûts d'infrastructure</li>
+    <li><em>Inconvénients</em> : latence de démarrage, dépendance au fournisseur de services</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le serverless est un modèle d'architecture où le développeur n'a pas à se soucier de la gestion de l'infrastructure.</li>
+      <li>Les fonctions sont exécutées en réponse à des événements, et la facturation est basée sur l'utilisation réelle.</li>
+      <li>Ce modèle permet une scalabilité automatique et une réduction des coûts d'infrastructure, mais peut introduire des latences de démarrage.</li>
+      <li>Il est important de choisir le bon fournisseur de services pour éviter les dépendances excessives.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Different types de AAS : As A Service -->
+
+<!-- scalabilité : verticale ou horizontale --> 
+
+<!-- Pourquoi concevoir une application distribuée ? avantages limites ... -->
+<section>
+  <h1>Pourquoi concevoir une application distribuée ?</h1>
+  <p>Avantages :
+    <ul>
+      <li>Scalabilité horizontale</li>
+      <li>Résilience et tolérance aux pannes</li>
+      <li>Flexibilité technologique</li>
+      <li>Développement et déploiement indépendants</li>
+    </ul>
+  </p>
+  <p>Limites :
+    <ul>
+      <li>Complexité opérationnelle accrue</li>
+      <li>Gestion des transactions distribuées</li>
+      <li>Latence réseau</li>
+    </ul>
+  </p>
+  <aside class="notes">
+    <ul>
+      <li>Les applications distribuées permettent de répartir la charge de travail sur plusieurs serveurs, ce qui améliore la scalabilité.</li>
+      <li>La résilience est améliorée grâce à la redondance et à la tolérance aux pannes.</li>
+      <li>Les équipes peuvent travailler sur des services indépendants, ce qui accélère le développement et le déploiement.</li>
+      <li>Cependant, la complexité opérationnelle augmente, nécessitant des outils de monitoring et de gestion adaptés.</li>
+      <li>La gestion des transactions distribuées peut être complexe, surtout en cas de défaillance d'un service.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- notions de clients ... pc mobiles autres apps api ...  -->
+<!-- notion de serveur ...  -->
+<!-- notion de cloud ...  -->
+<!-- notion de conteneurs ...  -->
+
+<!-- notion de monorepos -->
+<!-- distributed monolith -->

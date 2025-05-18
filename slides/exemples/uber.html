@@ -1,0 +1,166 @@
+<!-- Slides pour Uber -->
+<section data-background-image="/public/backgrounds/uber.jpg" data-background-size="cover">
+    <aside class="notes">
+        <ul>
+            <li></li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+  <h2>Uber — Point de départ</h2>
+  <p>Monolithe Python difficile à maintenir, peu fiable à grande échelle.</p>
+</section>
+<section>
+  <h2>⚡️ Pain points</h2>
+  <ul>
+    <li>Faible scalabilité</li>
+    <li>Déploiement lent</li>
+    <li>Pannes globales fréquentes</li>
+  </ul>
+</section>
+<section>
+  <h2>🌟 Objectifs</h2>
+  <ul>
+    <li>Indépendance des composants</li>
+    <li>Infrastructure résiliente</li>
+    <li>Réduction de la latence</li>
+  </ul>
+</section>
+<section>
+  <h2>🛠️ Solution</h2>
+  <ul>
+    <li>Migration vers 1000+ microservices</li>
+    <li>Architecture orientée domaine</li>
+    <li>Utilisation de Redis pour la haute performance</li>
+  </ul>
+</section>
+<section>
+  <h2>📊 Résultats chiffrés</h2>
+  <ul>
+    <li>40M+ lectures/sec via Redis</li>
+    <li>Haute résilience opérationnelle</li>
+    <li>Expérience utilisateur plus fluide</li>
+  </ul>
+</section>
+<section>
+  <h2>🌟 Résultat</h2>
+  <p>Architecture scalable, système plus robuste.</p>
+</section>
+
+<section>
+  <h1>Déclencheur chez Uber</h1>
+  <p>Croissance mondiale incontrôlable avec un monolithe Python devenu ingérable</p>
+  <ul>
+    <li>2013-2015 : déploiement dans des dizaines de villes / pays</li>
+    <li>Architecture initiale : monolithe Python (nommé "Base")</li>
+    <li>Problèmes de stabilité, scalabilité, et coordination des équipes</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Uber connaît une hypercroissance à partir de 2014 : +200 villes en deux ans</li>
+      <li>Le backend Python monolithique est centralisé, couplé, fragile</li>
+      <li>Impossible pour les équipes de travailler indépendamment sans conflit</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Nature du problème</h1>
+  <p>Le monolithe limitait l'innovation et provoquait des incidents à grande échelle</p>
+  <ul>
+    <li>Les pannes d'un composant affectaient l'ensemble du système</li>
+    <li>Le build et le déploiement devenaient longs et risqués</li>
+    <li>Difficulté à tester localement un bout de logique sans tout exécuter</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Un bug dans la facturation pouvait bloquer les courses ou la géolocalisation</li>
+      <li>Les développeurs ne pouvaient pas itérer rapidement sur un sous-ensemble du code</li>
+      <li>Problèmes de time-to-market face à la concurrence (Lyft, Didi...)</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Objectifs visés</h1>
+  <p>Créer une architecture capable de soutenir la croissance produit et humaine</p>
+  <ul>
+    <li>Permettre le développement distribué par domaine métier</li>
+    <li>Renforcer la fiabilité, résilience, et scalabilité</li>
+    <li>Favoriser l'innovation par des équipes autonomes</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Uber visait à découpler les domaines : géolocalisation, paiements, pricing, messagerie, etc.</li>
+      <li>Chaque domaine devait pouvoir déployer, scaler et tester indépendamment</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Solution mise en œuvre</h1>
+  <p>Refonte complète vers une architecture microservices</p>
+  <ul>
+    <li>Plus de 2 000 microservices recensés dès 2017</li>
+    <li>Protocole maison basé sur Thrift pour les RPC inter-services</li>
+    <li>Énorme investissement dans les outils DevOps, CI/CD, monitoring, alerting</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Chaque équipe pouvait créer son propre microservice avec des conventions standardisées</li>
+      <li>Uber a développé un écosystème interne pour gérer les dépendances, SLA, tests, routing</li>
+      <li>Mais cette explosion de services a aussi introduit de nouvelles complexités</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Résultats observés</h1>
+  <p>Scalabilité obtenue mais complexité exponentielle à gérer</p>
+  <ul>
+    <li>Résilience accrue (pannes isolées, rollback possible)</li>
+    <li>Mais : duplication de logique, débogage difficile, monitoring devenu critique</li>
+    <li>Reflexion post-2020 : retour à des agrégations de services (Domain-Oriented Architecture)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les équipes ont parfois créé des services trop spécifiques ou peu maintenus</li>
+      <li>Uber a documenté des efforts de "re-centralisation partielle" pour des domaines critiques (Payments, Dispatch)</li>
+      <li>Vers 2021, ils ont commencé à parler d'**architecture modulaire orientée domaine**</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>En résumé</h1>
+  <p>Uber est passé de monolithe → microservices → architecture domaine</p>
+  <ul>
+    <li>Monolithe Python insoutenable dès 2015</li>
+    <li>Adoption rapide mais chaotique des microservices</li>
+    <li>Refonte ultérieure pour équilibrer autonomie et cohérence</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Uber illustre bien que les microservices ne sont pas une fin en soi</li>
+      <li>Chaque architecture doit être pilotée par la taille de l'équipe, la criticité métier et la capacité à monitorer efficacement</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Uber - Pour aller plus loin</h1>
+  <ul>
+    <li><a href="https://eng.uber.com/" target="_blank">Uber Engineering Blog</a></li>
+    <li><a href="https://www.infoq.com/news/2024/02/uber-dynamic-load-shedding/" target="_blank">Uber Improves Resiliency of Microservices with Adaptive Load Shedding - InfoQ</a></li>
+    <li><a href="https://www.youtube.com/watch?v=EW9GjQNcyzI" target="_blank">Conquering Microservices Complexity @Uber with Distributed Tracing - YouTube</a></li>
+    <li><a href="https://www.youtube.com/watch?v=dslrCDu-MKo" target="_blank">How does Uber manage 2200 Microservices using Domain Specific Microservice Architecture - YouTube</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Le blog Uber Engineering propose des articles détaillés sur l'architecture, l'infrastructure et les innovations techniques de l'entreprise.</li>
+      <li>Les articles d'InfoQ décrivent comment Uber améliore la résilience de ses microservices et optimise le déploiement continu dans de grands monorepos.</li>
+      <li>Les vidéos YouTube offrent un aperçu des défis et des solutions liés à la complexité des microservices chez Uber.</li>
+    </ul>
+  </aside>
+</section>

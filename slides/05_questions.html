@@ -1,0 +1,166 @@
+<section>
+  <!-- TODO ajout illustration background Questions -->
+  <h1>Questions ?</h1>
+  <p>Quelles sont vos questions sur les architectures logicielles ?</p> 
+  <p>Quelles sont vos réflexions sur les architectures monolithiques et distribuées ?</p>
+</section>
+
+<section>
+  <h3>🧱 1. Monolithe vs Mainframe</h3>
+  <ul>
+    <li>Un monolithe, c'est forcément une vieille application sur un mainframe ?</li>
+    <li>Un monolithe ne peut pas être moderne ?</li>
+    <li>Si une application est monolithique, cela veut dire qu'elle ne peut tourner que sur un seul ordinateur ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, un monolithe peut être développé aujourd'hui avec des technos modernes. Ce n'est pas lié aux mainframes.</li>
+      <li>Un monolithe peut être propre, performant et maintenable. Ce n'est pas un synonyme d'application obsolète.</li>
+      <li>Une application monolithique peut être déployée sur plusieurs machines, même si elle reste un seul bloc logiciel.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>🧩 2. Monolithe vs Microservices</h3>
+  <ul>
+    <li>Si une application est divisée en plusieurs fichiers ou modules, est-ce qu'elle n'est plus un monolithe ?</li>
+    <li>Est-ce qu'on est obligé d'avoir plusieurs dépôts de code pour faire une architecture microservices ?</li>
+    <li>Est-ce que les microservices sont toujours plus performants qu'un monolithe ?</li>
+    <li>Est-ce que c'est mieux de toujours découper son application en microservices dès le début ?</li>
+    <li>Si je peux redémarrer un service sans toucher au reste de l'application, est-ce que c'est forcément un microservice ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, un monolithe peut être bien structuré en modules sans être distribué ou microservices.</li>
+      <li>Non, on peut avoir tous les services dans un monorepo. Ce n'est pas une obligation technique.</li>
+      <li>Pas toujours : plus de complexité, de communication réseau, de latence possible. Ce n'est pas automatique.</li>
+      <li>Pas nécessairement : pour un petit projet ou un MVP, un monolithe est souvent plus simple à gérer.</li>
+      <li>Non : ce critère est typique, mais ce n'est pas suffisant pour définir un microservice.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>🧪 3. Microservices vs SOA</h3>
+  <ul>
+    <li>Si mes services communiquent entre eux, est-ce qu'on est automatiquement dans une architecture SOA ?</li>
+    <li>Peut-on avoir une architecture microservices sans architecture SOA ?</li>
+    <li>Est-ce que microservices et SOA, c'est la même chose ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, la communication entre services ne suffit pas à définir SOA. L'approche, les contrats et la gouvernance comptent aussi.</li>
+      <li>Oui, les microservices sont une évolution de SOA mais avec une granularité plus fine, des déploiements indépendants, etc.</li>
+      <li>Non, ce sont deux concepts différents, même s'ils sont liés. Les microservices sont une approche plus légère et décentralisée.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>☁️ 4. Microservices et déploiement</h3>
+  <ul>
+    <li>Est-ce qu'une architecture microservices doit forcément être déployée sur le cloud ?</li>
+    <li>Peut-on faire une architecture microservices sur un seul serveur ?</li>
+    <li>Est-ce qu'une application est "distribuée" uniquement si elle tourne sur plusieurs serveurs ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, on peut faire du microservices en local ou on-premise. Le cloud n'est pas obligatoire.</li>
+      <li>Oui, on peut faire tourner plusieurs services sur un même serveur physique, voire dans le même container au début.</li>
+      <li>Non, plusieurs processus interconnectés suffisent, même sur une seule machine.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>🧮 5. MVC, n-tiers et structure de code</h3>
+  <ul>
+    <li>Une application avec une architecture en couches (MVC ou n-tiers) est-elle forcément distribuée ?</li>
+    <li>Le modèle MVC ne s'utilise que dans les architectures n-tiers ?</li>
+    <li>Si j'utilise un framework moderne, est-ce que je fais automatiquement une architecture n-tiers ?</li>
+    <li>Est-ce qu'une application MVC est forcément web ?</li>
+    <li>Est-ce que le fait d'avoir une partie “vue” dans le navigateur et une “logique” sur un serveur rend l'application distribuée ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, MVC et n-tiers sont des patterns de structuration logique, pas de distribution physique.</li>
+      <li>Non, on peut appliquer MVC en local, dans une appli bureau par exemple.</li>
+      <li>Non, le framework ne dicte pas l'architecture physique, juste la structure logique.</li>
+      <li>Non, MVC est aussi utilisé pour des applis desktop ou mobiles.</li>
+      <li>Oui, techniquement, c'est une forme simple d'architecture distribuée (client-serveur).</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>🌍 6. Application distribuée ou pas ?</h3>
+  <ul>
+    <li>Une application distribuée, c'est juste une appli qui communique avec un serveur ?</li>
+    <li>Est-ce qu'une application distribuée tourne forcément sur plusieurs machines ?</li>
+    <li>Est-ce que “application distribuée” veut dire “microservices” ?</li>
+    <li>Est-ce que l'utilisateur d'une application distribuée interagit avec plusieurs applications différentes ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>En partie, oui. C'est le cas typique du client-serveur. Mais ce n'est pas l'unique forme de distribution.</li>
+      <li>Non, plusieurs processus interconnectés suffisent, même sur une seule machine.</li>
+      <li>Non, une application distribuée peut être un monolithe déployé sur plusieurs nœuds, ou une appli client-serveur classique.</li>
+      <li>Non, elle peut percevoir un tout cohérent même si l'architecture est distribuée en interne.</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h3>👥 7. Organisation des équipes et architecture</h3>
+  <ul>
+    <li>Si plusieurs équipes travaillent sur le même projet, est-ce qu'il faut forcément passer à une architecture microservices ?</li>
+    <li>Avoir plusieurs développeurs, ça veut dire qu'on ne peut pas rester en monolithe ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, on peut très bien organiser le travail sur un monolithe en modules ou sous-projets bien séparés.</li>
+      <li>Non, ce n'est pas le nombre de développeurs qui dicte l'architecture, mais les besoins métiers, la scalabilité, la maintenabilité…</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <h3>🔧 8. Outils et technologies</h3>
+  <ul>
+    <li>Est-ce qu'on doit utiliser des outils spécifiques pour faire du microservices ?</li>
+    <li>Est-ce que les microservices sont réservés à certaines technologies ?</li>
+    <li>Est-ce que le cloud est obligatoire pour faire du microservices ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Non, on peut utiliser des outils variés, mais certains facilitent la gestion des microservices.</li>
+      <li>Non, on peut faire du microservices avec n'importe quelle technologie, même des langages moins courants.</li>
+      <li>Non, le cloud est un choix, pas une obligation. On peut faire du microservices sur site.</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <h3>🔒 9. Sécurité</h3>
+  <ul>
+    <li>Est-ce que les microservices sont plus sécurisés qu'un monolithe ?</li>
+    <li>Est-ce que la sécurité est plus complexe dans une architecture distribuée ?</li>
+    <li>Est-ce que le fait d'avoir plusieurs services rend l'application moins sécurisée ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Pas forcément, la sécurité dépend de la mise en œuvre, pas de l'architecture.</li>
+      <li>Oui, la gestion des accès, des communications et des données est plus complexe.</li>
+      <li>Non, mais il faut bien gérer les accès et les communications entre services.</li>
+    </ul>
+  </aside>
+</section>
+
+<section
+         data-background-image="/public/backgrounds/postits.jpg"
+         data-background-size="cover"
+         data-background-opacity="0.9">
+  <h1>A vous de vous exprimer :</h1>
+  <p>Quelles notions ou mots-clefs vous viennent quand on évoque les applications distribuées?</p> 
+  <p>Vous pouvez vous répartir en 4 groupes et vous avez 5 minutes</p>
+  <p>Le but est d'écrire vos idées sur des post-its puis nous les trierons, regrouperons et échangerons sur celles-ci.</p>
+</section>
