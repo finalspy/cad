@@ -1,21 +1,25 @@
 <!-- Slide d'introduction générale -->
-<section data-background-image="/public/images/titre_concepts.jpg" 
+<section data-background-image="/public/images/titre_concepts.jpg"
           data-background-size="cover"
           data-background-opacity="0.5">
   <h2>Concepts clés</h2>
   <ul>
     <li>🔺 Théorèmes fondamentaux</li>
+    <li>🌐 Concepts et Techniques Clés</li>
     <li>🧩 Architecture et Design</li>
-    <li><b>🛡️ Résilience et Scalabilité</b></li>
-    <li>🧪 Tests et Observabilité</li>
+    <li>🛡️ Résilience et Scalabilité</li>
+    <li><b>🧪 Tests et Observabilité</b></li>
     <li>🧠 Gouvernance et Équipes</li>
   </ul>
   <aside class="notes">
-    Voici les cinq grands ensembles qui structurent ce module. Nous allons explorer chaque groupe de concepts à travers des exemples concrets.
+    <ul>
+      <li>Voici les cinq grands ensembles qui structurent ce module.</li>
+      <li>Nous allons explorer chaque groupe de concepts à travers des exemples concrets.</li>
+    </ul>
   </aside>
 </section>
 
-<!-- === SECTION 4 : Testabilité & Observabilité === -->
+<!-- SECTION Testabilité & Observabilité -->
 <section>
   <h2>🧪 Testabilité et Observabilité</h2>
   <aside class="notes">
@@ -23,24 +27,297 @@
   </aside>
 </section>
 
+<!-- Testabilité — Théorie Aperçu -->
 <section>
-  <h2>Testabilité</h2>
+  <h2>Testabilité — Théorie</h2>
   <ul>
-    <li>Unit, Integration, Contract, E2E tests</li>
-    <li>Performance, Chaos engineering</li>
+    <li>Unit Tests</li>
+    <li>Integration Tests</li>
+    <li>Contract Tests</li>
+    <li>E2E Tests</li>
+    <li>Performance Testing</li>
+    <li>Chaos Engineering</li>
   </ul>
   <aside class="notes">
-    Les tests contractuels sont particulièrement importants dans les systèmes distribués.
+    <ul>
+      <li>Définition et objectifs de chaque type de test.</li>
+      <li>Chaque notion détaillée sur sa propre diapositive.</li>
+    </ul>
   </aside>
 </section>
 
+<!-- Unit Tests -->
 <section>
-  <h2>Observabilité</h2>
+  <h2>Unit Tests</h2>
   <ul>
-    <li>Logging, Metrics, Tracing</li>
-    <li>Monitoring, Alerting</li>
+    <li>Isolement, rapidité, granularité</li>
+    <li>Frameworks : <a href="https://junit.org/junit5/" target="_blank">JUnit</a> — <a href="https://github.com/junit-team/junit5" target="_blank">GitHub</a>, <a href="https://docs.pytest.org/" target="_blank">pytest</a> — <a href="https://github.com/pytest-dev/pytest" target="_blank">GitHub</a></li>
   </ul>
   <aside class="notes">
-    Sans observabilité, on ne comprend pas ce qui se passe, on subit.
+    <ul>
+      <li>Valider des composants isolés.</li>
+      <li>CI/CD: <a href="https://github.com/features/actions" target="_blank">GitHub Actions</a>, <a href="https://circleci.com/" target="_blank">CircleCI</a>.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Integration Tests -->
+<section>
+  <h2>Integration Tests</h2>
+  <ul>
+    <li>Interactions modules, DB, queues</li>
+    <li>Outils : <a href="https://www.testcontainers.org/" target="_blank">Testcontainers</a> — <a href="https://github.com/testcontainers/testcontainers-java" target="_blank">GitHub</a>, <a href="https://spring.io/projects/spring-test" target="_blank">Spring Test</a> — <a href="https://github.com/spring-projects/spring-framework" target="_blank">GitHub</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Docker éphémères en CI.</li>
+      <li>Valider schémas et migrations.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Contract Tests -->
+<section>
+  <h2>Contract Tests</h2>
+  <ul>
+    <li>Respect des contrats d’API</li>
+    <li>Outils : <a href="https://docs.pact.io/" target="_blank">Pact</a> — <a href="https://github.com/pact-foundation/pact-js" target="_blank">GitHub</a>, <a href="https://spring.io/projects/spring-cloud-contract" target="_blank">Spring Cloud Contract</a> — <a href="https://github.com/spring-cloud/spring-cloud-contract" target="_blank">GitHub</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Publier contrats via Pact Broker.</li>
+      <li>Vérifier avant déploiement.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- E2E Tests -->
+<section>
+  <h2>E2E Tests</h2>
+  <ul>
+    <li>Flux utilisateur complet</li>
+    <li>Outils : <a href="https://www.cypress.io/" target="_blank">Cypress</a> — <a href="https://github.com/cypress-io/cypress" target="_blank">GitHub</a>, <a href="https://www.selenium.dev/" target="_blank">Selenium</a> — <a href="https://github.com/SeleniumHQ/selenium" target="_blank">GitHub</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Runners headless (Docker).</li>
+      <li>Screenshots et vidéos pour debug.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Performance Testing -->
+<section>
+  <h2>Performance Testing</h2>
+  <ul>
+    <li>Charge & stress</li>
+    <li>Outils : <a href="https://gatling.io/" target="_blank">Gatling</a> — <a href="https://github.com/gatling/gatling" target="_blank">GitHub</a>, <a href="https://jmeter.apache.org/" target="_blank">JMeter</a> — <a href="https://github.com/apache/jmeter" target="_blank">GitHub</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Scénarios scripts & reporting Jenkins.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Chaos Engineering -->
+<section>
+  <h2>Chaos Engineering</h2>
+  <ul>
+    <li>Injection de pannes</li>
+    <li>Outils : <a href="https://github.com/Netflix/chaosmonkey" target="_blank">Chaos Monkey</a>, <a href="https://www.gremlin.com/" target="_blank">Gremlin</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Scénarios réguliers & post-mortems.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Testabilité — Pratique -->
+<section>
+  <h2>Testabilité — Pratique</h2>
+  <ul>
+    <li><a href="https://github.com/junit-team/junit5" target="_blank">JUnit</a>, <a href="https://github.com/pytest-dev/pytest" target="_blank">pytest</a></li>
+    <li><a href="https://github.com/testcontainers/testcontainers-java" target="_blank">Testcontainers</a>, <a href="https://github.com/spring-projects/spring-framework" target="_blank">Spring Test</a></li>
+    <li><a href="https://github.com/pact-foundation/pact-js" target="_blank">Pact</a>, <a href="https://github.com/spring-cloud/spring-cloud-contract" target="_blank">Spring Cloud Contract</a></li>
+    <li><a href="https://github.com/cypress-io/cypress" target="_blank">Cypress</a>, <a href="https://github.com/SeleniumHQ/selenium" target="_blank">Selenium</a></li>
+    <li><a href="https://github.com/gatling/gatling" target="_blank">Gatling</a>, <a href="https://github.com/apache/jmeter" target="_blank">JMeter</a></li>
+    <li><a href="https://github.com/Netflix/chaosmonkey" target="_blank">Chaos Monkey</a>, <a href="https://github.com/gremlin/gremlin" target="_blank">Gremlin SDK</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Intégrer chaque outil dans le pipeline CI/CD.</li>
+      <li>Automatiser rapports et alertes.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité — Théorie Aperçu -->
+<section>
+  <h2>Observabilité — Théorie</h2>
+  <ul>
+    <li>Logging</li>
+    <li>Metrics</li>
+    <li>Tracing</li>
+    <li>Monitoring</li>
+    <li>Alerting</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Introduction aux cinq piliers.</li>
+      <li>Chacun détaillé séparément.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité — Pratique Aperçu -->
+<section>
+  <h2>Observabilité — Pratique</h2>
+  <ul>
+    <li>ELK Stack (docs: <a href="https://www.elastic.co/elm-stack" target="_blank">elastic.co/elk-stack</a>, <a href="https://github.com/elastic/elasticsearch" target="_blank">GitHub</a>)</li>
+    <li>Graylog (site: <a href="https://www.graylog.org/" target="_blank">graylog.org</a>, <a href="https://github.com/Graylog2/graylog2-server" target="_blank">GitHub</a>)</li>
+    <li>Prometheus (site: <a href="https://prometheus.io/" target="_blank">prometheus.io</a>, <a href="https://github.com/prometheus/prometheus" target="_blank">GitHub</a>) & Grafana (site: <a href="https://grafana.com/" target="_blank">grafana.com</a>, <a href="https://github.com/grafana/grafana" target="_blank">GitHub</a>)</li>
+    <li>Jaeger (site: <a href="https://www.jaegertracing.io/" target="_blank">jaegertracing.io</a>, <a href="https://github.com/jaegertracing/jaeger" target="_blank">GitHub</a>) & OpenTelemetry (site: <a href="https://opentelemetry.io/" target="_blank">opentelemetry.io</a>, <a href="https://github.com/open-telemetry/opentelemetry-specification" target="_blank">GitHub</a>)</li>
+    <li>Alertmanager (docs: <a href="https://prometheus.io/docs/alerting/latest/alertmanager/" target="_blank">prometheus.io</a>) & PagerDuty (<a href="https://pagerduty.com/" target="_blank">pagerduty.com</a>), Opsgenie (<a href="https://www.opsgenie.com/" target="_blank">opsgenie.com</a>)</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>URLs officielles et dépôts GitHub vérifiés.</li>
+      <li>Chaque pilier détaillé sur sa diapositive pratique.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité Pratique — Logging -->
+<section>
+  <h2>Logging — Pratique</h2>
+  <img src="https://source.unsplash.com/800x400/?log,console" alt="Console Logging Illustration" style="max-width:90%; margin-top:10px;">
+  <ul>
+    <li>Helm: <code>helm install elasticsearch elastic/elasticsearch</code></li>
+    <li>Graylog input GELF, pipelines d’alerte</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Centraliser logs Kubernetes via Filebeat.</li>
+      <li>Configurer alertes sur patterns critiques.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité Pratique — Metrics -->
+<section>
+  <h2>Metrics — Pratique</h2>
+  <img src="https://source.unsplash.com/800x400/?dashboard,metrics" alt="Metrics Dashboard Illustration" style="max-width:90%; margin-top:10px;">
+  <ul>
+    <li>Helm: <code>helm install prometheus prometheus-community/kube-prometheus-stack</code></li>
+    <li>Grafana: importer dashboard JSON partagé</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Exporter métriques via Prom Client.</li>
+      <li>Alerter via Alertmanager vers Slack/email.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité Pratique — Tracing -->
+<section>
+  <h2>Tracing — Pratique</h2>
+  <img src="https://source.unsplash.com/800x400/?trace,distributed-system" alt="Distributed Tracing Illustration" style="max-width:90%; margin-top:10px;">
+  <ul>
+    <li>Instrumenter code avec OpenTelemetry SDK</li>
+    <li>Helm: <code>helm install jaeger jaegertracing/jaeger</code></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Visualiser traces dans UI Jaeger.</li>
+      <li>Identifier spans lents.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité Pratique — Monitoring -->
+<section>
+  <h2>Monitoring — Pratique</h2>
+  <img src="https://source.unsplash.com/800x400/?alert,monitoring" alt="Monitoring Illustration" style="max-width:90%; margin-top:10px;">
+  <ul>
+    <li>ServiceMonitors et kube-state-metrics</li>
+    <li>Helm: <code>helm install alertmanager prometheus-community/alertmanager</code></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Scraper métriques custom.</li>
+      <li>Configurer silences et escalades.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Observabilité Pratique — Alerting -->
+<section>
+  <h2>Alerting — Pratique</h2>
+  <img src="https://source.unsplash.com/800x400/?alert,notification" alt="Alerting Illustration" style="max-width:90%; margin-top:10px;">
+  <ul>
+    <li>Règles PromQL dans Prometheus</li>
+    <li>Intégration PagerDuty/Opsgenie via Alertmanager</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Définir SLIs/SLOs en règles.</li>
+      <li>Tester via <code>amtool check rules</code>.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Quiz -->
+<section>
+  <h2>Quiz</h2>
+  <ol>
+    <li>Quelle différence entre tests unitaires et tests d’intégration ?</li>
+    <li>Quel outil utiliser pour valider un contrat d’API REST ?</li>
+    <li>Nommer un framework pour tests de performance.</li>
+    <li>Quel pilier de l’observabilité couvre le suivi distribué ?</li>
+    <li>Quel outil déploie Chaos Engineering pour Netflix ?</li>
+  </ol>
+  <aside class="notes">
+    <ul>
+      <li>1. Unit Tests vs Integration Tests isolent vs testent interactions.</li>
+      <li>2. Pact ou Spring Cloud Contract.</li>
+      <li>3. Gatling ou JMeter.</li>
+      <li>4. Tracing (Jaeger, Zipkin, OpenTelemetry).</li>
+      <li>5. Chaos Monkey.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Questions & Clarifications -->
+<section>
+  <h2>Questions & Clarifications</h2>
+  <ul>
+    <li>Observabilité et Logging sont-ils identiques ?</li>
+    <li>Quand privilégier Contract Tests vs Integration Tests ?</li>
+    <li>Comment combiner Performance Testing et Chaos Engineering ?</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li><strong>Observabilité vs Logging</strong> : Le logging est la collecte et la stockage des événements applicatifs (texte brut ou structuré). Il constitue une source de données, mais n’offre pas, à lui seul, une vision globale : l’observabilité regroupe les logs, les métriques et le tracing distribuée pour donner une vision à 360 ° du système et permet d’inférer l’état interne via l’analyse de ces trois piliers.</li>
+      <li><strong>Contract vs Integration Tests</strong> : Les Contract Tests vérifient que les producteurs d’API respectent le format attendu par les consommateurs (contrats isolés), tandis que les Integration Tests valident que l’ensemble des composants interconnectés (bases, queues, services tiers) fonctionne correctement lorsque déployé ensemble. On privilégie Contract Tests lorsque les équipes sont découplées pour éviter les régressions d’interface, et Integration Tests pour détecter des problèmes d’environnement ou de configuration globale.</li>
+      <li><strong>Performance Testing & Chaos Engineering</strong> : Le Performance Testing mesure la capacité du système sous charge et identifie les goulets d’étranglement (CPU, mémoire, I/O). Le Chaos Engineering injecte des pannes pour tester la résilience en conditions réelles. Les combiner permet d’avoir à la fois un aperçu de la limite théorique de la performance et une assurance que le système tient ses promesses même en conditions dégradées : par exemple, on peut d’abord définir un SLA de performance, puis valider via des tests de chaos que la performance reste acceptable en cas de panne partielle.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Bibliographie -->
+<section>
+  <h2>📚 Liens & Bibliographie</h2>
+  <ul>
+    <li><a href="https://martinfowler.com/articles/microservice-testing/" target="_blank">Microservice Testing — Martin Fowler</a></li>
+    <li><a href="https://docs.pact.io/" target="_blank">Pact — Documentation</a></li>
+    <li><a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Prometheus: Overview</a></li>
+    <li><a href="https://opentelemetry.io/docs/" target="_blank">OpenTelemetry — Documentation</a></li>
+    <li><a href="https://martinfowler.com/bliki/ContinuousIntegration.html" target="_blank">Continuous Integration — Martin Fowler</a></li>
+  </ul>
+  <aside class="notes">
+    Ces ressources fournissent des approfondissements théoriques et pratiques.
   </aside>
 </section>

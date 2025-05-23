@@ -30,8 +30,8 @@
     <li><strong>Architecture centralisée</strong> : tout le traitement sur un unique ordinateur</li>
     <li>Terminaux légers (dumb terminals) pour l'IHM</li>
     <li>Pas de distribution de la logique métier ni des données<br/>&nbsp;</li>
-    <li><em>Avantages</em> : simplicité, maintenance unifiée</li>
-    <li><em>Limites</em> : scalabilité verticale, point de défaillance unique</li>
+    <li class="fragment"><em>Avantages</em> : simplicité, maintenance unifiée</li>
+    <li class="fragment"><em>Limites</em> : scalabilité verticale, point de défaillance unique</li>
   </ul>
 </section>
 <section>
@@ -102,8 +102,8 @@
   <ul>
     <li>Séparation en deux entités : <em>clients</em> (UI) et <em>serveurs</em> (stockage & logique)
     <li>Communication via protocoles réseau (RPC, sockets)<br/>&nbsp;</li>
-    <li><em>Avantages</em> : répartition de charge, meilleure réactivité</li>
-    <li><em>Limites</em> : couplage fort, difficulté de montée en charge</li>
+    <li class="fragment"><em>Avantages</em> : répartition de charge, meilleure réactivité</li>
+    <li class="fragment"><em>Limites</em> : couplage fort, difficulté de montée en charge</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -132,16 +132,19 @@
     <li>Au moins trois couches distinctes : présentation, métier, données</li>
     <li>Possibilité de scaler chaque couche indépendamment</li>
     <li>Communication synchrone entre tiers (HTTP, JDBC, RPC)<br/>&nbsp;</li>
-    <li><em>Avantages</em> : modularité, testabilité, maintenance facilitée</li>
-    <li><em>Limites</em> : overhead réseau, gestion des transactions distribuées</li>
+    <li class="fragment"><em>Avantages</em> : modularité, testabilité, maintenance facilitée</li>
+    <li class="fragment"><em>Limites</em> : overhead réseau, gestion des transactions distribuées</li>
   </ul>
-   <aside class="notes">
+  <aside class="notes">
     <ul>
       <li>L'architecture multi-tiers permet de séparer les préoccupations, facilitant ainsi la maintenance et l'évolution des applications.</li>
       <li>Chaque couche peut être développée, testée et déployée indépendamment.</li>
       <li>La communication entre les couches peut introduire des latences.</li>
       <li>La gestion de la cohérence des données entre les couches est un défi majeur.</li>
       <li>Les transactions distribuées peuvent être complexes à gérer, surtout en cas de défaillance.</li>
+      <li>Les applications multi-tiers sont souvent utilisées dans les systèmes d'entreprise, où la séparation des préoccupations est cruciale.</li>
+    </ul>
+  </aside>
 </section>
 <section>
   <img src="/public/schemas/3tiers.png"/>
@@ -151,6 +154,7 @@
       <li>Les applications web modernes utilisent souvent une architecture multi-tiers, avec une séparation claire entre le front-end et le back-end.</li>
       <li>Les applications multi-tiers peuvent être déployées sur des serveurs physiques ou virtuels, et peuvent utiliser des conteneurs pour faciliter la gestion et le déploiement.</li>
     </ul>
+  </aside>
 </section>
 
 <section>
@@ -158,8 +162,8 @@
   <ul>
     <li>Services métier grossiers exposés via ESB, SOAP, WSDL</li>
     <li>Bus de service centralisé pour orchestrer les échanges<br/>&nbsp;</li>
-    <li><em>Avantages</em> : réutilisation des services, gouvernance centralisée</li>
-    <li><em>Limites</em> : complexité de l'infrastructure, coût de mise en œuvre</li>
+    <li class="fragment"><em>Avantages</em> : réutilisation des services, gouvernance centralisée</li>
+    <li class="fragment"><em>Limites</em> : complexité de l'infrastructure, coût de mise en œuvre</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -172,9 +176,51 @@
       </ul></li>
     </ul>
 </section>
-<section>
-  <!-- TODO image illustrant SOA --> 
-</section>
+    <section>
+      <h3>Flowchart</h3>
+      <div class="mermaid">
+        <pre>
+          %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+          flowchart LR
+              subgraph Consommateur
+                C[Application Consommatrice]
+              end
+
+              subgraph Integration
+                ESB[Bus de Services ESB]
+                Registre[Registre de Services]
+              end
+
+              subgraph Services Métier
+                S1[Service Métier 1]
+                S2[Service Métier 2]
+                S3[Service Métier 3]
+              end
+
+              subgraph Sources de Données
+                DB[Base de Données]
+                Legacy[Système Legacy]
+              end
+
+              C -->|Appel de service| ESB
+              ESB -->|Découverte / routage| Registre
+              Registre -->|Infos de point d'accès| ESB
+
+              ESB -->|Invocation| S1
+              ESB -->|Invocation| S2
+              ESB -->|Invocation| S3
+
+              S1 -->|Lecture/Écriture| DB
+              S2 -->|Lecture/Écriture| Legacy
+              S3 -->|Lecture/Écriture| DB
+
+              S1 -->|Réponse| ESB
+              S2 -->|Réponse| ESB
+              S3 -->|Réponse| ESB
+              ESB -->|Résultat| C
+        </pre>
+      </div>
+    </section>
 
 <section>
   <h3>Microservices (depuis 2010)</h3>
@@ -182,13 +228,17 @@
     <li>Services très granulaires, déployés indépendamment</li>
     <li>Communication via API REST, gRPC, messages asynchrones</li>
     <li>Data ownership décentralisé (base de données par service)<br/>&nbsp;</li>
-    <li><em>Avantages</em> : scalabilité fine, résilience, CI/CD accéléré</li>
-    <li><em>Limites</em> : complexité opérationnelle (orchestration, monitoring), latence inter-services</li>
+    <li class="fragment"><em>Avantages</em> : scalabilité fine, résilience, CI/CD accéléré</li>
+    <li class="fragment"><em>Limites</em> : complexité opérationnelle (orchestration, monitoring), latence inter-services</li>
   </ul>
 </section>
 <section>
-  <!-- TODO image illustrant Microservices --> 
-</section>
+  <img src="/public/schemas/Microservice_Architecture.png"/>
+  <aside class="notes">
+    <ul>
+      <li>Une variété de client existent pour se connecter plus besoin d'avoir un terminal dédié, des émulateurs font l'affaire</li>
+    </ul>
+  </aside></section>
 
 <section>
   <h2>Synthèse de l'évolution</h2>
@@ -219,8 +269,8 @@
   <ul>
     <li>Codebase unique et déploiement centralisé</li>
     <li>Une seule base de données partagée<br/>&nbsp;</li>
-    <li><em>Avantages</em> : simplicité initiale, performances intra-processus</li>
-    <li><em>Inconvénients</em> : scalabilité globale, couplage fort, maintenance lourde</li>
+    <li class="fragment"><em>Avantages</em> : simplicité initiale, performances intra-processus</li>
+    <li class="fragment"><em>Inconvénients</em> : scalabilité globale, couplage fort, maintenance lourde</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -237,8 +287,8 @@
     <li>Séparation en 3 couches : présentation, métier, données</li>
     <li>Scalabilité indépendante par couche</li>
     <li>Communication réseau entre tiers<br/>&nbsp;</li>
-    <li><em>Avantages</em> : modularité, testabilité</li>
-    <li><em>Inconvénients</em> : overhead réseau, gestion cohérence</li>
+    <li class="fragment"><em>Avantages</em> : modularité, testabilité</li>
+    <li class="fragment"><em>Inconvénients</em> : overhead réseau, gestion cohérence</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -254,8 +304,8 @@
     <li>Séparation en 3 couches : présentation, métier, données</li>
     <li>Scalabilité indépendante par couche</li>
     <li>Communication réseau entre tiers<br/>&nbsp;</li>
-    <li><em>Avantages</em> : modularité, testabilité</li>
-    <li><em>Inconvénients</em> : overhead réseau, gestion cohérence</li>
+    <li class="fragment"><em>Avantages</em> : modularité, testabilité</li>
+    <li class="fragment"><em>Inconvénients</em> : overhead réseau, gestion cohérence</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -286,8 +336,8 @@
     <li>Services autonomes, petite granularité</li>
     <li>Communication via API REST / messaging</li>
     <li>Data décentralisée (base par service)<br/>&nbsp;</li>
-    <li><em>Avantages</em> : scalabilité fine, résilience, CI/CD rapide</li>
-    <li><em>Inconvénients</em> : complexité opérationnelle, monitoring distribué</li>
+    <li class="fragment"><em>Avantages</em> : scalabilité fine, résilience, CI/CD rapide</li>
+    <li class="fragment"><em>Inconvénients</em> : complexité opérationnelle, monitoring distribué</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -303,8 +353,8 @@
     <li>Services réactifs aux événements</li>
     <li>Communication asynchrone via messages ou événements</li>
     <li>Data décentralisée (base par service)<br/>&nbsp;</li>
-    <li><em>Avantages</em> : scalabilité, résilience, découplage</li>
-    <li><em>Inconvénients</em> : complexité de gestion des événements, latence</li>
+    <li class="fragment"><em>Avantages</em> : scalabilité, résilience, découplage</li>
+    <li class="fragment"><em>Inconvénients</em> : complexité de gestion des événements, latence</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -322,8 +372,8 @@
     <li>Exécution de fonctions en réponse à des événements</li>
     <li>Pas de gestion d'infrastructure par le développeur</li>
     <li>Facturation à l'utilisation (pay-per-execution)<br/>&nbsp;</li>
-    <li><em>Avantages</em> : scalabilité automatique, réduction des coûts d'infrastructure</li>
-    <li><em>Inconvénients</em> : latence de démarrage, dépendance au fournisseur de services</li>
+    <li class="fragment"><em>Avantages</em> : scalabilité automatique, réduction des coûts d'infrastructure</li>
+    <li class="fragment"><em>Inconvénients</em> : latence de démarrage, dépendance au fournisseur de services</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -337,26 +387,28 @@
 
 <!-- Different types de AAS : As A Service -->
 
-<!-- scalabilité : verticale ou horizontale --> 
-
 <!-- Pourquoi concevoir une application distribuée ? avantages limites ... -->
 <section>
-  <h1>Pourquoi concevoir une application distribuée ?</h1>
-  <p>Avantages :
-    <ul>
-      <li>Scalabilité horizontale</li>
-      <li>Résilience et tolérance aux pannes</li>
-      <li>Flexibilité technologique</li>
-      <li>Développement et déploiement indépendants</li>
-    </ul>
-  </p>
-  <p>Limites :
-    <ul>
-      <li>Complexité opérationnelle accrue</li>
-      <li>Gestion des transactions distribuées</li>
-      <li>Latence réseau</li>
-    </ul>
-  </p>
+  <h2>Pourquoi concevoir une application distribuée ?</h2>
+    <span class="fragment">
+      <h3>Avantages : </h3>
+        <ul>
+          <li>Scalabilité horizontale</li>
+          <li>Résilience et tolérance aux pannes</li>
+          <li>Flexibilité technologique</li>
+          <li>Développement et déploiement indépendants</li>
+        </ul>
+      </p>
+  </span>
+  <span class="fragment">
+    <h3>Limites :</h3>
+      <ul>
+        <li>Complexité opérationnelle accrue</li>
+        <li>Gestion des transactions distribuées</li>
+        <li>Latence réseau</li>
+      </ul>
+    </p>
+  </span>
   <aside class="notes">
     <ul>
       <li>Les applications distribuées permettent de répartir la charge de travail sur plusieurs serveurs, ce qui améliore la scalabilité.</li>

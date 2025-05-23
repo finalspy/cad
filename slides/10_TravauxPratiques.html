@@ -1,112 +1,238 @@
-<!-- Slide 1 -->
+<!-- Exo 1 -->
 <section>
-<h2>Exercice 1 : Présentation de l'application de base</h2>
+<h2>Exercice 1 : Présentation de l’application de base</h2>
 <p>Explorez le monolithe modulaire fourni (arborescence src.zip).</p>
 <aside class="notes">
-    • Ouvrez le dossier src/ et identifiez les couches (routes, controllers, services, models, utils).
-    <br>• Discutez brièvement du rôle de chaque dossier.
+    <ul>
+    <li>Routes : gèrent les points d’entrée HTTP (authRoutes, userRoutes, presentationRoutes).</li>
+    <li>Controllers : orchestrent la logique (authController, userController, presentationController).</li>
+    <li>Services : contiennent la logique métier (authService, presentationService).</li>
+    <li>Models : schémas MongoDB (user.js, presentation.js).</li>
+    <li>Utils : fonctions utilitaires partagées (helpers.js).</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 2 -->
+<!-- Exo 2 -->
 <section>
 <h2>Exercice 2 : Analyse des points faibles</h2>
-<ul>
-    <li>Quelles limitations de scalabilité et de maintenance observez-vous ?</li>
-    <li>Où se situent les risques de couplage fort ?</li>
-</ul>
+<p>Listez les points faibles qui vous viennent.</p>
 <aside class="notes">
-    • Faites la liste des dépendances directes entre modules.
-    <br>• Identifiez toute logique métier couverte par plusieurs services.
+    <ul>
+    <li>Limitations de scalabilité : impossible de monter en charge individuellement chaque composant.</li>
+    <li>Couplage fort : controllers accèdent directement aux services et aux modèles sans abstraction.</li>
+    <li>Difficulté de maintenance : tests et déploiements liés à un artefact unique.</li>
+    <li>Aucune dépendance circulaire explicite dans le code fourni ; les modules sont importés selon le schéma Routes → Controllers → Services → Models.</li>
+    <li>La logique métier n’est pas isolée, rendant l’écriture de tests unitaires plus complexe.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 3 -->
+<!-- Exo 3 -->
 <section>
 <h2>Exercice 3 : Raisons de migrer vers une architecture distribuée</h2>
-<ol>
-    <li>Scalabilité indépendante des composants</li>
-    <li>Haute disponibilité et tolérance aux pannes</li>
-    <li>Déploiements autonomes et rapide</li>
-</ol>
+<p>Listez les raisons de migrer vers une architecture distribuée.</p>
 <aside class="notes">
-    • Pour chaque raison, donnez un exemple concret dans ce projet.
-    <br>• Discutez des gains et des coûts associés.
+    <ul>
+    <li>Scalabilité indépendante des composants.</li>
+    <li>Exemple : scaling du service Présentations sans toucher à l’authentification.</li>
+    <li>Haute disponibilité et tolérance aux pannes.</li>
+    <li>Exemple : panne du service d’événements n’impacte pas l’API utilisateur.</li>
+    <li>Déploiements autonomes et rapides.</li>
+    <li>Exemple : mises à jour ciblées via pipeline CI/CD dédié à chaque service.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 4 -->
+<!-- Exo 4 -->
 <section>
 <h2>Exercice 4 : Domain-Driven Design</h2>
 <p>Définissez les Bounded Contexts et entités principales.</p>
 <aside class="notes">
-    • Identifiez les domaines : Authentification, Présentations, Utilisateurs.
-    <br>• Pour chaque domaine, listez les agrégats et leurs invariants.
+    <ul>
+    <li>Contexts : Authentification, Utilisateurs, Présentations.</li>
+    <li>Agrégats principaux : User (username, email, mot de passe), Presentation (title, content, isPublic, authorId).</li>
+    <li>Invariants : unicité username/email, droits d’accès selon authorId.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 5 -->
+<!-- Exo 5 -->
 <section>
 <h2>Exercice 5 : Clean Architecture</h2>
-<p>Refactorez un module (e.g., Présentations) en couches :</p>
+<p>Refactorez le module <em>Présentations</em> selon les principes de la Clean Architecture :</p>
 <ul>
-    <li>Entities (domain)</li>
-    <li>Use Cases (application)</li>
-    <li>Interface Adapters (controllers, presenters)</li>
-    <li>Frameworks & DB (infrastructure)</li>
+    <li>Quels éléments placer dans la couche Domain ?</li>
+    <li>Quels Use Cases créer pour les opérations clés ?</li>
+    <li>Comment implémenter les Interface Adapters ?</li>
+    <li>Où se situent les composants Frameworks & DB ?</li>
 </ul>
 <aside class="notes">
-    • Créez les dossiers correspondants et déplacez le code.
-    <br>• Assurez la dépendance unidirectionnelle vers le domaine.
+    <ul>
+    <li>Domain : classes Presentation et User, avec leurs propriétés et comportements.</li>
+    <li>Use Cases : CreatePresentation, UpdatePresentation, GetPresentation.</li>
+    <li>Interface Adapters : controllers REST qui implémentent les ports des use cases.</li>
+    <li>Frameworks & DB : MongoosePresentationRepository, MongooseUserRepository dans l’infrastructure.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 6 -->
+<!-- Exo 6 -->
 <section>
 <h2>Exercice 6 : Architecture Hexagonale</h2>
-<p>Implémentez ports et adapters pour l'accès DB.</p>
+<p>Implémentez ports et adapters pour l’accès DB.</p>
 <aside class="notes">
-    • Définissez une interface (port) pour le repository Présentations.
-    <br>• Créez l'adapter MongoDB qui implémente ce port.
+    <ul>
+    <li>Port : interface PresentationRepository (find, save, findById).</li>
+    <li>Adapter : MongoosePresentationRepository implémentant ces méthodes.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 7 -->
+<!-- Exo 7 -->
 <section>
 <h2>Exercice 7 : Communication REST</h2>
 <p>Exposez le service Présentations en microservice REST indépendant.</p>
 <aside class="notes">
-    • Dockerisez-le avec un Dockerfile minimal.
-    <br>• Testez les endpoints via Postman ou curl.
+    <ul>
+    <li>Endpoints : POST /presentations, GET /presentations/:id.</li>
+    <li>Dockerfile : FROM node, COPY, npm install, CMD npm start.</li>
+    <li>Tester : curl -X POST, curl -X GET.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 8 -->
+<!-- Exo 8 -->
 <section>
 <h2>Exercice 8 : Communication gRPC</h2>
 <p>Ajoutez une API gRPC pour la création de présentations.</p>
 <aside class="notes">
-    • Définissez un fichier .proto pour CreatePresentation.
-    <br>• Générez les stub Node.js et implémentez le serveur.
+    <ul>
+    <li>.proto : service PresentationService { rpc Create(CreateReq) returns (CreateRes); }</li>
+    <li>Stub Node.js : protoc --js_out, grpc_tools_node_protoc_plugin.</li>
+    <li>Implémentation : server.addService(...).</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 9 -->
+<!-- Exo 9 -->
 <section>
 <h2>Exercice 9 : Event Sourcing</h2>
 <p>Stockez chaque création/modification comme un événement.</p>
 <aside class="notes">
-    • Choisissez un store d'événements (e.g., Kafka, simple table Mongo).
-    <br>• Implémentez l'émission et la lecture des events.
+    <ul>
+    <li>Store : collection MongoDB “events”.</li>
+    <li>Événements : PresentationCreated, PresentationUpdated.</li>
+    <li>Émission : publisher.publish(event) après persistance.</li>
+    </ul>
 </aside>
 </section>
 
-<!-- Slide 10 -->
+<!-- Exo 10 -->
 <section>
 <h2>Exercice 10 : CQRS</h2>
 <p>Séparez les modèles lecture/écriture pour Présentations.</p>
 <aside class="notes">
-    • Créez une projection read-model optimisée pour le front.
-    <br>• Mettez à jour la projection via les events du store.
+    <ul>
+    <li>Write model : commandes via Event Sourcing.</li>
+    <li>Read model : projection MongoDB optimisée pour front (readPresentations).</li>
+    <li>Mise à jour via events consommés par un subscriber.</li>
+    </ul>
 </aside>
+</section>
+
+<!-- Réponses détaillées -->
+<section>
+<h2>Réponses détaillées</h2>
+</section>
+<!-- Réponses Exo1 à Exo10 (inchangées) -->
+<section>
+<h3>Exercice 1</h3>
+<ul>
+    <li>Routes : définissent les chemins HTTP et appellent les controllers.</li>
+    <li>Controllers : orchestrent la réception des requêtes et la réponse.</li>
+    <li>Services : logique métier, validation et coordination des modèles.</li>
+    <li>Models : schémas Mongoose et accès direct à la BD.</li>
+    <li>Utils : fonctions d’aide (validation, conversions).</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 2</h3>
+<ul>
+    <li>Couplage : controllers dépendent fortement de la BD via Mongoose.</li>
+    <li>Scalabilité : aucune isolation des charges entre composants.</li>
+    <li>Tests : monolithe rend difficile l’exécution de tests unitaires isolés.</li>
+    <li>Aucune dépendance circulaire explicite dans le code fourni.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 3</h3>
+<ul>
+    <li>Scalabilité : scale-out individuel pour gérer pics sur un service.</li>
+    <li>Haute disponibilité : redondance sur services critiques.</li>
+    <li>CI/CD : pipelines dédiés pour chaque service, déploiement rapide.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 3</h3>
+<ul>
+    <li>Scalabilité : scale-out individuel pour gérer pics sur un service.</li>
+    <li>Haute disponibilité : redondance sur services critiques.</li>
+    <li>CI/CD : pipelines dédiés pour chaque service, déploiement rapide.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 4</h3>
+<ul>
+    <li>Bounded Context Auth : gestion sessions, tokens.</li>
+    <li>Bounded Context Users : profil, mise à jour.</li>
+    <li>Bounded Context Presentations : création, accès, publication.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 5</h3>
+<ul>
+    <li>Domain : class Presentation { constructor(title, content, author) ... }</li>
+    <li>Use Case : class CreatePresentation { execute(data) { ... } }</li>
+    <li>Adapters : HTTP controllers implémentant les ports.</li>
+    <li>Infrastructure : MongoosePresentationRepository.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 6</h3>
+<ul>
+    <li>Port PresentationRepository : interface find, save, delete.</li>
+    <li>Adapter : Mongoose implementation wrapping PresentationModel.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 7</h3>
+<ul>
+    <li>Exposé via Express : POST /presentations, GET /presentations/:id.</li>
+    <li>Dockerfile simple : node:alpine, WORKDIR, COPY, RUN npm install, CMD node app.js.</li>
+    <li>Test : curl -X POST localhost:3000/presentations -d '{...}'.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 8</h3>
+<ul>
+    <li>proto file : message CreateRequest { string title = 1; ... }</li>
+    <li>Server : grpc.loadPackageDefinition(protoDef), server.addService(...).</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 9</h3>
+<ul>
+    <li>Events collection : { type: 'PresentationCreated', data: {...} }.</li>
+    <li>Publisher : save event puis notifier le bus.</li>
+    <li>Reconstruction : rejouer events pour reconstituer l’état.</li>
+</ul>
+</section>
+<section>
+<h3>Exercice 10</h3>
+<ul>
+    <li>Write : commandes envoyées au service via HTTP ou gRPC.</li>
+    <li>Read : projection MongoDB optimisée pour requêtes front.</li>
+    <li>Subscriber : consomme events et met à jour read-model.</li>
+</ul>
 </section>

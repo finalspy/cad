@@ -1,0 +1,181 @@
+<!-- Slide 1: Titre et objectifs -->
+<section>
+  <h2>Introduction à CQRS</h2>
+  <ul>
+    <li>Objectif : Comprendre le pattern CQRS</li>
+    <li>Structure : Questions / Réponses</li>
+    <li>Exemples : Code, diagrammes Mermaid</li>
+  </ul>
+  <aside class="notes">
+    Accueillir l’audience, présenter le plan du cours. Insister sur le fait que l’on va à la fois poser des questions et y répondre pour favoriser l’interactivité.
+  </aside>
+</section>
+
+<!-- Slide 2: Qu'est-ce que CQRS ? -->
+<section>
+  <h3>Q1 : Qu'est-ce que CQRS ?</h3>
+  <p><strong>R :</strong> Command Query Responsibility Segregation. Sépare les responsabilités d’écriture (Command) et de lecture (Query).</p>
+  <aside class="notes">
+    Définition de Martin Fowler : « CQRS est un pattern qui consiste à séparer le modèle de lecture du modèle d’écriture » (martinfowler.com/bliki/CQRS.html). Montrer rapidement l’URL à l’écran.
+  </aside>
+</section>
+
+<!-- Slide 3: Pourquoi séparer ? -->
+<section>
+  <h3>Q2 : Pourquoi séparer Command et Query ?</h3>
+  <ul>
+    <li>Optimisation indépendante (indexation vs transactions)</li>
+    <li>Évolutivité horizontale distincte</li>
+    <li>Clarté et responsabilités bien définies</li>
+  </ul>
+  <aside class="notes">
+    Expliquer que le modèle d’écriture peut être fortement transactionnel, tandis que le modèle de lecture est optimisé pour la performance (caches, projections).
+  </aside>
+</section>
+
+<!-- Slide 4: Diagramme d’architecture générale -->
+<section>
+  <h3>Architecture CQRS</h3>
+  <pre><code class="language-mermaid">
+graph LR
+  A[Client] --> B(Command Handler)
+  B --> C(Event Store)
+  C --> D[Projections]
+  A --> E(Query Handler)
+  E --> D
+  </code></pre>
+  <aside class="notes">
+    Montrer le flux : le client envoie une commande, on persiste des événements, on met à jour les projections qui serviront aux requêtes.
+  </aside>
+</section>
+
+<!-- Slide 5: Exemple de code – Command Handler -->
+<section>
+  <h3>Exemple de Command Handler (C#)</h3>
+  <pre><code class="language-csharp">
+// Commande
+public record CreateOrder(Guid OrderId, string Product, int Quantity) : ICommand;
+
+// Handler
+public class CreateOrderHandler : ICommandHandler<CreateOrder>
+{
+    private readonly IEventStore _store;
+    public async Task Handle(CreateOrder cmd)
+    {
+        var orderCreated = new OrderCreated(cmd.OrderId, cmd.Product, cmd.Quantity);
+        await _store.AppendAsync(orderCreated);
+    }
+}
+  </code></pre>
+  <aside class="notes">
+    Expliquer l’interface ICommandHandler<T>, la persistance dans l’Event Store. Insister sur le fait qu’il n’y a pas de requête SQL ici.
+  </aside>
+</section>
+
+<!-- Slide 6: Exemple de code – Query Handler -->
+<section>
+  <h3>Exemple de Query Handler (C#)</h3>
+  <pre><code class="language-csharp">
+// Requête
+public record GetOrderDetails(Guid OrderId) : IQuery<OrderDto>;
+
+// Handler
+public class GetOrderDetailsHandler : IQueryHandler<GetOrderDetails, OrderDto>
+{
+    private readonly IReadModel _readModel;
+    public async Task<OrderDto> Handle(GetOrderDetails q)
+    {
+        return await _readModel.FindAsync<OrderDto>(q.OrderId);
+    }
+}
+  </code></pre>
+  <aside class="notes">
+    Souligner l’accès à un ReadModel ou à une base optimisée pour la lecture, sans logique métier.
+  </aside>
+</section>
+
+<!-- Slide 7: Avantages et Inconvénients -->
+<section>
+  <h3>Q3 : Quels sont les avantages et inconvénients ?</h3>
+  <ul>
+    <li><strong>Avantages :</strong> Scalabilité, performances, séparation claire</li>
+    <li><strong>Inconvénients :</strong> Complexité, consistence éventuelle, synchronisation</li>
+  </ul>
+  <aside class="notes">
+    Insister sur la gestion de la latence entre l’écriture et les projections de lecture. Expliquer le compromis « eventual consistency ».
+  </aside>
+</section>
+
+<!-- Slide 8: Quand utiliser CQRS ? -->
+<section>
+  <h3>Q4 : Quand adopter CQRS ?</h3>
+  <ul>
+    <li>Domaines complexes avec forte charge en lecture/écriture</li>
+    <li>Besoins de différents modèles pour lecture et écriture</li>
+    <li>Volumétrie d’événements importante</li>
+  </ul>
+  <aside class="notes">
+    Donner des exemples concrets : e-commerce, finance, pilotage industriel.
+  </aside>
+</section>
+
+<!-- Slide 9: Combinaison avec Event Sourcing -->
+<section>
+  <h3>Q5 : CQRS et Event Sourcing</h3>
+  <p><strong>R :</strong> Souvent couplés : les commandes génèrent des événements détenus dans un Event Store, qui alimentent les projections.</p>
+  <pre><code class="language-mermaid">
+sequenceDiagram
+  participant C as Client
+  participant CH as CommandHandler
+  participant ES as EventStore
+  participant PR as Projection
+
+  C->>CH: CreateOrder
+  CH->>ES: append(orderCreated)
+  ES-->>PR: project(orderCreated)
+  PR-->>C: ready for queries
+  </code></pre>
+  <aside class="notes">
+    Expliquer le diagramme de séquence et le rôle de chaque composant.
+  </aside>
+</section>
+
+<!-- Slide 10: Conclusion -->
+<section>
+  <h2>Conclusion</h2>
+  <ul>
+    <li>CQRS sépare clairement lecture et écriture</li>
+    <li>Permet d’optimiser et de scaler indépendamment</li>
+    <li>Introduit de la complexité et de la consistance éventuelle</li>
+    <li>Idéal pour les systèmes à forte volumétrie ou exigences métiers distinctes</li>
+  </ul>
+  <aside class="notes">
+    Résumer les points clés, encourager les questions. Insister sur le fait que CQRS est un pattern puissant mais pas systématiquement nécessaire.
+  </aside>
+</section>
+
+<!-- Slide 11: Références -->
+<section>
+  <h2>Références</h2>
+  <ul>
+    <li>Martin Fowler – CQRS : <a href="https://martinfowler.com/bliki/CQRS.html">martinfowler.com/bliki/CQRS.html</a></li>
+    <li>Greg Young – Introduction à CQRS : <a href="https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf">cqrs.files.wordpress.com</a></li>
+    <li>Microsoft Docs – CQRS et Event Sourcing : <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs">docs.microsoft.com/azure/architecture/patterns/cqrs</a></li>
+  </ul>
+  <aside class="notes">
+    Ces URLs fournissent des approfondissements et des cas d’usage réels. Inviter l’audience à les consulter pour aller plus loin.
+  </aside>
+</section>
+
+<!-- Slide 12: Questions -->
+<section>
+  <h2>Questions</h2>
+  <ul>
+    <li>Dans quel cas CQRS peut-il être contre-productif ?</li>
+    <li>Comment gérer la consistance dans un système CQRS à haute fréquence d’écriture ?</li>
+    <li>Quelles alternatives à CQRS pour séparer lecture et écriture ?</li>
+  </ul>
+  <aside class="notes">
+    Stimuler la discussion, encourager les participants à partager leurs expériences ou inquiétudes.
+  </aside>
+</section>

@@ -5,179 +5,405 @@
   <h2>Concepts clés des applications distribuées</h2>
   <ul>
     <li>🔺 Théorèmes fondamentaux</li>
+    <li>🌐 Concepts et Techniques Clés</li>
     <li>🧩 Architecture et Design</li>
     <li><b>🛡️ Résilience et Scalabilité</b></li>
     <li>🧪 Tests et Observabilité</li>
     <li>🧠 Gouvernance et Équipes</li>
   </ul>
   <aside class="notes">
-    Voici les cinq grands ensembles qui structurent ce module. Nous allons explorer chaque groupe de concepts à travers des exemples concrets.
+    <ul>
+      <li>Vue d'ensemble des grands thèmes.</li>
+      <li>Annonce de la section Résilience & Scalabilité.</li>
+      <li>Mise en contexte pédagogique.</li>
+    </ul>
   </aside>
 </section>
 
-<!-- === SECTION 3 : Résilience & Scalabilité === -->
+<!-- Section Résilience & Scalabilité -->
 <section>
   <h2>🛡️ Résilience et Scalabilité</h2>
   <aside class="notes">
-    Objectif : garantir une continuité de service face aux pics de trafic et aux pannes partielles, en minimisant l’impact sur l’utilisateur.  
-    Principes clés : « design for failure », isolation des composants, élasticité et observabilité.
-  </aside>
-</section>
-<section>
-  <h2>Scalabilité</h2>
-  <li><strong>Types de scalabilité</strong>
     <ul>
-      <li><em>Verticale</em> : augmentation des ressources (CPU, RAM) d’un seul nœud — simple mais limitée par le matériel.</li>
-      <li><em>Horizontale</em> : ajout de nouveaux nœuds identiques — limite théorique forte, nécessite répartition de charge et cohérence.</li>
-      <li><em>Élastique</em> : ajustement automatique en fonction de la charge (montée et descente) — optimise coût et performance.</li>
+      <li>Objectif : Continuité de service face aux pannes et aux pics de charge.</li>
+      <li>Principes clés : design for failure, isolation, élasticité, observabilité.</li>
     </ul>
-  </li>
-  <aside class="notes">
-    Historiquement, la scalabilité verticale était privilégiée pour sa simplicité.
-    Cependant, elle est limitée par la capacité physique des machines, et la fin de la loi de Moore.
-    La scalabilité horizontale est souvent privilégiée dans les architectures cloud-native, car elle permet de gérer des charges de travail variables.  
-    L'élasticité est essentielle pour optimiser les coûts dans le cloud, où vous ne payez que pour ce que vous utilisez.
-  </aside>
-</section>
-<section>
-  <h2>Scalabilité</h2>
-  <li><strong>Mécanismes cloud-native</strong>
-    <ul>
-      <li><em>Auto-scaling</em> : règles basées sur métriques (CPU, latence, file d’attente).</li>
-      <li><em>Load balancing</em> : DNS round-robin, appliances matérielles, équilibreurs logiciels (NGINX, ELB).</li>
-      <li><em>Sharding / Partitioning</em> : découpage des données selon clé, plage ou hash pour répartir la charge I/O.</li>
-      <li><em>Caching distribué</em> : CDN, Redis/Memcached en cluster pour soulager la base.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    L'auto-scaling est un mécanisme clé pour gérer les pics de charge sans intervention humaine.  
-    Le load balancing est essentiel pour répartir la charge entre plusieurs instances, garantissant ainsi une haute disponibilité.
-    Le sharding et le partitioning sont cruciaux pour les bases de données, permettant de répartir la charge et d'améliorer la performance.  
-    Le caching distribué réduit la latence et la charge sur les bases de données, en stockant les données fréquemment demandées.
-  </aside>
-</section>
-<section>
-  <h2>Scalabilité</h2>
-  <li><strong>Stratégies avancées</strong>
-    <ul>
-      <li><em>Pattern CQRS</em> : séparation des lectures et écritures pour optimiser chaque flux.</li>
-      <li><em>Event sourcing</em> : stockage des événements pour reconstruire l’état, faciliter la réplication.</li>
-      <li><em>Serverless / FaaS</em> : exécution à la demande, facturation à l’usage, montée en charge transparente.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    CQRS et event sourcing sont souvent utilisés ensemble pour optimiser la performance et la traçabilité des données.  
-    Le serverless est idéal pour des charges de travail imprévisibles, mais nécessite une bonne gestion des dépendances et des latences.
-    Il est important de bien comprendre les limites de chaque service serverless, notamment en termes de temps d'exécution et de ressources.
-  </aside>
-</section>
-<section>
-  <h2>Scalabilité</h2>
-  <li><strong>Aspects opérationnels</strong>
-    <ul>
-      <li>Coût vs performance : choisir le bon ratio instances réservées / à la demande.</li>
-      <li>Monitoring & alerting : CPU, latence, taux d’erreur, file d’attente.</li>
-      <li>Tests de charge réguliers pour valider la dimensionnement.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    La scalabilité implique non seulement la capacité à ajouter des ressources, mais aussi à les retirer efficacement pour maîtriser les coûts.  
-    Les patterns CQRS et event sourcing sont très appréciés dans les architectures microservices pour séparer les préoccupations.
-  </aside>
-</section>
-<section>
-  <h2>Résilience</h2>
-  <li><strong>Patterns de résilience</strong>
-    <ul>
-      <li><em>Circuit Breaker</em> : détecte les appels défaillants, coupe la connexion pour éviter l’engorgement.</li>
-      <li><em>Retry</em> : nouvelle tentative automatique, idéalement avec backoff exponentiel et jitter.</li>
-      <li><em>Timeout</em> : arrêt rapide des appels trop lents, évite de bloquer les ressources.</li>
-      <li><em>Bulkhead</em> : isolation de sous-systèmes pour empêcher la propagation des pannes.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    Ces patterns permettent de gérer les pannes de manière proactive, en évitant que des erreurs dans un service n'affectent l'ensemble du système.  
-    Le circuit breaker est particulièrement utile pour éviter les appels en cascade vers des services défaillants.
-    Le retry est utile pour les erreurs temporaires, mais doit être utilisé avec précaution pour éviter de surcharger le service.
-    Le timeout est essentiel pour éviter que des appels bloquants n'affectent la réactivité de l'application.
-    Le bulkhead pattern est inspiré des navires : compartimenter pour éviter la propagation d'une fuite.
-  </aside>
-</section>
-<section>
-  <h2>Résilience</h2>
-  <li><strong>Dégradation gracieuse & autoguérison</strong>
-    <ul>
-      <li><em>Graceful degradation</em> : désactivation de fonctionnalités non critiques (ex. retrait de certaines UI) sous forte charge.</li>
-      <li><em>Self-Healing</em> : redémarrage automatique de conteneurs défaillants, probes Kubernetes (liveness/readiness).</li>
-      <li><em>Failover</em> : configuration active-passive ou active-active pour basculer vers un site de secours.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    La dégradation gracieuse permet de maintenir une partie du service opérationnelle même en cas de surcharge.  
-    L'autoguérison est essentielle pour réduire le temps d'arrêt et garantir la disponibilité.
-    Le failover est crucial pour les applications critiques, garantissant une continuité de service même en cas de panne majeure.
-    La configuration active-active est plus complexe mais offre une meilleure tolérance aux pannes.
-    La configuration active-passive est plus simple mais peut entraîner des temps d'arrêt lors de la bascule.
-  </aside>
-</section>
-<section>
-  <h2>Résilience</h2>
-  <li><strong>Chaos Engineering & tests de résilience</strong>
-    <ul>
-      <li>Injection de pannes (latence, coupure réseau) avec outils comme Chaos Monkey.</li>
-      <li>Scénarios de basculement planifiés pour valider les procédures de récupération.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    Le chaos engineering est une pratique proactive qui permet de tester la résilience d'un système en simulant des pannes réelles.  
-    Cela aide à identifier les points faibles et à améliorer la robustesse de l'architecture.
-    Les tests de résilience doivent être intégrés dans le cycle de développement pour garantir une couverture continue.
-    Il est important de documenter les scénarios de basculement et de s'assurer que toutes les équipes sont formées aux procédures de récupération.
-    Le chaos engineering est inspiré des pratiques militaires de simulation de crise pour préparer les équipes à réagir rapidement.
-  </aside>
-</section>
-<section>
-  <h2>Résilience</h2>
-  <li><strong>Observabilité pour la résilience</strong>
-    <ul>
-      <li>Métriques (latence, taux d’erreur), logs structurés, traces distribuées (OpenTelemetry).</li>
-      <li>SLO / SLA / SLIs pour définir et surveiller les objectifs de fiabilité.</li>
-      <li>Alertes intelligentes (anomalies basées sur le machine learning).</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    L'observabilité est essentielle pour comprendre le comportement du système en temps réel et détecter les anomalies.  
-    Les SLO, SLA et SLIs aident à définir des attentes claires en matière de performance et de disponibilité.
-    Les alertes intelligentes permettent de réduire le bruit des faux positifs et d'alerter uniquement sur des anomalies significatives.
-    L'utilisation de traces distribuées permet de suivre le parcours d'une requête à travers plusieurs services, facilitant ainsi le diagnostic des problèmes.
-    L'OpenTelemetry est un standard ouvert pour la collecte de métriques, logs et traces, facilitant l'intégration avec divers outils d'observabilité.
-  </aside>
-</section>
-<section>
-  <h2>Résilience</h2>
-  <li><strong>Conception pour l’échec</strong>
-    <ul>
-      <li>Idempotence des opérations pour retrys sûrs.</li>
-      <li>Découplage via files d’attente (Kafka, RabbitMQ) pour absorber les pics.</li>
-      <li>Réplication multi-zones et multi-régions pour tolérance maximale.</li>
-    </ul>
-  </li>
-  <aside class="notes">
-    Une architecture résiliente ne se contente pas de réagir aux pannes mais les anticipe et les simule.  
-    L’observabilité est le socle pour détecter et diagnostiquer rapidement tout incident.
   </aside>
 </section>
 
+<!-- Scalabilité — Aperçu -->
 <section>
-  <h2>🔗 Sources</h2>
+  <h2>Scalabilité — Aperçu</h2>
+  <ul>
+    <li>Verticale</li>
+    <li>Horizontale</li>
+    <li>Élastique</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Introduction aux trois types fondamentaux de scalabilité.</li>
+      <li>Chaque type détaillé sur sa propre diapositive.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Scalabilité — Verticale -->
+<section>
+  <h2>Scalabilité — Verticale</h2>
+  <ul>
+    <li>Augmentation des ressources (CPU, RAM) d'un seul nœud</li>
+    <li>Facile à mettre en œuvre</li>
+    <li>Limitation matérielle et loi de Moore</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Simple et rapide pour des montées en charge modestes.</li>
+      <li>Devient coûteux et plafonné avec l’évolution des serveurs.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Scalabilité — Horizontale -->
+<section>
+  <h2>Scalabilité — Horizontale</h2>
+  <ul>
+    <li>Ajout de nœuds identiques</li>
+    <li>Répartition de charge requise</li>
+    <li>Gestion de la cohérence et du partitionnement</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Adaptée aux architectures cloud-native.</li>
+      <li>Quasi-infinie mais complexifie le design.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Scalabilité — Élastique -->
+<section>
+  <h2>Scalabilité — Élastique</h2>
+  <ul>
+    <li>Auto-ajustement dynamique selon la charge</li>
+    <li>Optimisation du coût en cloud</li>
+    <li>Montée et descente automatique</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Combine horizontal et vertical selon des règles définies.</li>
+      <li>Essentiel pour les charges de travail variables.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Scalabilité — Mécanismes Intro -->
+<section>
+  <h2>Scalabilité — Mécanismes</h2>
+  <ul>
+    <li>Auto-scaling</li>
+    <li>Load balancing</li>
+    <li>Sharding / Partitioning</li>
+    <li>Caching distribué</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Aperçu des principaux outils et techniques.</li>
+      <li>Chacun détaillé ensuite.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Auto-scaling -->
+<section>
+  <h2>Auto-scaling</h2>
+  <ul>
+    <li>Règles basées sur métriques (CPU, latence) — <a href="https://aws.amazon.com/autoscaling/" target="_blank">Site AWS</a>, <a href="https://github.com/aws/aws-auto-scaling" target="_blank">GitHub</a></li>
+    <li>Ajustement automatique du nombre d'instances</li>
+  </ul>
+  <img src="https://docs.aws.amazon.com/autoscaling/ec2/userguide/images/console_as_group.png" alt="Console Auto Scaling AWS" style="max-width:90%; margin-top:10px;">
+  <aside class="notes">
+    <ul>
+      <li>Configurer via AWS console ou IaC.</li>
+      <li>Assure une réponse rapide aux variations de charge.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Load balancing -->
+<section>
+  <h2>Load Balancing</h2>
+  <ul>
+    <li>DNS round-robin, appliances matérielles</li>
+    <li>Équilibreurs logiciels :
+      <ul>
+        <li><a href="https://nginx.org/" target="_blank">NGINX</a> — <a href="https://github.com/nginx/nginx" target="_blank">GitHub</a></li>
+        <li><a href="https://aws.amazon.com/elasticloadbalancing/" target="_blank">AWS ELB</a></li>
+      </ul>
+    </li>
+  </ul>
+  <img src="https://docs.nginx.com/assets/Uploads/ELB-three-tier.png" alt="NGINX Load Balancing" style="max-width:90%; margin-top:10px;">
+  <aside class="notes">
+    <ul>
+      <li>Répartit le trafic pour garantir la haute disponibilité.</li>
+      <li>Permet la montée en charge et tolérance aux pannes.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Sharding / Partitioning -->
+<section>
+  <h2>Sharding / Partitioning</h2>
+  <ul>
+    <li>Découpage des données par clé, plage ou hash</li>
+    <li>Réduction de la contention et amélioration de l'I/O</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Important pour les bases de données massives.</li>
+      <li>Chaque shard peut être répliqué pour la haute disponibilité.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Caching distribué -->
+<section>
+  <h2>Caching distribué</h2>
+  <ul>
+    <li>CDN pour contenu statique</li>
+    <li><a href="https://redis.io/" target="_blank">Redis</a> — <a href="https://github.com/redis/redis" target="_blank">GitHub</a>, <a href="https://memcached.org/" target="_blank">Memcached</a> — <a href="https://github.com/memcached/memcached" target="_blank">GitHub</a></li>
+  </ul>
+  <img src="https://redis.io/images/redis-white.png" alt="Logo Redis" style="height:40px; vertical-align:middle; margin-top:10px;">
+  <aside class="notes">
+    <ul>
+      <li>Réduit la latence et la charge sur la base de données.</li>
+      <li>Améliore l’expérience utilisateur pour accès fréquents.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Stratégies avancées -->
+<section>
+  <h2>Stratégies avancées</h2>
+  <ul>
+    <li><a href="https://cqrs.nu/" target="_blank">Pattern CQRS</a> — <a href="https://github.com/artefactual/ogone-cqrs" target="_blank">GitHub</a></li>
+    <li><a href="https://eventstore.org/" target="_blank">Event Sourcing</a> — <a href="https://github.com/EventStore/EventStore" target="_blank">GitHub</a></li>
+    <li><a href="https://aws.amazon.com/lambda/" target="_blank">AWS Lambda</a> — <a href="https://github.com/openfaas/faas" target="_blank">OpenFaaS</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Aperçu des patterns pour optimiser flux et coûts.</li>
+      <li>Chaque notion détaillée ensuite.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Aspects opérationnels -->
+<section>
+  <h2>Aspects opérationnels</h2>
+  <ul>
+    <li>Coût vs Performance</li>
+    <li>Monitoring & Alerting</li>
+    <li>Tests de charge</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Équilibrer investissement et ROI.</li>
+      <li>Surveiller pour prévenir plutôt que guérir.</li>
+      <li>Valider hypothèses de dimensionnement.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Coût vs Performance -->
+<section>
+  <h2>Coût vs Performance</h2>
+  <ul>
+    <li>Instances réservées vs à la demande</li>
+    <li>Optimisation budgétaire long terme</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Réserver pour charge prévisible, on‑demand pour pics.</li>
+      <li>Analyser coûts infrastructure régulièrement.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Monitoring & Alerting -->
+<section>
+  <h2>Monitoring & Alerting</h2>
+  <ul>
+    <li><a href="https://prometheus.io/" target="_blank">Prometheus</a> — <a href="https://github.com/prometheus/prometheus" target="_blank">GitHub</a></li>
+    <li><a href="https://grafana.com/" target="_blank">Grafana</a> — <a href="https://github.com/grafana/grafana" target="_blank">GitHub</a></li>
+    <li><a href="https://prometheus.io/docs/alerting/latest/alertmanager/" target="_blank">Alertmanager</a></li>
+    <li><a href="https://pagerduty.com/" target="_blank">PagerDuty</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Dashboards pour visualisation temps réel.</li>
+      <li>Alerte et escalade automatique pour incidents critiques.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Tests de charge -->
+<section>
+  <h2>Tests de charge</h2>
+  <ul>
+    <li><a href="https://locust.io/" target="_blank">Locust</a></li>
+    <li><a href="https://jmeter.apache.org/" target="_blank">Apache JMeter</a></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Identifier les goulets d’étranglement.</li>
+      <li>Intégrer aux pipelines CI/CD.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Résilience — Aperçu -->
+<section>
+  <h2>Résilience — Aperçu</h2>
+  <ul>
+    <li>Circuit Breaker</li>
+    <li>Retry</li>
+    <li>Timeout</li>
+    <li>Bulkhead</li>
+    <li>Graceful Degradation</li>
+    <li>Self-Healing</li>
+    <li>Failover</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Introduction aux principaux patterns.</li>
+      <li>Chacun détaillé individuellement.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Circuit Breaker -->
+<section>
+  <h2>Circuit Breaker</h2>
+  <ul>
+    <li>Interrompt appels défaillants</li>
+    <li>Evite effet cascade</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Protège contre la saturation du service en panne.</li>
+      <li>S’ouvre et se referme selon seuils de réussite.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Retry -->
+<section>
+  <h2>Retry</h2>
+  <ul>
+    <li>Tentatives automatiques</li>
+    <li>Backoff exponentiel et jitter</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Minimise les erreurs temporaires.</li>
+      <li>Configurable pour différents codes d’erreur.</li>
+      <li><b>Backoff :</b> délai croissant entre chaque tentative pour éviter la surcharge.</li>
+      <li><b>Jitter :</b> ajout d’une variation aléatoire au délai pour éviter les pics simultanés.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Timeout -->
+<section>
+  <h2>Timeout</h2>
+  <ul>
+    <li>Limite de durée pour appels</li>
+    <li>Libération des ressources bloquées</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Maintient réactivité du système.</li>
+      <li>Adapté aux scénarios critiques.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Bulkhead -->
+<section>
+  <h2>Bulkhead</h2>
+  <ul>
+    <li>Isolation des sous-systèmes</li>
+    <li>Limitation propagation des pannes</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>S’inspire des compartiments étanches d’un navire.</li>
+      <li>Chaque compartiment a ses ressources dédiées.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Graceful Degradation -->
+<section>
+  <h2>Graceful Degradation</h2>
+  <ul>
+    <li>Désactivation fonctions non critiques</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Maintien fonctionnalités essentielles.</li>
+      <li>Réduit impact surcharge.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Self-Healing -->
+<section>
+  <h2>Self-Healing</h2>
+  <ul>
+    <li>Probes Kubernetes (liveness/readiness) — <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/" target="_blank">Docs Kubernetes</a></li>
+    <li>Redémarrage automatique conteneurs</li>
+  </ul>
+  <img src="https://kubernetes.io/images/docs/tasks/configure-pod-container/configure-liveness-readiness-probes.png" alt="Kubernetes probes YAML" style="max-width:90%; margin-top:10px;">
+  <aside class="notes">
+    <ul>
+      <li>Assure santé continue des services.</li>
+      <li>Réduit l’intervention manuelle.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Failover -->
+<section>
+  <h2>Failover</h2>
+  <ul>
+    <li>Active-passive ou active-active</li>
+    <li>Bascule automatique site de secours</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Active-active offre tolérance maximale.</li>
+      <li>Active-passive plus simple mais downtime court.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Sources -->
+<section>
+  <h2>🔗 Sources & Bibliographie</h2>
   <ul>
     <li><a href="https://en.wikipedia.org/wiki/Scalability" target="_blank">Wikipedia – Scalability</a></li>
     <li><a href="https://martinfowler.com/articles/resilience.html" target="_blank">Martin Fowler – Patterns for Resilience</a></li>
     <li><a href="https://microservices.io/patterns/reliability/index.html" target="_blank">Microservices.io – Reliability Patterns</a></li>
     <li><a href="https://aws.amazon.com/autoscaling/" target="_blank">AWS – Auto Scaling</a></li>
+    <li><a href="https://sre.google/sre-book/table-of-contents/" target="_blank">Google SRE Book – Table des matières</a></li>
+    <li><a href="https://opentelemetry.io/docs/" target="_blank">OpenTelemetry – Documentation</a></li>
+    <li><a href="https://www.reactivemanifesto.org/" target="_blank">The Reactive Manifesto</a></li>
   </ul>
   <aside class="notes">
-    Ces références offrent un panorama complet des patterns et bonnes pratiques pour des architectures distribuées fiables et évolutives.  
-    AWS et Martin Fowler illustrent des cas concrets d’implémentation en production.
+    <ul>
+      <li>Références académiques et industrielles pour approfondir.</li>
+      <li>Livres blancs et RFC d’OpenTelemetry.</li>
+      <li>Ressources d’implémentations concrètes.</li>
+    </ul>
   </aside>
 </section>

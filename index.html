@@ -43,16 +43,16 @@
         <section data-load="slides/05_questions.html"
                   data-background-image="/public/backgrounds/questions.png"
                   data-background-size="cover"
-                  data-background-opacity="0.5"></section>
+                  data-background-opacity="0.3"></section>
         <section data-load="slides/06_concepts_A_Theoremes.html"
                   data-background-image="/public/backgrounds/connected-dots-2.png"
                   data-background-size="cover"
                   data-background-opacity="0.5"></section>
-        <section data-load="slides/06_concepts_B_Architecture.html"
+        <section data-load="slides/concepts_techinques_definitions.html"
                   data-background-image="/public/backgrounds/connected-dots-2.png"
                   data-background-size="cover"
                   data-background-opacity="0.5"></section>
-        <section data-load="slides/06_concepts_B_ddd.html"
+        <section data-load="slides/06_concepts_B_Architecture.html"
                   data-background-image="/public/backgrounds/connected-dots-2.png"
                   data-background-size="cover"
                   data-background-opacity="0.5"></section>
@@ -67,7 +67,23 @@
         <section data-load="slides/06_concepts_E_Gouvernance.html"
                   data-background-image="/public/backgrounds/connected-dots-2.png"
                   data-background-size="cover"
-                  data-background-opacity="0.5"></section>              
+                  data-background-opacity="0.5"></section>
+                  
+        <section data-load="slides/06_concepts_F_ddd.html"
+                  data-background-image="/public/backgrounds/connected-dots-2.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.5"></section>
+
+        <section data-load="slides/08_saga.html"
+                  data-background-image="/public/backgrounds/connected-dots-2.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.5"></section>
+        <section data-load="slides/09_hexagonalarchitectures.html"
+                  data-background-image="/public/backgrounds/connected-dots-2.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.5"></section>
+                  
+
          <section data-load="slides/07_communication_.html"
                   data-background-image="/public/backgrounds/connected-dots-2.png"
                   data-background-size="cover"
@@ -81,14 +97,6 @@
                   data-background-size="cover"
                   data-background-opacity="0.5"></section>
 
-        <section data-load="slides/08_miseenoeuvre.html"
-                  data-background-image="/public/backgrounds/connected-dots-2.png"
-                  data-background-size="cover"
-                  data-background-opacity="0.5"></section>
-        <section data-load="slides/09_advancedpatterns.html"
-                  data-background-image="/public/backgrounds/connected-dots-2.png"
-                  data-background-size="cover"
-                  data-background-opacity="0.5"></section>
         <section data-load="slides/10_TravauxPratiques.html"
                   data-background-image="/public/backgrounds/connected-dots-2.png"
                   data-background-size="cover"
@@ -102,6 +110,7 @@
     <script src="node_modules/reveal.js/plugin/notes/notes.js"></script>
     <script src="node_modules/reveal.js/plugin/markdown/markdown.js"></script>
     <script src="node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@11.4.1/plugin/mermaid/mermaid.js"></script>
     <script>
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
@@ -109,7 +118,13 @@
       Reveal.initialize({
         hash: true,
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [ RevealLoadContent, RevealMarkdown, RevealHighlight, RevealNotes ],
+        // mermaid initialize config
+        mermaid: {
+          // flowchart: {
+          //   curve: 'linear',
+          // },
+        },
+        plugins: [ RevealLoadContent, RevealMarkdown, RevealHighlight, RevealNotes, RevealMermaid ],
         backgroundTransition: 'fade',
         //showNotes: true,
         transition: 'slide',  // none/fade/slide/convex/concave/zoom
@@ -120,8 +135,10 @@
         center: true,
         slideNumber: true,
         loop: false,
-
-
+        pdfMaxPagesPerSlide: 1,
+        pdfSeparateFragments: false,
+        // pour afficher les notes dans l’overlay au bas de chaque slide :
+        showNotes: 'separate-page'
       });
     </script>
   </body>

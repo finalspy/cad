@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="public/css/yann.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css">
+  </head>
+  <body>
+    <div class="reveal">
+
+      <div class="slides">
+        <section data-background-image="/public/backgrounds/vagues.png"
+                  data-background-size="cover"
+                  data-background-opacity="1">
+          <h1>Etudes de cas</h1>
+        </section>
+        <section data-background-image="/public/backgrounds/vagues.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.2">
+          <h2>Cas d'école</h2>
+          <p>Quelques exemples de sites connus et de leur évolution</p>
+          <ul>
+            <li>🎥 <b>Netflix</b> - incident technique => chaos engineering</li>
+            <li>🌟 <b>BlaBlaCar</b> - internationalisation / divergence => DevOps</li>
+            <li>💼 <b>LinkedIn</b> - saturation Oracle => event-driven / Kafka...</li>
+            <li>🎵 <b>Spotify</b> - croissance / cohabitation => team topologies</li>
+            <li>🏨 <b>Airbnb</b> - couplage et lourdeur => migration partielle</li>
+            <li>🚖 <b>Uber</b> - problémes de charges - 2 refontes => contre exemple</li>
+            <li>🧰 <b>Doctolib</b> - pandémie => back ofr front / monolithe modulaire</li>
+          </ul>
+          <aside class="notes">
+            Voyons comment plusieurs entreprises ont abordé le passage vers les microservices.
+          </aside>
+        </section>
+        <section data-load="slides/exemples/netflix.html"
+                  data-background-image="/public/backgrounds/netflix.jpg"
+                  data-background-size="cover"
+                  data-background-opacity="0.4"></section>
+        <section data-load="slides/exemples/blablacar.html"
+                  data-background-image="/public/backgrounds/blablacar.jpg"
+                  data-background-size="cover"
+                  data-background-opacity="0.2"></section>
+        <section data-load="slides/exemples/linkedin.html"
+                  data-background-image="/public/backgrounds/linkedin.webp"
+                  data-background-size="cover"
+                  data-background-opacity="0.3"></section>
+        <section data-load="slides/exemples/spotify.html" 
+                  data-background-image="/public/backgrounds/spotify.jpg"
+                  data-background-size="cover"
+                  data-background-opacity="0.4"></section>
+        <section data-load="slides/exemples/airbnb.html"
+                  data-background-image="/public/backgrounds/airbnb.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.2"></section>
+        <section data-load="slides/exemples/uber.html"
+                  data-background-image="/public/backgrounds/uber.jpg"
+                  data-background-size="cover"
+                  data-background-opacity="0.2"></section>
+        <section data-load="slides/exemples/doctolib.html"
+                  data-background-image="/public/backgrounds/doctolib.png"
+                  data-background-size="cover"
+                  data-background-opacity="0.3"></section>
+      </div>
+    
+    </div>
+
+    <script src="node_modules/reveal.js/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/loadcontent/plugin.js"></script>
+    <script src="node_modules/reveal.js/plugin/notes/notes.js"></script>
+    <script src="node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealLoadContent, RevealMarkdown, RevealHighlight, RevealNotes ],
+        backgroundTransition: 'fade',
+        //showNotes: true,
+        transition: 'slide',  // none/fade/slide/convex/concave/zoom
+        transitionSpeed: 'slow', // default/fast/slow
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+        loop: false,
+        pdfMaxPagesPerSlide: 1,
+        pdfSeparateFragments: false,
+        // pour afficher les notes dans l’overlay au bas de chaque slide :
+        showNotes: true
+      });
+    </script>
+  </body>
+</html>

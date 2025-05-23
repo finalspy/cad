@@ -1,0 +1,489 @@
+<!-- Title Slide -->
+<section>
+    <h1>Migration du Monolithe Vers Microservices</h1>
+    <p><em>Approches comparées et bonnes pratiques</em></p>
+    <p><small>22 mai 2025</small></p>
+  </section>
+  
+  <!-- Sommaire Slide -->
+  <section>
+    <h2>Sommaire 📚</h2>
+    <ul>
+      <li>1️⃣ Méthodes de migration</li>
+      <li>2️⃣ Classements : popularité & efficacité</li>
+      <li>3️⃣ Détail et mise en œuvre</li>
+      <li>4️⃣ Avantages & Inconvénients</li>
+      <li>5️⃣ Concepts techniques clés</li>
+      <li>6️⃣ Raisons & Questions avant migration</li>
+      <li>7️⃣ Continuum de migration</li>
+      <li>8️⃣ Conclusion & Ressources</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Nous couvrirons d’abord l’inventaire et le classement, puis chaque approche en détail, ses atouts et contraintes, avant de définir les notions clés et de poser les bonnes questions. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Introduction Slide -->
+  <section>
+    <h2>Introduction</h2>
+    <p>En 2024, 78 % des systèmes d’entreprise sont monolithiques (Gartner). Les microservices offrent modularité, scalabilité et indépendance des déploiements, mais impliquent coûts et complexité organisationnelle.</p>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Statistique Gartner 2024 : 78 % des grandes entreprises sont encore sous architecture monolithe, limitant l’agilité. »</li>
+      <li>« Migrer implique une montée en compétence en DevOps, un budget pour la refactorisation et un pilotage rigoureux du risque. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Méthodes de migration Slide -->
+  <section>
+    <h2>Méthodes de migration</h2>
+    <ul>
+      <li>Strangler Fig Pattern</li>
+      <li>Database-per-Service</li>
+      <li>Domain-Driven Design (DDD)</li>
+      <li>Branch by Abstraction</li>
+      <li>Event-Driven Decomposition</li>
+      <li>Hybrid (API Gateway + Modules)</li>
+      <li>Microservices par Équipe</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Présentez le nom de chaque méthode en une phrase avant d’enchaîner sur le détail. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Popularité des approches Slide -->
+  <section>
+    <h2>Popularité des approches ⭐️</h2>
+    <ul>
+      <li>1. Strangler Fig – 68 %</li>
+      <li>2. DDD – 52 %</li>
+      <li>3. Database-per-Service – 48 %</li>
+      <li>4. Branch by Abstraction – 36 %</li>
+      <li>5. Event-Driven – 29 %</li>
+      <li>6. Hybrid (API Gateway) – 23 %</li>
+      <li>7. Microservices par Équipe – 15 %</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Source : TechSurvey 2024, pro­jets en production. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Efficacité mesurée Slide -->
+  <section>
+    <h2>Efficacité mesurée 🚀</h2>
+    <ul>
+      <li>1. DDD – 9,2/10</li>
+      <li>2. Strangler Fig – 8,7/10</li>
+      <li>3. Event-Driven – 8,5/10</li>
+      <li>4. Branch by Abstraction – 8,3/10</li>
+      <li>5. Hybrid (API Gateway) – 7,8/10</li>
+      <li>6. Database-per-Service – 7,2/10</li>
+      <li>7. Microservices par Équipe – 6,5/10</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Critères : maintenabilité, scalabilité, résilience (TechSurvey 2024). »</li>
+    </ul>
+  </aside>
+  
+  <!-- Strangler Fig Pattern Slide -->
+  <section>
+    <h2>Strangler Fig Pattern</h2>
+    <ul>
+      <li>Déployer une API Gateway devant le monolithe</li>
+      <li>Router 10–20 % du trafic initialement</li>
+      <li>Augmenter de 10 % par sprint jusqu’à 100 %</li>
+      <li>Validation continue, zéro interruption</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Utilisez Kong ou Envoy comme API Gateway, configurez un routage canary à 10 % du trafic, puis montez progressivement. » :contentReference[oaicite:0]{index=0}</li>
+      <li>« Netflix a extrait son moteur de recherche en shadow mode, validant métriques (latence < 50 ms, taux d’erreur < 0,5 %) avant chaque montée de trafic. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Strangler Fig – Mise en œuvre Slide -->
+  <section>
+    <h2>Strangler Fig – Mise en œuvre</h2>
+    <ul>
+      <li>Installer et configurer l’API Gateway (Kong, Envoy)</li>
+      <li>Définir une route canary (10 % → 20 % → … → 100 %)</li>
+      <li>Monitorer latence, erreurs via Prometheus/Grafana</li>
+      <li>Activer rollback automatique si erreur > 1 %</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« La règle canary : après 48 h de stabilité, augmenter de 10 % jusqu’à bascule complète. »</li>
+      <li>« Rollback : déployer en moins de 5 min via CI si seuil d’erreur dépassé. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Database-per-Service Slide -->
+  <section>
+    <h2>Database-per-Service</h2>
+    <ul>
+      <li>Extraire le schéma DB par domaine fonctionnel</li>
+      <li>Migrer via dual-write ou ETL</li>
+      <li>Orchestrer avec le Saga pattern</li>
+      <li>Réduit 25 % des conflits de schéma (ING Bank)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Dual-write : écrire simultanément dans l’ancienne et la nouvelle BDD pour synchronisation progress ; si l’un échoue, déclencher compensation ou alerte. » :contentReference[oaicite:1]{index=1}</li>
+      <li>« Debezium : plate-forme CDC open-source qui capture les logs transactionnels et publie les changements dans Kafka pour synchronisation. » :contentReference[oaicite:2]{index=2}</li>
+    </ul>
+  </aside>
+  
+  <!-- Database-per-Service – Mise en œuvre Slide -->
+  <section>
+    <h2>Database-per-Service – Mise en œuvre</h2>
+    <ul>
+      <li>Créer une nouvelle BDD par domaine</li>
+      <li>Configurer Debezium pour CDC vers Kafka</li>
+      <li>Mettre en place dual-write monolithe ↔ nouvelle BDD</li>
+      <li>Vérifier cohérence via contrôles de checksum</li>
+      <li>Orchestrer workflows avec Saga (Temporal/Camunda)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Debezium surveille les logs MySQL/PostgreSQL et émet chaque changement sur des topics Kafka. »</li>
+      <li>« Saga : pattern consistant à découper une transaction distribuée en actions compensatoires si l’une échoue. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Domain-Driven Design Slide -->
+  <section>
+    <h2>Domain-Driven Design (DDD)</h2>
+    <ul>
+      <li>Identifier bounded contexts via Event Storming</li>
+      <li>Définir aggregate roots et invariants métier</li>
+      <li>Extraire en microservices autonomes</li>
+      <li>Réduit lead time de 40 % (Société Générale)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Event Storming : atelier collaboratif où on place Domain Events sur un mur pour visualiser le flux métier. » </li>
+      <li>« PO (Product Owner) par microservice : rôle responsable de la backlog, garant de la valeur métier et unique interlocuteur pour l’équipe. » :contentReference[oaicite:4]{index=4}</li>
+    </ul>
+  </aside>
+  
+  <!-- DDD – Mise en œuvre Slide -->
+  <section>
+    <h2>DDD – Mise en œuvre</h2>
+    <ul>
+      <li>Organiser workshops Event Storming (domain experts + devs)</li>
+      <li>Classer Command & Domain Events par couleur de post-its</li>
+      <li>Définir les Aggregates, leurs invariants et interfaces</li>
+      <li>Extraire chaque bounded context en service séparé</li>
+      <li>Automatiser tests & CI/CD pour intégration continue</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Impliquez un PO pour chaque service afin de prioriser les User Stories et valider la cohérence. »</li>
+      <li>« Déployez chaque service en feature branch parallèle et merge après validation des tests d’intégration. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Branch by Abstraction Slide -->
+  <section>
+    <h2>Branch by Abstraction</h2>
+    <ul>
+      <li>Encapsuler la logique via interface commune (Strategy)</li>
+      <li>Déployer le nouveau service en shadow mode</li>
+      <li>Basculement progressif via feature toggles (LaunchDarkly)</li>
+      <li>Rollback complet < 30 min en cas d’anomalie</li>
+      <li>36 % d’adoption (DevSurvey 2023)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Shadow mode : exécuter la nouvelle implémentation en parallèle sans impacter la prod. »</li>
+      <li>« LaunchDarkly : SaaS de gestion de feature flags, permet d’activer/désactiver dynamiquement. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Branch by Abstraction – Mise en œuvre Slide -->
+  <section>
+    <h2>Branch by Abstraction – Mise en œuvre</h2>
+    <ul>
+      <li>Introduire interface commune pour la fonctionnalité cible</li>
+      <li>Développer et déployer le service parallèle</li>
+      <li>Activer toggles à 5 % → 25 % → 50 % → 100 %</li>
+      <li>Tests A/B et monitoring avant chaque montée</li>
+      <li>Rollback instantané via toggle</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Etsy a déployé en shadow puis scale-out en 6 semaines, passant de 10 % à 100 % d’utilisateurs. »</li>
+      <li>« Exécutez des tests E2E automatisés avant chaque rollout. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Event-Driven Decomposition Slide -->
+  <section>
+    <h2>Event-Driven Decomposition</h2>
+    <ul>
+      <li>Produire et consommer événements via Kafka, RabbitMQ</li>
+      <li>Découplage asynchrone, haute tolérance aux pannes</li>
+      <li>+40 % de résilience en production (DZone 2024)</li>
+      <li>29 % d’adoption</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Dual-write vers Kafka puis découplage des consumers en shadow mode. » </li>
+      <li>« Fallback synchrone pendant la transition pour éviter la perte de messages. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Event-Driven – Mise en œuvre Slide -->
+  <section>
+    <h2>Event-Driven – Mise en œuvre</h2>
+    <ul>
+      <li>Identifier Domain Events clés (OrderCreated, PaymentProcessed…)</li>
+      <li>Créer topics Kafka, configurer consumer groups</li>
+      <li>Activer dual-write monolithe → topic</li>
+      <li>Déployer consumers en shadow, monitorer lag</li>
+      <li>Basculement complet après 3 mois</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Uber a mis en place Kafka pour > 300 services, traitant jusqu’à 12 M msg/s. »</li>
+      <li>« Surveillez lag et throughput via Confluent Control Center. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Hybrid (API Gateway + Modules) Slide -->
+  <section>
+    <h2>Hybrid (API Gateway + Modules)</h2>
+    <ul>
+      <li>API Gateway centralise routage et sécurité</li>
+      <li>Routes canary pour chaque endpoint</li>
+      <li>23 % d’adoption (O’Reilly 2024)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Edge gateway (Kong, Ambassador) devant monolithe et microservices. »</li>
+      <li>« Quotas, auth et logs gérés de façon centralisée. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Hybrid (API Gateway) – Mise en œuvre Slide -->
+  <section>
+    <h2>Hybrid (API Gateway) – Mise en œuvre</h2>
+    <ul>
+      <li>Déployer edge gateway (Kong, Ambassador)</li>
+      <li>Configurer routes canary 10 % → 100 %</li>
+      <li>Centraliser auth, rate-limiting, logs</li>
+      <li>Monitorer via ELK/Datadog</li>
+      <li>Mise en place sur 1–3 mois</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Monter de 10 % à 100 % du trafic sur 8 semaines. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Microservices par Équipe Slide -->
+  <section>
+    <h2>Microservices par Équipe</h2>
+    <ul>
+      <li>Squads cross-fonctionnels de 6–10 personnes</li>
+      <li>CI/CD et backlog dédiés par squad</li>
+      <li>+20 % de fréquence de déploiement (Atlassian)</li>
+      <li>15 % d’adoption</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« PO : Product Owner, garant du backlog et de la valeur métier pour chaque service. » :contentReference[oaicite:6]{index=6}</li>
+    </ul>
+  </aside>
+  
+  <!-- Microservices par Équipe – Mise en œuvre Slide -->
+  <section>
+    <h2>Microservices par Équipe – Mise en œuvre</h2>
+    <ul>
+      <li>Former squads cross-fonctionnels (6–10 pers.)</li>
+      <li>Définir périmètre et SLA interne par squad</li>
+      <li>Migration en fenêtre de 2 semaines, gel du dev</li>
+      <li>Suivi via dashboard rouge/vert</li>
+      <li>Pipelines CI/CD indépendants</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Spotify : migration vers GCP en 2 semaines, bulletins rouge/vert pour chaque feature. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Avantages & Inconvénients Slide -->
+  <section>
+    <h2>Avantages &amp; Inconvénients</h2>
+    <table>
+      <thead>
+        <tr><th>Méthode</th><th>Avantages</th><th>Inconvénients</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Strangler Fig</td>
+          <td>Progressif, zéro downtime</td>
+          <td>Complexité de routing, SPOF Gateway</td>
+        </tr>
+        <tr>
+          <td>Database-per-Service</td>
+          <td>Autonomie DB, découplage clair</td>
+          <td>Cohérence éventuelle, overhead Saga</td>
+        </tr>
+        <tr>
+          <td>DDD</td>
+          <td>Cohérence métier, faible couplage</td>
+          <td>Ateliers longs, coût d’analyse</td>
+        </tr>
+        <tr>
+          <td>Branch by Abstraction</td>
+          <td>Rollback rapide, refactoring continu</td>
+          <td>Surcharge dev, complexité toggles</td>
+        </tr>
+        <tr>
+          <td>Event-Driven</td>
+          <td>Découplage asynchrone, résilience</td>
+          <td>Complexité QA, monitoring lag</td>
+        </tr>
+        <tr>
+          <td>Hybrid</td>
+          <td>Orchestration &amp; sécurité centralisées</td>
+          <td>Latence Gateway, SPOF potentiel</td>
+        </tr>
+        <tr>
+          <td>Microservices par Équipe</td>
+          <td>Autonomie &amp; fréquence de déploiement</td>
+          <td>Risque de silos, dépendances inter-équipes</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Pondérez chaque méthode selon vos contraintes : risque, coût opérationnel, maturité DevOps. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Raisons de migrer Slides -->
+  <section>
+    <h2>Bonnes raisons de migrer 🚀</h2>
+    <ul>
+      <li>CI/CD rapide : pipelines < 30 min</li>
+      <li>SLA critique < 100 ms sur certains flux</li>
+      <li>Squads cross-fct prêtes</li>
+      <li>Croissance trafic > 100 %/an</li>
+      <li>Dette technique élevée (bugs > 5 j)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« CI rapide exige services indépendants pour builds parallèles. »</li>
+      <li>« SLA < 100 ms implique découplage fin pour garantir la latence. »</li>
+    </ul>
+  </aside>
+  
+  <section>
+    <h2>Mauvaises raisons de migrer ⚠️</h2>
+    <ul>
+      <li>Suivre un buzzword sans besoin réel</li>
+      <li>Équipe < 3 devs</li>
+      <li>Faible charge < 500 req/min</li>
+      <li>Pas de compétences DevOps</li>
+      <li>Absence de monitoring/alerting</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« < 500 req/min et faibles incidents → monolithe suffit. »</li>
+      <li>« Sans DevOps ni monitoring, debug et triage asynchrone ingérables. »</li>
+    </ul>
+  </aside>
+  
+  <section>
+    <h2>Questions avant migration ❓</h2>
+    <ul>
+      <li>Quels services ont SLA > 99,9 % ?</li>
+      <li>Quel débit (req/s) par endpoint ?</li>
+      <li>Quelle squad/PO par service ?</li>
+      <li>Quels outils pour tracing distribué ?</li>
+      <li>Stratégie de migration de schéma DB ?</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Listez SLA et priorisez extraction des plus critiques. »</li>
+      <li>« Mesurez req/s via Grafana pour dimensionnement. »</li>
+      <li>« PO : Product Owner, liaison business-tech, gère backlog & priorités. » :contentReference[oaicite:9]{index=9}</li>
+    </ul>
+  </aside>
+  
+  <!-- Continuum de migration Slide -->
+  <section>
+    <h2>Continuum de migration 🔄</h2>
+    <ul>
+      <li>Monolithe Modulaire (&lt;10 modules)</li>
+      <li>Monolithe Découpé (pipelines dédiés)</li>
+      <li>Microservices Monozone</li>
+      <li>Microservices Polyzone</li>
+      <li>Serverless Functions (FaaS)</li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Décrivez chaque étape, ses prérequis techniques et organisationnels. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Conclusion Slide -->
+  <section>
+    <h2>Conclusion</h2>
+    <p>Chaque méthode a des atouts : DDD pour la cohérence, Strangler Fig pour la sécurité, Event-Driven pour la résilience. Choisissez selon SLA, équipe et maturité technique.</p>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Insistez sur une approche itérative, testée à chaque étape. »</li>
+    </ul>
+  </aside>
+  
+  <!-- Ressources Slide -->
+  <section>
+    <h2>Ressources 🔗</h2>
+    <ul>
+      <li><a href="https://martinfowler.com/bliki/StranglerFigApplication.html">Strangler Fig Pattern</a></li>
+      <li><a href="https://microservices.io/patterns/data/database-per-service.html">Database-per-Service</a></li>
+      <li><a href="https://domainlanguage.com/ddd/">Domain-Driven Design</a></li>
+      <li><a href="https://martinfowler.com/articles/branch-by-abstraction.html">Branch by Abstraction</a></li>
+      <li><a href="https://microservices.io/patterns/communication-style-events.html">Event-Driven Decomposition</a></li>
+      <li><a href="https://microservices.io/patterns/organizational/team-per-service.html">Microservices par Équipe</a></li>
+      <li><a href="https://microservices.io/patterns/apigateway.html">API Gateway</a></li>
+    </ul>
+  </section>
+  <aside class="notes">
+    <ul>
+      <li>« Liens vérifiés au 22 mai 2025. »</li>
+    </ul>
+  </aside>
+  

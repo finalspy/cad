@@ -1,5 +1,7 @@
-<section>
-  <!-- TODO ajout illustration background Questions -->
+<section
+    data-background-image="/public/backgrounds/questions.png"
+    data-background-opacity="0.9" 
+    data-background-size="cover">
   <h1>Questions ?</h1>
   <p>Quelles sont vos questions sur les architectures logicielles ?</p> 
   <p>Quelles sont vos réflexions sur les architectures monolithiques et distribuées ?</p>
@@ -158,9 +160,323 @@
 <section
          data-background-image="/public/backgrounds/postits.jpg"
          data-background-size="cover"
-         data-background-opacity="0.9">
-  <h1>A vous de vous exprimer :</h1>
+         data-background-opacity="0.9"
+         style="color: navy;">
+  <h2 style="color: navy;">A vous de vous exprimer :</h2>
   <p>Quelles notions ou mots-clefs vous viennent quand on évoque les applications distribuées?</p> 
   <p>Vous pouvez vous répartir en 4 groupes et vous avez 5 minutes</p>
   <p>Le but est d'écrire vos idées sur des post-its puis nous les trierons, regrouperons et échangerons sur celles-ci.</p>
 </section>
+
+<!-- Slide 1: Titre -->
+<section>
+  <h2>Applications Distribuées vs Microservices</h2>
+  <p>Comparaison des deux approches architecturales</p>
+  <aside class="notes">
+    Cette présentation détaille les différences fondamentales entre applications distribuées et microservices, deux approches visant toutes deux à gérer la répartition des composants sur un réseau, mais avec des objectifs et des contraintes distincts en termes de découplage, d'autonomie et de gouvernance technique.
+  </aside>
+</section>
+
+<!-- Slide 2: Similitudes -->
+<section>
+  <h2>Similitudes</h2>
+  <ul>
+    <li>Distribution : répartition de composants sur différentes machines ou environnements.</li>
+    <li>Communication réseau : API REST, messagerie, RPC, etc.</li>
+    <li>Objectifs : scalabilité, disponibilité et résilience.</li>
+    <li>Découplage : composants faiblement couplés.</li>
+  </ul>
+  <aside class="notes">
+    Les deux modèles ont en commun l’usage d’un réseau pour faire communiquer des modules : par exemple, une application de e‑commerce peut répartir le front-end sur un CDN et les services de paiement sur des VM dédiées. Que ce soit via REST ou via un bus de messages Kafka, l’enjeu est de pouvoir faire évoluer indépendamment chaque composant afin de gérer la montée en charge et d’assurer une tolérance aux pannes.
+  </aside>
+</section>
+
+<!-- Slide 3: Portée et définition -->
+<section>
+  <h2>Portée et définition</h2>
+  <p>
+    <strong>Applications distribuées</strong> : concept général où les composants s’exécutent sur plusieurs machines.
+  </p>
+  <p>
+    <strong>Microservices</strong> : sous-ensemble avec principes de conception précis.
+  </p>
+  <aside class="notes">
+    Les applications distribuées existent depuis les années 80, couvrant des architectures client-serveur classiques ou des grilles de calcul Scyld Beowulf. Les microservices ont émergé vers 2012 chez Amazon et Netflix, avec l’objectif de découper les fonctions métiers en petits services déployables et testables indépendamment.
+  </aside>
+</section>
+
+<!-- Slide 4: Granularité et autonomie -->
+<section>
+  <h2>Granularité et autonomie</h2>
+  <ul>
+    <li>Applications distribuées : composants de taille variable, parfois monolithiques.</li>
+    <li>Microservices : services petits, centrés sur une fonctionnalité unique, forte cohésion.</li>
+  </ul>
+  <aside class="notes">
+    Dans une application distribuée traditionnelle, un service peut gérer plusieurs domaines (par exemple facturation et gestion des utilisateurs). En microservices, chaque service ne fait qu’une seule tâche : un service « facturation » gère uniquement les transactions, tandis qu’un autre service « authentification » s’occupe de la sécurité et des sessions, ce qui permet des évolutions et des tests ciblés.
+  </aside>
+</section>
+
+<!-- Slide 5: Indépendance technologique -->
+<section>
+  <h2>Indépendance technologique</h2>
+  <ul>
+    <li>Applications distribuées : technologie homogène possible.</li>
+    <li>Microservices : polyglot programming, chaque service choisit la meilleure technologie.</li>
+  </ul>
+  <aside class="notes">
+    Un cluster d’application Java EE déployé sur plusieurs serveurs est un exemple d’architecture distribuée homogène. À l’inverse, un système reposant sur microservices peut combiner des APIs en Go pour la performance réseau, des services en Python pour l’analyse de données et un service Node.js pour le front, optimisant ainsi chaque composant pour son cas d’usage.
+  </aside>
+</section>
+
+<!-- Slide 6: Déploiement -->
+<section>
+  <h2>Déploiement</h2>
+  <ul>
+    <li>Applications distribuées : déploiement souvent coordonné.</li>
+    <li>Microservices : déploiement indépendant par service.</li>
+  </ul>
+  <aside class="notes">
+    Dans un déploiement coordonné, l’ensemble des serveurs doit être mis à jour simultanément, provoquant parfois des coupures de service. Les microservices utilisent des pipelines CI/CD distincts, par exemple un service de notification peut être mis à jour sans impacter le service de catalogue, garantissant un déploiement continu et sans interruption globale.
+  </aside>
+</section>
+
+<!-- Slide 7: Gouvernance des données -->
+<section>
+  <h2>Gouvernance des données</h2>
+  <ul>
+    <li>Applications distribuées : base de données centrale partagée.</li>
+    <li>Microservices : base de données par service, décentralisation des données.</li>
+  </ul>
+  <aside class="notes">
+    Un ERP SAP classique utilise une base de données unique pour l’ensemble des modules, ce qui crée un point de passage obligé pour toutes les transactions. En microservices, chaque service a sa propre BDD (par exemple un service d’inventaire sur PostgreSQL et un service de statistiques sur MongoDB), améliorant l’isolation mais nécessitant la gestion de transactions distribuées lors d’opérations complexes.
+  </aside>
+</section>
+
+<!-- Slide 8: Relation entre les deux concepts -->
+<section>
+  <h2>Relation entre les deux concepts</h2>
+  <p>
+    Les microservices sont une forme spécifique d’applications distribuées : le "quoi" vs le "comment".
+  </p>
+  <ul>
+    <li>Applications distribuées : système réparti sur un réseau.</li>
+    <li>Microservices : méthode précise pour concevoir un système distribué.</li>
+  </ul>
+  <aside class="notes">
+    Les microservices appliquent des règles strictes : déploiement indépendant, base de données par service, versioning asynchrone et communication légère. Prenons l’exemple d’un CMS WordPress multisite : il peut être réparti sur plusieurs serveurs web pour gérer la charge (applications distribuées), mais il partage une seule base MySQL et ne propose pas de déploiement indépendant de chaque module : c’est un anti-pattern vis-à-vis des microservices.
+  </aside>
+</section>
+
+<!-- Slide 9: Résumé -->
+<section>
+  <h2>Résumé</h2>
+  <p>
+    Les microservices constituent une évolution spécialisée des applications distribuées,
+    avec des principes architecturaux stricts pour répondre aux défis modernes.
+  </p>
+  <aside class="notes">
+    En conclusion, adoptez les microservices pour des systèmes requérant une forte autonomie et une scalabilité granulaire. Pour des projets plus petits ou moins évolutifs, une application distribuée classique reste une solution robuste et plus simple à gérer.
+  </aside>
+</section>
+
+
+<!-- Slide 1: Titre -->
+<section>
+  <h2>Concepts connexes aux Applications Distribuées et Microservices</h2>
+  <p>Panorama des principaux paradigmes architecturaux associés</p>
+  <aside class="notes">
+    <ul>
+      <li>Ces paradigmes peuvent coexister dans un même système et requièrent une gouvernance adaptée pour répartir clairement les responsabilités entre équipes.</li>
+      <li>Chaque modèle présente des compromis en termes de performance : latence réseau, capacité de montée en charge et tolérance aux pannes doivent être évaluées précisément.</li>
+      <li>Le coût global dépend de la granularité de la facturation, de la gestion d’infrastructure et des licences logicielles associées.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 2: Architecture Orientée Services (SOA) -->
+<section>
+  <h2>Architecture Orientée Services (SOA)</h2>
+  <p>Similitudes avec les microservices :</p>
+  <ul>
+    <li>Services autonomes via interfaces standards (SOAP/WSDL)</li>
+    <li>Découplage fonctionnel des composants</li>
+  </ul>
+  <p>Différences :</p>
+  <ul>
+    <li>ESB central pour routage et transformation</li>
+    <li>Services volumineux (100-300 Mo) vs microservices (10-50 Mo)</li>
+    <li>Réutilisation à l’échelle entreprise vs indépendance d’équipe</li>
+    <li>Gouvernance centralisée des contrats et versions</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Un ESB comme MuleSoft centralise le routage et la transformation des messages SOAP et JSON, garantissant l’intégrité des échanges entre services.</li>
+      <li>Les services SOA peuvent dépasser 200 Mo car ils intègrent plusieurs fonctions métier, ce qui ralentit les déploiements et augmente la complexité des mises à jour.</li>
+      <li>La réutilisation d’artefacts à l’échelle entreprise facilite l’homogénéité, mais limite l’autonomie des équipes sur le cycle de vie des services.</li>
+      <li>Les contrats de service sont gérés dans un registre central, nécessitant une gouvernance stricte pour maintenir la compatibilité ascendante.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 3: Serverless / FaaS -->
+<section>
+  <h2>Serverless / FaaS</h2>
+  <p>Similitudes avec les microservices :</p>
+  <ul>
+    <li>Unités fonctionnelles indépendantes (fonctions)</li>
+    <li>Scalabilité automatique</li>
+  </ul>
+  <p>Différences :</p>
+  <ul>
+    <li>Granularité très fine : fonctions plutôt que services</li>
+    <li>Modèle événementiel (trigger par événements)</li>
+    <li>Infrastructure entièrement gérée par le fournisseur</li>
+    <li>Stateless obligatoire</li>
+    <li>Facturation à la milliseconde</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>AWS Lambda engage un <em>cold start</em> pouvant ajouter 200 à 500 ms de latence, puis bascule en warm start pour les requêtes suivantes.</li>
+      <li>La facturation à la milliseconde incite à optimiser le code pour minimiser la durée d’exécution et réduire les coûts.</li>
+      <li>L’absence d’état persistant dans la fonction nécessite d’externaliser les sessions et les données intermédiaires vers des services comme DynamoDB ou Redis.</li>
+      <li>Le modèle événementiel déclenche les fonctions sur des événements variés : requêtes HTTP, messages en file d’attente ou minuteries planifiées.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 4: Systèmes distribués / Calcul distribué -->
+<section>
+  <h2>Systèmes distribués / Calcul distribué</h2>
+  <ul>
+    <li>Algorithmes de consensus : Paxos, Raft</li>
+    <li>Théorème CAP : Consistency, Availability, Partition tolerance</li>
+    <li>Exemples : clusters Hadoop, simulations HPC avec MPI</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Paxos et Raft sont des protocoles de consensus qui synchronisent un journal de transactions entre plusieurs nœuds en garantissant l’accord même en cas de panne.</li>
+      <li>Le théorème CAP stipule qu’un système distribué ne peut garantir simultanément cohérence forte, disponibilité et tolérance aux partitions réseau.</li>
+      <li>Hadoop MapReduce distribue les tâches de traitement de données massives sur des clusters de serveurs, appliquant les principes CAP et consensus pour coordonner les nœuds.</li>
+      <li>MPI (Message Passing Interface) est utilisé dans les supercalculateurs pour exécuter des simulations parallèles nécessitant une communication fine entre processus.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 5: Conteneurisation et Orchestration -->
+<section>
+  <h2>Conteneurisation & Orchestration</h2>
+  <p>Relation avec les microservices :</p>
+  <ul>
+    <li>Docker : conteneurs légers pour isolation</li>
+    <li>Kubernetes : pods, services, déploiements et scaling</li>
+    <li>Helm : gestion des charts pour versioning</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Docker crée des images en couches, assurant que chaque modification du code ou de la configuration génère un nouvel identifiant d’image.</li>
+      <li>Kubernetes organise les conteneurs en pods et gère automatiquement leur disponibilité avec des ReplicaSets et des probes de santé.</li>
+      <li>Les déploiements Kubernetes permettent des mises à jour progressives (<em>rolling updates</em>) sans interruption de service.</li>
+      <li>Helm charts encapsulent les manifestes YAML et simplifient le déploiement et la gestion des versions de l’application.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 6: Architecture Event-Driven -->
+<section>
+  <h2>Architecture Event-Driven</h2>
+  <p>Similitudes avec les applications distribuées :</p>
+  <ul>
+    <li>Asynchrone via file d’événements</li>
+    <li>Découplage temporel des producteurs et consommateurs</li>
+  </ul>
+  <p>Différences :</p>
+  <ul>
+    <li>Focus sur streams d’événements plutôt que requêtes/réponses</li>
+    <li>Peut être déployée en monolithe ou microservices</li>
+    <li>Pattern CQRS pour séparer lecture et écriture</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Kafka stocke les événements dans des topics partitionnés, où chaque message conserve son offset pour permettre la relecture.</li>
+      <li>RabbitMQ utilise des exchanges et des queues pour router les messages selon des règles de binding flexibles.</li>
+      <li>Le pattern CQRS sépare les commandes (écriture) des requêtes (lecture), entraînant souvent une cohérence éventuelle lorsque les mises à jour se propagent entre modèles.</li>
+      <li>Ce modèle convient aux flux de données en temps réel, comme les tableaux de bord financiers ou les systèmes de notifications.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 7: Mesh App and Service Architecture (MASA) -->
+<section>
+  <h2>Mesh App & Service Architecture (MASA)</h2>
+  <p>Similitudes :</p>
+  <ul>
+    <li>Services indépendants interconnectés dans un maillage</li>
+    <li>Découplage fonctionnel</li>
+  </ul>
+  <p>Différences :</p>
+  <ul>
+    <li>Inclut monolithes et interfaces utilisateurs</li>
+    <li>Prend en compte edge computing et expérience UX</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Gartner définit MASA comme une extension du service mesh, intégrant également les frontaux web et les fonctions edge pour une expérience unifiée.</li>
+      <li>Ce modèle permet d’orchestrer à la fois des microservices backend et des applications monolithiques héritées sans refonte complète.</li>
+      <li>Il facilite la personnalisation en temps réel, par exemple via un CDN edge qui adapte le contenu selon le profil utilisateur.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 8: API Gateway / Backend for Frontend (BFF) -->
+<section>
+  <h2>API Gateway / Backend for Frontend (BFF)</h2>
+  <p>Relation :</p>
+  <ul>
+    <li>AWS API Gateway, Kong : gestion des points d’entrée API</li>
+    <li>BFF : backend spécifique à chaque type de client</li>
+    <li>Réduction des allers-retours et adaptation du payload</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Une API Gateway centralise l’authentification, le routage et la limitation de débit avant d’envoyer les requêtes aux microservices.</li>
+      <li>Kong et Apigee proposent des plugins pour ajouter du logging, du monitoring et des contrôles de sécurité sans modifier le code applicatif.</li>
+      <li>Le BFF consiste à créer un microservice par interface client (mobile, web, IoT) pour pré-aggréger les données et optimiser la bande passante.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 9: Monolithes modulaires -->
+<section>
+  <h2>Monolithes modulaires</h2>
+  <p>Différences :</p>
+  <ul>
+    <li>Pas de communication réseau interne</li>
+    <li>Déploiement unique et base de données partagée</li>
+    <li>Modules découplés mais empaquetés ensemble</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Les monolithes modulaires utilisent des <em>bounded contexts</em> pour séparer le code tout en restant dans un seul exécutable.</li>
+      <li>Ils sont souvent packagés sous forme de WAR ou de JAR exécutable, ce qui simplifie la chaîne CI/CD.</li>
+      <li>Ce modèle peut devenir un goulot d’étranglement si la charge augmente ou si de nombreuses équipes travaillent simultanément sur le même artefact.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 10: Conclusion -->
+<section>
+  <h2>Conclusion</h2>
+  <p>Les architectures distribuées et microservices sont complémentaires, mais nécessitent une gouvernance adaptée.</p>
+  <p>Choisissez le modèle en fonction des besoins métiers, de la scalabilité et de la complexité.</p>
+  <aside class="notes">
+    <ul>
+      <li>Les applications distribuées offrent une base solide pour répartir la charge et garantir la tolérance aux pannes grâce à une architecture réseau.</li>
+      <li>Les microservices ajoutent une couche de granularité et permettent à chaque équipe de gérer son cycle de vie, ses technologies et sa base de données spécifique.</li>
+      <li>Pour un projet à grande échelle avec des équipes nombreuses et des besoins de scalabilité fine, privilégiez les microservices.</li>
+      <li>Pour des systèmes plus simples ou historiques, une architecture distribuée classique peut suffire, réduisant la complexité opérationnelle.</li>
+      <li>L’important est de définir des règles de gouvernance claires dès le départ pour éviter les dérives et assurer la cohérence globale du système.</li>
+    </ul>
+  </aside>
+</section>
+
