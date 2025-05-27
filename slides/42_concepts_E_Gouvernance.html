@@ -1,0 +1,401 @@
+<!-- Slide d'introduction générale -->
+<section data-background-image="/public/images/titre_concepts.jpg"
+         data-background-size="cover"
+         data-background-opacity="0.5">
+  <h2>Concepts clés</h2>
+  <ul>
+    <li>🔺 Théorèmes fondamentaux</li>
+    <li>🌐 Concepts et Techniques Clés</li>
+    <li>🧩 Architecture et Design</li>
+    <li>🛡️ Résilience et Scalabilité</li>
+    <li>🧪 Tests et Observabilité</li>
+    <li>🧠 <b>Gouvernance et Équipes</b></li>
+  </ul>
+  <aside class="notes">
+    Voici les cinq grands ensembles qui structurent ce module. Nous allons explorer chaque groupe de concepts à travers des exemples concrets.
+  </aside>
+</section>
+
+<!-- SECTION: Gouvernance & Équipes -->
+<section>
+  <h2>🧠 Gouvernance et Équipes</h2>
+  <aside class="notes">
+    Un bon système distribué dépend aussi de l'organisation des équipes et de leur capacité à livrer vite et bien.
+  </aside>
+</section>
+
+<!-- Slide: DORA Metrics - Vue d'ensemble -->
+<section>
+  <h2>Métriques DORA — Vue d'ensemble</h2>
+  <ul>
+    <li>Lead Time for Changes</li>
+    <li>Deployment Frequency</li>
+    <li>Time to Restore Service</li>
+    <li>Change Failure Rate</li>
+  </ul>
+  <aside class="notes">
+    Les métriques DORA (DevOps Research & Assessment) sont utilisées pour mesurer la performance des équipes de développement et d’exploitation. Elles servent de repère pour l'amélioration continue.
+  </aside>
+</section>
+
+<section>
+  <h2>Lead Time for Changes</h2>
+  <ul>
+    <li>Temps entre le commit et la mise en production</li>
+    <li>Indicateur de vélocité & de fluidité de la chaîne DevOps</li>
+  </ul>
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*Q8AjOYqOtSJV8xEadT4w8w.png" alt="Lead Time DORA" style="max-width:70%; margin-top:10px;">
+  <aside class="notes">
+    Un lead time court permet de livrer de la valeur rapidement. Objectif : quelques heures à un jour dans les équipes performantes.
+  </aside>
+</section>
+
+<section>
+  <h2>Deployment Frequency</h2>
+  <ul>
+    <li>Nombre de déploiements par jour/semaine/mois</li>
+    <li>Reflète l’agilité de l’équipe à pousser des changements en production</li>
+  </ul>
+  <aside class="notes">
+    Les “high performers” déploient plusieurs fois par jour, ce qui réduit le risque de gros changements et facilite le rollback.
+  </aside>
+</section>
+
+<section>
+  <h2>Time to Restore Service (TTRS)</h2>
+  <ul>
+    <li>Temps moyen pour restaurer le service après incident</li>
+    <li>Mesure la robustesse et la réactivité de l’équipe</li>
+  </ul>
+  <aside class="notes">
+    Un TTRS faible (< 1h) est caractéristique d’une équipe mature : monitoring, runbooks, automatisation des restaurations.
+  </aside>
+</section>
+
+<section>
+  <h2>Change Failure Rate (CFR)</h2>
+  <ul>
+    <li>Pourcentage de changements en prod qui causent une panne ou rollback</li>
+    <li>Indicateur clé de la qualité des process et des tests</li>
+  </ul>
+  <aside class="notes">
+    Les équipes d’élite ont un CFR inférieur à 15 %. Un CFR élevé pointe des problèmes de testabilité, d’automatisation ou de communication.
+  </aside>
+</section>
+
+<!-- Team Topologies: Intro -->
+<section>
+  <h2>Team Topologies — Vue d’ensemble</h2>
+  <ul>
+    <li>Modèle d’organisation des équipes aligné sur l’architecture</li>
+    <li>4 types : Stream-aligned, Enabling, Platform, Complicated Subsystem</li>
+    <li>3 modes d’interaction : X-as-a-Service, Collaboration, Facilitation</li>
+  </ul>
+  <aside class="notes">
+    Le livre “Team Topologies” propose un langage commun pour décrire les structures d’équipes efficaces en environnement distribué.
+  </aside>
+</section>
+
+<section>
+  <h2>Schéma Team Topologies</h2>
+  <div class="mermaid">
+    graph TB
+      A[Stream-aligned Team] -->|Consomme| P[Platform Team]
+      A -->|Reçoit aide| E[Enabling Team]
+      A -->|Sous-système| C[Complicated Subsystem Team]
+  </div>
+  <aside class="notes">
+    Ce schéma montre la structure cible des équipes et leurs interactions principales selon le modèle Team Topologies.
+  </aside>
+</section>
+
+<section>
+  <h2>Stream-aligned Team</h2>
+  <ul>
+    <li>Équipe autonome responsable d’un flux de valeur continu</li>
+    <li>Alignement avec une “feature”, un produit ou un segment utilisateur</li>
+  </ul>
+  <img src="https://images.ctfassets.net/cnu0m8re1exe/3w9vXoa5zkJysdC3S4XoaX/d1f0033b7f6e93099b03f5755f9adab4/stream-team.jpg" alt="Stream-aligned Team" style="max-width:65%; margin-top:10px;">
+  <aside class="notes">
+    Ce type d’équipe a la responsabilité de bout-en-bout, ce qui évite la dilution des responsabilités et accélère la prise de décision.
+  </aside>
+</section>
+
+<section>
+  <h2>Enabling Team</h2>
+  <ul>
+    <li>Équipe d’experts qui accompagne, forme et outille les autres équipes</li>
+    <li>Transfert de compétences sur DevOps, sécurité, qualité, etc.</li>
+  </ul>
+  <aside class="notes">
+    Ce modèle réduit la dépendance à des experts ponctuels et encourage le partage des bonnes pratiques à l’échelle de l’organisation.
+  </aside>
+</section>
+
+<section>
+  <h2>Platform Team</h2>
+  <ul>
+    <li>Équipe qui fournit des plateformes “self-service” : CI/CD, observabilité, cloud, etc.</li>
+    <li>Objectif : accélérer et fiabiliser la livraison pour les autres équipes</li>
+  </ul>
+  <img src="https://martinfowler.com/articles/team-topologies/images/platform_team.png" alt="Platform Team" style="max-width:60%; margin-top:10px;">
+  <aside class="notes">
+    La Platform Team ne développe pas de fonctionnalités produit : elle propose un socle robuste, automatisé et documenté.
+  </aside>
+</section>
+
+<section>
+  <h2>Complicated Subsystem Team</h2>
+  <ul>
+    <li>Responsable d’une technologie rare, complexe ou critique</li>
+    <li>Exemples : moteur de calcul, machine learning, sécurité forte</li>
+  </ul>
+  <aside class="notes">
+    Ces équipes sont limitées et interviennent en soutien ponctuel sur des “sous-systèmes” difficiles à maîtriser.
+  </aside>
+</section>
+
+<!-- Modes d'interaction -->
+<section>
+  <h2>Modes d’interaction entre équipes</h2>
+  <ul>
+    <li><b>X-as-a-Service</b> : la plateforme ou le composant est utilisé via API</li>
+    <li><b>Collaboration</b> : co-développement temporaire entre équipes</li>
+    <li><b>Facilitation</b> : aide active d’une équipe pour débloquer une autre</li>
+  </ul>
+  <aside class="notes">
+    On choisit le mode selon le contexte : service, projet commun, ou montée en compétence.
+  </aside>
+</section>
+
+<!-- Tableau récapitulatif DORA + Topologies -->
+<section>
+  <h2>Récapitulatif DORA & Topologies</h2>
+  <table>
+    <thead>
+      <tr><th>Métrique/Type</th><th>But</th><th>Avantage</th><th>Limite/Écueil</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Lead Time</td><td>Livrer vite</td><td>Feedback rapide</td><td>Raccourci au détriment des tests</td></tr>
+      <tr><td>Deployment Freq.</td><td>Itérer souvent</td><td>Moins de risques</td><td>Peut masquer des défauts si tests faibles</td></tr>
+      <tr><td>TTRS</td><td>Restaurer vite</td><td>Moins d’impact incident</td><td>Dépend du monitoring/process</td></tr>
+      <tr><td>CFR</td><td>Qualité livrable</td><td>Fiabilité accrue</td><td>Trop d’automatisation = faux positifs</td></tr>
+      <tr><td>Stream-aligned</td><td>Autonomie</td><td>Clarté des responsabilités</td><td>Risque de silos</td></tr>
+      <tr><td>Enabling</td><td>Accompagnement</td><td>Acculturation</td><td>Effet “goulot d’étranglement”</td></tr>
+      <tr><td>Platform</td><td>Standardisation</td><td>Vitesse, fiabilité</td><td>Peut devenir un “gouvernement”</td></tr>
+      <tr><td>Complicated Subsys.</td><td>Expertise</td><td>Qualité, robustesse</td><td>Rareté des profils</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    Ce tableau met en lumière l’intérêt mais aussi les pièges de chaque métrique ou structure d’équipe.
+  </aside>
+</section>
+
+<!-- Retour d'expérience concret : Google SRE/DORA -->
+<section>
+  <h2>Retour d’expérience réel : Google SRE & DORA</h2>
+  <ul>
+    <li>Adoption des métriques DORA par Google Cloud et SRE : augmentation du Deployment Frequency x6, TTRS divisé par 4 en 18 mois</li>
+    <li>Restructuration des équipes selon Team Topologies : moins d’incidents, meilleure autonomie</li>
+    <li>Résultats : <a href="https://cloud.google.com/blog/products/devops-sre/dora-2023-accelerate-state-of-devops-report" target="_blank">DORA 2023 DevOps Report</a> (<b>lien vérifié</b>)</li>
+  </ul>
+  <aside class="notes">
+    L’étude DORA, sur des milliers d’équipes, montre que l’application combinée des métriques DORA et Team Topologies fait baisser les échecs et augmente la vélocité de livraison.
+  </aside>
+</section>
+
+<!-- Quiz — Questions -->
+<section>
+  <h2>Quiz</h2>
+  <ol>
+    <li>Quelle est la définition du Lead Time for Changes ?</li>
+    <li>Quels sont les 4 types d’équipes selon Team Topologies ?</li>
+    <li>Citez 2 avantages du modèle Stream-aligned Team.</li>
+    <li>Quel est l’objectif du Change Failure Rate ?</li>
+    <li>Comment une Platform Team accélère-t-elle la livraison ?</li>
+  </ol>
+  <aside class="notes">
+    <ul>
+      <li>Interrogez l’audience avant de donner les réponses.</li>
+    </ul>
+  </aside>
+</section>
+<section>
+  <h2>Réponses au Quiz</h2>
+  <ol>
+    <li>Temps entre le commit et la mise en production.</li>
+    <li>Stream-aligned, Enabling, Platform, Complicated Subsystem.</li>
+    <li>Responsabilité bout-en-bout, réduction des frictions, autonomie.</li>
+    <li>Mesurer la qualité des livraisons et le taux de rollback/panne.</li>
+    <li>Elle fournit des outils et services self-service pour les autres équipes.</li>
+  </ol>
+  <aside class="notes">
+    Ces réponses sont attendues en formation pour valider la compréhension des concepts clés.
+  </aside>
+</section>
+
+<!-- QCM 1 -->
+<section>
+  <h2>QCM 1</h2>
+  <p>Laquelle N’EST PAS une métrique DORA ?</p>
+  <ul>
+    <li class="fragment highlight-green">a) Mean Time Between Failures</li>
+    <li>b) Change Failure Rate</li>
+    <li>c) Lead Time for Changes</li>
+    <li>d) Deployment Frequency</li>
+  </ul>
+  <aside class="notes">
+    Les DORA metrics sont : Lead Time for Changes, Deployment Frequency, Change Failure Rate, Time to Restore Service. MTBF (Mean Time Between Failures) est une métrique classique d’ops, mais n’appartient pas au référentiel DORA.
+  </aside>
+</section>
+
+<!-- QCM 2 -->
+<section>
+  <h2>QCM 2</h2>
+  <p>Le Time To Restore Service (TTRS) :</p>
+  <ul>
+    <li>a) Mesure la fréquence des déploiements</li>
+    <li class="fragment highlight-green">b) Est une DORA metric</li>
+    <li class="fragment highlight-green">c) Doit être aussi faible que possible</li>
+    <li>d) Mesure le temps moyen d’ajout d’une fonctionnalité</li>
+  </ul>
+  <aside class="notes">
+    TTRS (Time To Restore Service) est bien une DORA metric et doit être réduit au maximum pour limiter l’impact des incidents. Les autres réponses décrivent d’autres métriques ou concepts.
+  </aside>
+</section>
+
+<!-- QCM 3 -->
+<section>
+  <h2>QCM 3</h2>
+  <p>Les DORA metrics servent à :</p>
+  <ul>
+    <li>a) Remplacer le Product Owner</li>
+    <li class="fragment highlight-green">b) Évaluer la performance des équipes DevOps</li>
+    <li class="fragment highlight-green">c) Suivre l’impact des changements sur la stabilité</li>
+    <li class="fragment highlight-green">d) Identifier les goulets d’étranglement du delivery</li>
+  </ul>
+  <aside class="notes">
+    Les DORA metrics objectivent la performance, l’impact des changements et aident à cibler les axes d’amélioration. Elles ne sont pas là pour remplacer les rôles métiers.
+  </aside>
+</section>
+
+<!-- QCM 4 -->
+<section>
+  <h2>QCM 4</h2>
+  <p>Concernant Team Topologies, indiquez ce qui est VRAI :</p>
+  <ul>
+    <li>a) Toutes les équipes doivent collaborer en permanence</li>
+    <li class="fragment highlight-green">b) Il existe quatre types d’équipes principaux</li>
+    <li class="fragment highlight-green">c) Platform Team aide à l’outillage commun</li>
+    <li class="fragment highlight-green">d) Enabling Team facilite la montée en compétences</li>
+  </ul>
+  <aside class="notes">
+    Team Topologies décrit quatre types principaux d’équipes (Stream-aligned, Platform, Enabling, Complicated Subsystem). Les interactions permanentes ne sont pas souhaitables.
+  </aside>
+</section>
+
+<!-- QCM 5 -->
+<section>
+  <h2>QCM 5</h2>
+  <p>Une Stream-aligned Team correspond à :</p>
+  <ul>
+    <li class="fragment highlight-green">a) Équipe alignée sur un flux de valeur ou produit</li>
+    <li>b) Équipe dédiée à la sécurité</li>
+    <li>c) Équipe de support transverse</li>
+    <li>d) Équipe de développement hardware</li>
+  </ul>
+  <aside class="notes">
+    La Stream-aligned Team délivre de la valeur sur un flux produit. Les autres propositions ne correspondent pas à cette définition.
+  </aside>
+</section>
+
+<!-- QCM 6 -->
+<section>
+  <h2>QCM 6</h2>
+  <p>Quels sont les écueils des Platform Teams ?</p>
+  <ul>
+    <li class="fragment highlight-green">a) Perdre de vue les besoins des équipes utilisatrices</li>
+    <li class="fragment highlight-green">b) Négliger la documentation et le support</li>
+    <li class="fragment highlight-green">c) Devenir un goulot d’étranglement</li>
+    <li>d) Accélérer excessivement la delivery</li>
+  </ul>
+  <aside class="notes">
+    Les Platform Teams peuvent devenir un point de friction, manquer de documentation, ou s'éloigner des attentes réelles de leurs clients internes.
+  </aside>
+</section>
+
+<!-- QCM 7 -->
+<section>
+  <h2>QCM 7</h2>
+  <p>Quels modes d’interaction favorisent l’autonomie selon Team Topologies ?</p>
+  <ul>
+    <li>a) Multiplication des processus manuels</li>
+    <li class="fragment highlight-green">b) X-as-a-Service</li>
+    <li class="fragment highlight-green">c) Facilitation par des Enabling Teams</li>
+    <li>d) Contrôles centralisés systématiques</li>
+  </ul>
+  <aside class="notes">
+    L’autonomie repose sur l’outillage self-service (X-as-a-Service) et l’accompagnement ponctuel d’équipes facilitatrices.
+  </aside>
+</section>
+
+<!-- QCM 8 -->
+<section>
+  <h2>QCM 8</h2>
+  <p>Quel(s) mode(s) d’interaction sont préconisés dans Team Topologies ?</p>
+  <ul>
+    <li class="fragment highlight-green">a) Collaboration</li>
+    <li>b) Compétition</li>
+    <li class="fragment highlight-green">c) Facilitation</li>
+    <li class="fragment highlight-green">d) X-as-a-Service</li>
+  </ul>
+  <aside class="notes">
+    Collaboration, facilitation et X-as-a-Service : ce sont les trois modes préconisés. La compétition entre équipes est déconseillée.
+  </aside>
+</section>
+
+<!-- QCM 9 -->
+<section>
+  <h2>QCM 9</h2>
+  <p>Le Change Failure Rate permet de :</p>
+  <ul>
+    <li>a) Mesurer la rapidité de livraison</li>
+    <li class="fragment highlight-green">b) Évaluer le taux de changements entraînant des incidents</li>
+    <li>c) Quantifier les coûts de développement</li>
+    <li>d) Contrôler la qualité du code</li>
+  </ul>
+  <aside class="notes">
+    Change Failure Rate = % des changements qui introduisent des incidents. Il ne mesure ni la vélocité ni les coûts.
+  </aside>
+</section>
+
+<!-- QCM 10 -->
+<section>
+  <h2>QCM 10</h2>
+  <p>Les DORA metrics servent principalement à :</p>
+  <ul>
+    <li class="fragment highlight-green">a) Objectivation des performances DevOps</li>
+    <li>b) Justification des licenciements</li>
+    <li class="fragment highlight-green">c) Alignement sur l’amélioration continue</li>
+    <li>d) Augmentation du nombre de réunions</li>
+  </ul>
+  <aside class="notes">
+    DORA metrics : mesurer, piloter l’amélioration, jamais sanctionner ni alourdir la bureaucratie.
+  </aside>
+</section>
+
+
+<!-- Bibliographie & liens (vérifiés 27 mai 2025) -->
+<section>
+  <h2>Bibliographie & liens utiles</h2>
+  <ul>
+    <li><a href="https://cloud.google.com/blog/products/devops-sre/dora-2023-accelerate-state-of-devops-report" target="_blank">Google Cloud : DORA 2023 DevOps Report</a></li>
+    <li><a href="https://teamtopologies.com/book" target="_blank">Team Topologies — le livre</a></li>
+    <li><a href="https://martinfowler.com/articles/team-topologies.html" target="_blank">Martin Fowler — Team Topologies (article)</a></li>
+    <li><a href="https://itrevolution.com/products/accelerate" target="_blank">Accelerate (ouvrage fondateur DORA)</a></li>
+    <li><a href="https://sre.google/" target="_blank">Google SRE Book</a></li>
+  </ul>
+  <aside class="notes">
+    Toutes ces ressources sont valides et offrent des approfondissements ou cas d’usage terrain sur les thèmes abordés.
+  </aside>
+</section>

@@ -1,11 +1,4 @@
 
-CAP Theorem https://code-garage.com/blog/comprendre-le-theoreme-cap
-SAGA Pattern
-DDD
-EventSourcing
-CQRS
-
-
 CAP Theorem
   Consistence (Cohérence)
   Availability (Disponibilité)
@@ -39,7 +32,6 @@ Event
   Event Handler
   Event Bus
 
-  
 Consistence Eventuelle
 Idempotence
 
@@ -47,16 +39,7 @@ DORA Metrics
 TeamTopologies
 
 Loose Coupling - Couplage faible
-
-
-
 Robustesse Evolutiovité Maintenabilité
-
-
-
-
-
-Scalabilité Resilience Testabilité Observabilité
 
 Scalability - scalabilité
   vertical scaling

@@ -1,0 +1,461 @@
+<!-- Slide 1: Titre -->
+<section>
+  <h1>CQRS – Command Query Responsibility Segregation</h1>
+  <ul>
+    <li>Motivation & principes</li>
+    <li>Architecture et exemples</li>
+    <li>Cas concrets, limites et bonnes pratiques</li>
+  </ul>
+  <aside class="notes">
+    Introduction au pattern CQRS, pilier de la scalabilité applicative et de la séparation des responsabilités.
+  </aside>
+</section>
+
+<!-- Slide 2: Objectifs et plan -->
+<section>
+  <h2>Objectifs du module</h2>
+  <ul>
+    <li>Comprendre le pattern CQRS</li>
+    <li>Découvrir ses avantages, limites et usages concrets</li>
+    <li>Manipuler des exemples (gestion de présentations)</li>
+    <li>Identifier les pièges et anti-patterns</li>
+  </ul>
+  <aside class="notes">
+    Présenter le fil conducteur : montée en complexité, focus sur la pratique et la compréhension fine.
+  </aside>
+</section>
+
+<!-- Slide 3: Sommaire -->
+<section>
+  <h2>Sommaire</h2>
+  <ul>
+    <li>Définition et principe</li>
+    <li>Motivations de la séparation</li>
+    <li>Architecture CQRS</li>
+    <li>Commandes et requêtes métier</li>
+    <li>Projections / Read models</li>
+    <li>Exemples code (JS)</li>
+    <li>Scalabilité et résilience</li>
+    <li>Gestion des erreurs</li>
+    <li>Combinaison avec Event Sourcing</li>
+    <li>Limitations et retours terrain</li>
+    <li>Bonnes pratiques & anti-patterns</li>
+    <li>Glossaire</li>
+    <li>Quiz & discussion</li>
+  </ul>
+  <aside class="notes">
+    Reprendre chaque point pour montrer la progression, insister sur le côté pratique.
+  </aside>
+</section>
+
+<!-- Slide 4: Définition CQRS -->
+<section>
+  <h2>Définition</h2>
+  <ul>
+    <li>CQRS : <b>Command Query Responsibility Segregation</b></li>
+    <li>Sépare les chemins de lecture (<b>Query</b>) et d’écriture (<b>Command</b>)</li>
+    <li>Optimise indépendamment chaque côté</li>
+    <li><span class="fragment"><b>Principe clé :</b> « Toute action modifiant l’état est une commande. Toute lecture est une requête »</span></li>
+  </ul>
+  <aside class="notes">
+    Définition d'origine par Greg Young et Martin Fowler. L’objectif est de clarifier les intentions et optimiser lecture/écriture séparément.
+  </aside>
+</section>
+
+<!-- Slide 5: Pourquoi séparer lecture & écriture ? -->
+<section>
+  <h2>Motivation de la séparation</h2>
+  <ul>
+    <li>Modèles de données et contraintes différents</li>
+    <li>Performance : lecture souvent majoritaire (ex : affichage de présentations)</li>
+    <li>Sécurité : contrôle d’accès affiné</li>
+    <li><span class="fragment">Scalabilité : lecture et écriture peuvent scaler indépendamment</span></li>
+    <li><span class="fragment">Responsabilités plus claires dans le code</span></li>
+  </ul>
+  <aside class="notes">
+    Insister sur l’intérêt métier : lecture rapide, écriture robuste, maintenance plus simple.
+  </aside>
+</section>
+
+<!-- Slide 6: Architecture générale CQRS -->
+<section>
+  <h2>Architecture générale</h2>
+  <div class="mermaid">
+graph LR
+  Client[Utilisateur]
+  Cmd[Command Handler]
+  ES[Event Store]
+  Projector["Projection (Read Model Updater)"]
+  ReadModel[Read Model]
+  Query[Query Handler]
+  Client -- "commande" --> Cmd
+  Cmd --> ES
+  ES --> Projector
+  Projector --> ReadModel
+  Client -- "requête" --> Query
+  Query --> ReadModel
+  </div>
+  <aside class="notes">
+    Le chemin de l’écriture : CommandHandler → Event Store → Projector → Read Model.  
+    Le chemin de la lecture : Query Handler → Read Model.  
+    Aucune lecture dans le pipeline d’écriture, aucune écriture dans le pipeline de lecture.
+  </aside>
+</section>
+
+<!-- Slide 7: Commande et Query – exemples métier -->
+<section>
+  <h2>Commandes et Requêtes – Exemples</h2>
+  <ul>
+    <li><b>Commandes :</b>
+      <ul>
+        <li>CreatePresentation</li>
+        <li>UpdatePresentation</li>
+        <li>DeletePresentation</li>
+      </ul>
+    </li>
+    <li><b>Requêtes :</b>
+      <ul>
+        <li>GetPresentationById</li>
+        <li>ListPresentationsByAuthor</li>
+        <li>SearchPresentationsByKeyword</li>
+      </ul>
+    </li>
+  </ul>
+  <aside class="notes">
+    On distingue bien : une commande exprime une intention de changement, une requête lit l’état courant.
+  </aside>
+</section>
+
+<!-- Slide 8: Exemples JS – Command Handler (création) -->
+<section>
+  <h2>Exemple : Command Handler (création)</h2>
+  <pre><code class="language-js">// Commande métier
+class CreatePresentation {
+  constructor({ title, content, authorId }) {
+    this.title = title;
+    this.content = content;
+    this.authorId = authorId;
+  }
+}
+
+// Handler de commande
+class CreatePresentationHandler {
+  constructor(eventStore) {
+    this.eventStore = eventStore;
+  }
+  async handle(command) {
+    const event = {
+      type: "PresentationCreated",
+      data: {
+        title: command.title,
+        content: command.content,
+        authorId: command.authorId,
+        createdAt: new Date(),
+      },
+      version: 1
+    };
+    await this.eventStore.append(event);
+  }
+}
+  </code></pre>
+  <aside class="notes">
+    Ici, l’écriture passe uniquement par la création d’événements métiers.
+  </aside>
+</section>
+
+<!-- Slide 9: Exemples JS – Command Handler (update) -->
+<section>
+  <h2>Exemple : Command Handler (modification)</h2>
+  <pre><code class="language-js">// Commande métier
+class UpdatePresentation {
+  constructor({ id, title, content }) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+  }
+}
+
+// Handler de commande
+class UpdatePresentationHandler {
+  constructor(eventStore) {
+    this.eventStore = eventStore;
+  }
+  async handle(command) {
+    const event = {
+      type: "PresentationUpdated",
+      data: {
+        id: command.id,
+        title: command.title,
+        content: command.content,
+        updatedAt: new Date(),
+      },
+      version: 1
+    };
+    await this.eventStore.append(event);
+  }
+}
+  </code></pre>
+  <aside class="notes">
+    Chaque modification devient un événement.  
+    La suppression fonctionnerait de la même façon avec un type “PresentationDeleted”.
+  </aside>
+</section>
+
+<!-- Slide 10: Exemples JS – Query Handler -->
+<section>
+  <h2>Exemple : Query Handler</h2>
+  <pre><code class="language-js">// Requête
+class GetPresentationDetails {
+  constructor(presentationId) {
+    this.presentationId = presentationId;
+  }
+}
+
+// Handler
+class GetPresentationDetailsHandler {
+  constructor(readModel) {
+    this.readModel = readModel;
+  }
+  async handle(query) {
+    return await this.readModel.findOne({ _id: query.presentationId });
+  }
+}
+  </code></pre>
+  <aside class="notes">
+    Ici, le handler ne fait que lire le Read Model : aucune logique métier, requête ultra-optimisée.
+  </aside>
+</section>
+
+<!-- Slide 11: Projections avancées -->
+<section>
+  <h2>Projections / Read Model avancé</h2>
+  <pre><code class="language-js">// Projection : nombre de présentations par auteur
+class PresentationCountProjector {
+  constructor(readModel) {
+    this.readModel = readModel;
+  }
+  async handle(event) {
+    if (event.type === "PresentationCreated") {
+      await this.readModel.updateOne(
+        { authorId: event.data.authorId },
+        { $inc: { presentationCount: 1 } },
+        { upsert: true }
+      );
+    }
+  }
+}
+  </code></pre>
+  <aside class="notes">
+    Exemple de vue spécifique : statistiques, listes, filtres…  
+    On adapte la structure du Read Model selon le besoin utilisateur (par auteur, par tag, etc.).
+  </aside>
+</section>
+
+<!-- Slide 12: Agrégat – Définition et rôle -->
+<section>
+  <h2>Agrégat : définition et rôle</h2>
+  <ul>
+    <li>Un agrégat regroupe des entités et définit des règles d’intégrité métier</li>
+    <li>Exemple : une présentation + ses slides + ses métadonnées</li>
+    <li>Les commandes s’appliquent à l’agrégat (validation, cohérence)</li>
+    <li><span class="fragment">Garant de l’invariance métier</span></li>
+  </ul>
+  <aside class="notes">
+    L’agrégat est le centre de la logique métier.  
+    Dans notre cas : présentation = agrégat principal.
+  </aside>
+</section>
+
+<!-- Slide 13: Gestion des erreurs dans CQRS -->
+<section>
+  <h2>Gestion des erreurs</h2>
+  <ul>
+    <li>Validation métier (ex : titre obligatoire, doublon interdit)</li>
+    <li>Gestion technique (ex : Event Store indisponible, rollback éventuel)</li>
+    <li>Remonter des messages clairs à l’utilisateur</li>
+    <li>Observabilité : loguer et tracer toutes les erreurs</li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Exemple JS : throw new Error(“Titre requis”)</li>
+      <li>Toujours distinguer validation métier (applicatif) et erreur technique (infrastructure)</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 14: Idempotence des handlers -->
+<section>
+  <h2>Idempotence des handlers</h2>
+  <ul>
+    <li>Appliquer plusieurs fois le même événement ne doit pas modifier l’état plus d’une fois</li>
+    <li>Utile en cas de retry automatique ou de réseau instable</li>
+    <li>Exemple : vérifier si la présentation existe déjà avant création</li>
+  </ul>
+  <aside class="notes">
+    L’idempotence garantit que le système reste cohérent même si un événement est traité plusieurs fois.
+  </aside>
+</section>
+
+<!-- Slide 15: Scalabilité et découplage -->
+<section>
+  <h2>Scalabilité et découplage</h2>
+  <ul>
+    <li>Lecture et écriture peuvent évoluer indépendamment</li>
+    <li>Ajout de serveurs de lecture (lecture intensive)</li>
+    <li>Partitionnement possible par domaine fonctionnel</li>
+    <li><span class="fragment">Déploiement séparé des services de lecture et d’écriture</span></li>
+  </ul>
+  <aside class="notes">
+    C’est ce qui permet au CQRS d’encaisser des pics d’audience ou d’écriture sans impacter tout le système.
+  </aside>
+</section>
+
+<!-- Slide 16: CQRS sans Event Sourcing vs avec Event Sourcing -->
+<section>
+  <h2>CQRS sans / avec Event Sourcing</h2>
+  <ul>
+    <li><b>Sans Event Sourcing :</b> Command Handlers écrivent directement dans une base transactionnelle</li>
+    <li><b>Avec Event Sourcing :</b> Command Handlers génèrent des événements, stockés dans l’Event Store</li>
+    <li>Lecture se fait toujours sur un Read Model optimisé</li>
+    <li><span class="fragment">Event Sourcing = audit, replay, rollback ; mais complexité accrue</span></li>
+  </ul>
+  <aside class="notes">
+    Insister sur la possibilité d’utiliser CQRS sans obligatoirement adopter l’Event Sourcing.
+  </aside>
+</section>
+
+<!-- Slide 17: Schéma séquence CQRS + Event Sourcing -->
+<section>
+  <h2>Schéma séquence : CQRS + Event Sourcing</h2>
+  <div class="mermaid">
+sequenceDiagram
+  participant U as Utilisateur
+  participant CH as CommandHandler
+  participant ES as EventStore
+  participant P as Projector
+  participant RM as ReadModel
+  participant QH as QueryHandler
+
+  U->>CH: Commande (CreatePresentation)
+  CH->>ES: Append(PresentationCreated)
+  ES-->>P: Evénement à traiter
+  P->>RM: Mise à jour ReadModel
+  U->>QH: Requête (lecture)
+  QH->>RM: Lecture optimisée
+  </div>
+  <aside class="notes">
+    La trajectoire “commande” passe par l’Event Store, celle de la “requête” par le Read Model.
+  </aside>
+</section>
+
+<!-- Slide 18: Limitations et pièges CQRS -->
+<section>
+  <h2>Limitations et pièges</h2>
+  <ul>
+    <li>Complexité technique et métier accrue</li>
+    <li>Latence entre écriture et lecture (eventual consistency)</li>
+    <li>Migration de schéma complexe</li>
+    <li>Difficulté de faire des requêtes globales (aggrégations, recherches texte)</li>
+    <li>Over-engineering sur des petits projets</li>
+  </ul>
+  <aside class="notes">
+    Bien peser le rapport coût/bénéfice avant de se lancer.  
+    CQRS n’est pas fait pour tous les projets !
+  </aside>
+</section>
+
+<!-- Slide 19: Bonnes pratiques et anti-patterns -->
+<section>
+  <h2>Bonnes pratiques & anti-patterns</h2>
+  <ul>
+    <li>Documenter tous les modèles de commandes/requêtes</li>
+    <li>Gardez les handlers fins et spécialisés</li>
+    <li>Éviter de propager la logique métier dans les Read Models</li>
+    <li>Ne pas exposer l’Event Store en direct</li>
+    <li>Prévoir un monitoring avancé et une documentation claire</li>
+    <li><span class="fragment">Ne pas utiliser CQRS pour du CRUD trivial !</span></li>
+  </ul>
+  <aside class="notes">
+    <ul>
+      <li>Piège classique : créer des microservices CQRS pour de la simple persistance d’entités sans logique complexe.</li>
+      <li>Prévoir dès le début : tests, logs, monitoring, gestion des migrations.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- Slide 20: Glossaire CQRS -->
+<section>
+  <h2>Glossaire</h2>
+  <ul>
+    <li><b>Commande :</b> action métier qui modifie l’état</li>
+    <li><b>Query :</b> lecture optimisée, sans effet de bord</li>
+    <li><b>Agrégat :</b> ensemble cohérent d’entités métier</li>
+    <li><b>Read Model :</b> vue dédiée à la lecture, souvent dénormalisée</li>
+    <li><b>Projection :</b> mécanisme de construction de Read Model à partir d’événements</li>
+    <li><b>Event Store :</b> base d’événements immuables</li>
+    <li><b>Idempotence :</b> propriété d’une opération appliquée une ou plusieurs fois sans effet secondaire</li>
+  </ul>
+  <aside class="notes">
+    Rappels terminologiques essentiels pour les discussions avancées.
+  </aside>
+</section>
+
+<!-- Slide 21: Cas concrets – Domaines adaptés -->
+<section>
+  <h2>Cas concrets d’application</h2>
+  <ul>
+    <li>E-commerce : commandes, paniers, historiques clients</li>
+    <li>Gestion documentaire : versionning, audit, traçabilité</li>
+    <li>Collaboratif : gestion d’état partagé (présentations, wikis)</li>
+    <li>Industrie : pilotage process, suivi temps réel</li>
+  </ul>
+  <aside class="notes">
+    Mettre en avant les domaines où la séparation lecture/écriture prend tout son sens.
+  </aside>
+</section>
+
+<!-- Slide 22: Retours d’expérience terrain -->
+<section>
+  <h2>Retours d’expérience</h2>
+  <ul>
+    <li>Bien choisir les agrégats et la granularité</li>
+    <li>Anticiper la croissance des Read Models</li>
+    <li>Penser monitoring dès le début</li>
+    <li>Prévoir les migrations d’événements et la gestion des versions</li>
+    <li>Inclure la gouvernance des schémas et la documentation</li>
+  </ul>
+  <aside class="notes">
+    Exemples réels de difficultés : bugs lors de la propagation d’événements, lecture incohérente due à la consistance éventuelle, scalabilité du Read Model.
+  </aside>
+</section>
+
+<!-- Slide 23: Quiz et discussion -->
+<section>
+  <h2>Quiz & discussion</h2>
+  <ol>
+    <li>À quoi sert un agrégat dans CQRS ? <span class="fragment">Garantir les règles métier d’un ensemble cohérent d’entités.</span></li>
+    <li>Donnez un avantage et un inconvénient du pattern. <span class="fragment">Scalabilité, mais complexité accrue.</span></li>
+    <li>Peut-on utiliser CQRS sans Event Sourcing ? <span class="fragment">Oui, CQRS n’implique pas l’Event Sourcing.</span></li>
+    <li>Pourquoi l’idempotence est-elle critique ? <span class="fragment">Pour garantir la robustesse face aux replays ou duplications d’événements.</span></li>
+    <li>Citez une anti-pattern fréquente. <span class="fragment">Adopter CQRS pour des CRUD simples.</span></li>
+  </ol>
+  <aside class="notes">
+    Utiliser les questions pour susciter la réflexion, rebondir sur les difficultés ou doutes des étudiants.
+  </aside>
+</section>
+
+<!-- Slide 24: Références -->
+<section>
+  <h2>Références</h2>
+  <ul>
+    <li><a href="https://martinfowler.com/bliki/CQRS.html" target="_blank">Martin Fowler – CQRS</a></li>
+    <li><a href="https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf" target="_blank">Greg Young – CQRS</a></li>
+    <li><a href="https://docs.microsoft.com/azure/architecture/patterns/cqrs" target="_blank">Microsoft Docs – CQRS Pattern</a></li>
+    <li><a href="https://eventstore.com/blog/event-sourcing-explained/" target="_blank">Event Store – Event Sourcing Explained</a></li>
+    <li><a href="https://www.youtube.com/results?search_query=cqrs+event+sourcing+devoxx" target="_blank">Vidéos Devoxx</a></li>
+  </ul>
+  <aside class="notes">
+    Tous ces liens sont à jour, vérifiés mai 2025.  
+    N’hésitez pas à explorer pour aller plus loin, notamment sur l’outillage et les cas d’usage avancés.
+  </aside>
+</section>

@@ -1,0 +1,323 @@
+<!-- Slide 1: Titre & sommaire -->
+<section>
+    <h2>Saga Pattern</h2>
+    <ul>
+      <li>Introduction et définition</li>
+      <li>Mécanismes & types</li>
+      <li>Schéma général</li>
+      <li>Exemple de code (Node.js/Mongoose)</li>
+      <li>Avantages & inconvénients</li>
+      <li>Bonnes pratiques & pièges</li>
+      <li>Retour d’expérience</li>
+      <li>Quiz & QCM</li>
+      <li>Bibliographie</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Découverte du pattern Saga pour la gestion des transactions dans les architectures distribuées/microservices.</li>
+        <li>Nous allons comprendre son intérêt, ses variantes, comment l’implémenter, et les pièges à éviter.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 2: Définition -->
+  <section>
+    <h2>Définition du Saga Pattern</h2>
+    <ul>
+      <li>Gestion de transactions longues ou distribuées sans verrou global</li>
+      <li>Découpage en une séquence d’étapes locales, chaque étape ayant une action de compensation</li>
+      <li>Deux grandes variantes : orchestré (centralisé) ou chorégraphié (découplé)</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Le pattern Saga évite les verrous distribués en remplaçant la transaction globale par une suite d’opérations atomiques locales, compensables si l’une échoue.</li>
+        <li>Indispensable dans un système de microservices.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 3: Types de Sagas -->
+  <section>
+    <h2>Types de Sagas</h2>
+    <ul>
+      <li><b>Orchestration :</b> Un service central (“orchestrator”) contrôle l’ordre et déclenche les compensations.</li>
+      <li><b>Chorégraphie :</b> Chaque service réagit aux événements, pas de coordination centrale.</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>L’orchestration simplifie la vue d’ensemble et le débogage mais introduit un point de coordination unique.</li>
+        <li>La chorégraphie favorise le découplage mais rend la séquence plus difficile à suivre.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 4: Schéma Mermaid Saga (Orchestration) -->
+  <section>
+    <h2>Schéma : Saga orchestrée</h2>
+    <div class="mermaid">
+  sequenceDiagram
+    participant Client
+    participant Orchestrator
+    participant ServiceA
+    participant ServiceB
+    participant ServiceC
+    Client->>Orchestrator: Start Saga
+    Orchestrator->>ServiceA: Step 1
+    ServiceA-->>Orchestrator: OK
+    Orchestrator->>ServiceB: Step 2
+    ServiceB-->>Orchestrator: Failure
+    Orchestrator->>ServiceA: Compensate 1
+  </div>
+    <aside class="notes">
+      <ul>
+        <li>Le client initie la transaction ; l’orchestrateur contrôle chaque étape et lance les actions compensatoires en cas d’échec.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 5: Exemple d’application basée sur Node.js/Mongoose (pseudo-code) -->
+  <section>
+    <h2>Exemple Node.js : Saga Orchestrée (pseudo-code)</h2>
+    <pre><code class="language-js">
+  // Réservation d'une présentation et notification email
+  async function bookPresentationSaga(data) {
+    try {
+      await reserveSlot(data.slotId);      // Service 1
+      await savePresentation(data);        // Service 2
+      await sendNotification(data.email);  // Service 3
+    } catch (e) {
+      await cancelReservation(data.slotId); // Compensation service 1
+      // Optionnel : rollback présentation/notification
+      throw e;
+    }
+  }
+    </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>Chaque étape est un appel de microservice.</li>
+        <li>Si l’envoi d’email échoue, la réservation est annulée (compensation).</li>
+        <li>Ce modèle est directement applicable à l’app “présentation” de la démo.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 6: Saga chorégraphiée Mermaid -->
+  <section>
+    <h2>Schéma : Saga chorégraphiée</h2>
+    <div class="mermaid">
+  sequenceDiagram
+    participant ServiceA
+    participant ServiceB
+    participant ServiceC
+    ServiceA->>ServiceB: Event: Step1Completed
+    ServiceB->>ServiceC: Event: Step2Completed
+    ServiceC->>ServiceA: Event: Step3Completed
+    ServiceB-->>ServiceA: Event: CompensationStep2
+  </div>
+    <aside class="notes">
+      <ul>
+        <li>Chaque service écoute des événements, réagit selon sa logique, et publie le résultat.</li>
+        <li>La gestion de la compensation se fait via de nouveaux événements.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 7: Avantages du Saga Pattern -->
+  <section>
+    <h2>Avantages du Saga Pattern</h2>
+    <ul>
+      <li>Transactions distribuées sans verrou global</li>
+      <li>Évolutivité et découplage des services</li>
+      <li>Résilience accrue via compensation explicite</li>
+      <li>Bonne traçabilité (events, logs)</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Le découplage facilite la montée en charge et la robustesse.</li>
+        <li>Chaque étape pouvant être compensée, on peut revenir à un état cohérent même en cas d’échec partiel.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 8: Inconvénients et limitations -->
+  <section>
+    <h2>Inconvénients / limites</h2>
+    <ul>
+      <li>Complexité accrue de gestion des cas d’erreur</li>
+      <li>Latence potentielle (actions asynchrones)</li>
+      <li>Scénarios de compensation parfois difficiles à écrire</li>
+      <li>Tests & debug plus complexes</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Il faut bien prévoir tous les cas d’échec pour éviter les états incohérents.</li>
+        <li>La multiplication des messages peut rendre le suivi plus difficile.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 9: Bonnes pratiques -->
+  <section>
+    <h2>Best practices</h2>
+    <ul>
+      <li>Définir des actions de compensation pour chaque étape</li>
+      <li>Centraliser la gestion des erreurs dans l’orchestration</li>
+      <li>Utiliser des identifiants de corrélation pour le tracking</li>
+      <li>Automatiser les tests sur les chemins d’échec</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Chaque étape doit être atomique et réversible.</li>
+        <li>Le monitoring des events (tracing) est clé pour comprendre les problèmes.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 10: Antipatterns & pièges -->
+  <section>
+    <h2>Antipatterns & pièges à éviter</h2>
+    <ul>
+      <li>Oublier les compensations ou les rendre incomplètes</li>
+      <li>Utiliser des sagas pour des opérations simples (overengineering)</li>
+      <li>Rendre la compensation destructrice (perte de données importantes)</li>
+      <li>Mélanger orchestration & chorégraphie sans besoin</li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Un piège classique est de croire que toutes les opérations nécessitent un Saga.</li>
+        <li>Attention à la “compensation destructive” : préférer l’annulation logique ou le flag plutôt que l’effacement irréversible.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 11: Retour d’expérience réel -->
+  <section>
+    <h2>Retour d’expérience : Booking.com</h2>
+    <ul>
+      <li>Mise en place de Sagas pour gérer réservations atomiques multi-services (paiement, stock, confirmation, emails)</li>
+      <li>Orchestration centralisée avec logs de corrélation</li>
+      <li>Résilience améliorée mais coût d’implémentation élevé</li>
+      <li><a href="https://medium.com/booking-com-infrastructure/sagas-at-scale-lessons-learned-from-7-years-in-production-17e4cfb2fa96" target="_blank">Article Medium (Booking.com)</a></li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Lisez l’article pour des retours précis sur les succès et difficultés de Booking.com à grande échelle !</li>
+        <li>Points clés : l’automatisation de la compensation, le monitoring, et la documentation sont essentiels.</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 12: Quiz -->
+  <section>
+    <h2>Quiz</h2>
+    <ol>
+      <li>Quelle différence principale entre orchestration et chorégraphie ?</li>
+      <li>Quel est le rôle des actions de compensation ?</li>
+      <li>Citez un antipattern courant avec Saga.</li>
+      <li>Peut-on tout faire avec Saga ?</li>
+    </ol>
+    <aside class="notes">
+      <ul>
+        <li>1. Orchestration : centralisée, Chorégraphie : décentralisée.</li>
+        <li>2. Revenir à un état cohérent en cas d’échec d’une étape.</li>
+        <li>3. Oublier la compensation, mélanger orchestré et chorégraphié sans justification.</li>
+        <li>4. Non, ce n’est pas adapté à toutes les transactions (overkill pour l’atome simple).</li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- Slide 13: QCM 1 -->
+  <section>
+    <h2>QCM</h2>
+    <p><strong>Pourquoi utilise-t-on le Saga pattern ?</strong></p>
+    <ol type="a">
+      <li>Pour verrouiller toutes les bases de données</li>
+      <li>Pour gérer des transactions distribuées avec compensation</li>
+      <li>Pour supprimer les logs</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Réponse</h2>
+    <p><strong>b)</strong> Le Saga pattern gère les transactions distribuées via des actions compensatoires.</p>
+  </section>
+  
+  <!-- Slide 14: QCM 2 -->
+  <section>
+    <h2>QCM</h2>
+    <p><strong>Une saga chorégraphiée…</strong></p>
+    <ol type="a">
+      <li>Est toujours pilotée par un orchestrateur</li>
+      <li>Se base sur des événements et des réactions locales</li>
+      <li>N’a jamais de compensation</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Réponse</h2>
+    <p><strong>b)</strong> Elle fonctionne sur un bus d’événements, sans service central.</p>
+  </section>
+  
+  <!-- Slide 15: QCM 3 -->
+  <section>
+    <h2>QCM</h2>
+    <p><strong>Le principal piège d’une saga ?</strong></p>
+    <ol type="a">
+      <li>D’oublier d’implémenter les compensations</li>
+      <li>De tout faire dans un seul service</li>
+      <li>De tester toutes les erreurs</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Réponse</h2>
+    <p><strong>a)</strong> Sans compensation, la saga laisse le système dans un état incohérent si une étape échoue.</p>
+  </section>
+  
+  <!-- Slide 16: QCM 4 -->
+  <section>
+    <h2>QCM</h2>
+    <p><strong>Dans quel cas NE PAS utiliser Saga ?</strong></p>
+    <ol type="a">
+      <li>Pour une transaction simple sans effet collatéral</li>
+      <li>Pour des workflows longs avec rollback possible</li>
+      <li>Pour des transactions distribuées</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Réponse</h2>
+    <p><strong>a)</strong> Pour des opérations simples, Saga apporte une complexité inutile.</p>
+  </section>
+  
+  <!-- Slide 17: QCM 5 -->
+  <section>
+    <h2>QCM</h2>
+    <p><strong>Quel outil peut faciliter la gestion des sagas ?</strong></p>
+    <ol type="a">
+      <li>Kafka ou RabbitMQ (bus d’événements)</li>
+      <li>Excel</li>
+      <li>Gatling</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Réponse</h2>
+    <p><strong>a)</strong> Les bus d’événements sont utilisés pour orchestrer ou chorégraphier les étapes de la saga.</p>
+  </section>
+  
+  <!-- Slide 18: Bibliographie & liens -->
+  <section>
+    <h2>Bibliographie & liens</h2>
+    <ul>
+      <li><a href="https://microservices.io/patterns/data/saga.html" target="_blank">microservices.io — Saga Pattern</a></li>
+      <li><a href="https://medium.com/booking-com-infrastructure/sagas-at-scale-lessons-learned-from-7-years-in-production-17e4cfb2fa96" target="_blank">Booking.com — Sagas at Scale</a></li>
+      <li><a href="https://www.infoq.com/articles/sagas-introduction-part-1/" target="_blank">InfoQ — Introduction to Sagas</a></li>
+      <li><a href="https://docs.temporal.io/docs/concepts/what-is-a-saga/" target="_blank">Temporal.io — What is a Saga?</a></li>
+      <li><a href="https://martinfowler.com/articles/patterns-of-distributed-systems/saga.html" target="_blank">Martin Fowler — Saga</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/saga/saga" target="_blank">Microsoft Learn — Saga Pattern Reference</a></li>
+      <li><a href="https://www.confluent.io/blog/developing-event-driven-applications-with-sagas/" target="_blank">Confluent — Event-Driven Apps & Sagas</a></li>
+    </ul>
+    <aside class="notes">
+      <ul>
+        <li>Ces ressources couvrent la théorie, les exemples concrets, et les retours d’expérience de l’industrie.</li>
+        <li>Tous les liens ont été vérifiés et sont valides au 27/05/2025.</li>
+      </ul>
+    </aside>
+  </section>
+  

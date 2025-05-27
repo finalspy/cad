@@ -1,0 +1,469 @@
+<section>
+  <h2>Travaux Pratiques : Refactorisation & Industrialisation Node.js</h2>
+  <ul>
+    <li>Sécuriser, tester, réorganiser, typiser et préparer le code à la modularisation</li>
+    <li>Application support : gestion de présentations en Node.js (MVC)</li>
+    <li>Travail progressif, exemples concrets, code AVANT/APRÈS et schémas</li>
+  </ul>
+  <aside class="notes">
+    Ce TP vous guide pour moderniser une appli Node.js en suivant les meilleures pratiques du marché, de la mise en place des tests à l’architecture hexagonale.
+  </aside>
+</section>
+
+<!-- TABLE DES MATIÈRES -->
+<section>
+  <h3>Sommaire</h3>
+  <ul>
+    <li>1. Ajouter/compléter les tests</li>
+    <li>2. Automatiser les tests avec GitHub Actions</li>
+    <li>3. Réduire le couplage entre modules</li>
+    <li>4. Migration TypeScript</li>
+    <li>5. Réorganiser la structure du projet (hexagonal)</li>
+    <li>6. Implémenter Ports & Adapters (Hexagonal)</li>
+    <li>Conclusion & bonnes pratiques</li>
+    <li>Pour aller plus loin</li>
+  </ul>
+</section>
+
+<!-- STRUCTURE INITIALE -->
+<section>
+  <h3>Structure initiale du projet</h3>
+  <pre><code>
+src/
+  services/
+  routes/
+  controllers/
+  utils/
+  middleware/
+  models/
+  tests/
+  ...
+views/
+  ...
+  </code></pre>
+  <aside class="notes">
+    Structure typique Express MVC. L’objectif est de la rendre plus maintenable, testée et prête pour l’extension.
+  </aside>
+</section>
+
+<section>
+  <h3>Objectifs de la refonte</h3>
+  <ul>
+    <li>Assurer la non-régression avec des tests robustes</li>
+    <li>Standardiser la qualité via CI/CD</li>
+    <li>Réduire le couplage et augmenter la modularité</li>
+    <li>Adopter TypeScript et un design Domain-Driven</li>
+    <li>Préparer la future migration vers les microservices</li>
+  </ul>
+  <aside class="notes">
+    La démarche vise la fiabilité, la clarté du code, et la pérennité de l’application.
+  </aside>
+</section>
+
+<!-- ETAPE 1 : TESTS -->
+<section>
+  <h3>1. Ajouter/compléter les tests</h3>
+  <ul>
+    <li>Lister et exécuter les tests existants</li>
+    <li>Ajouter les tests manquants (unitaires, intégration, HTTP)</li>
+    <li>Générer un rapport de couverture</li>
+    <li>Documenter et taguer les tests legacy</li>
+  </ul>
+  <aside class="notes">
+    Avant toute refonte, sécuriser le code pour détecter d’éventuelles régressions. On vise une couverture de 80 % minimum.
+  </aside>
+</section>
+
+<section>
+  <h3>Étapes pratiques pour les tests</h3>
+  <ul>
+    <li><b>1. Identifier :</b> Quels fichiers/services/controllers ne sont pas testés ?</li>
+    <li><b>2. Ajouter :</b> Pour chaque “trou”, écrire un test pertinent.</li>
+    <li><b>3. Exécuter :</b> <code>npm test</code> puis <code>npm run coverage</code></li>
+    <li><b>4. Documenter :</b> Les cas legacy ou tests instables.</li>
+  </ul>
+  <aside class="notes">
+    Utilisez la couverture générée (HTML, lcov) pour repérer rapidement les fichiers oubliés. Documenter dans un fichier TESTPLAN.md les cas d’usage, les legacy et les limites connues.
+  </aside>
+</section>
+
+<!-- AVANT/APRES AJOUT D'UN TEST MANQUANT -->
+<section>
+  <h3>Exemple : test manquant sur userController</h3>
+  <p><b>Avant (userController.test.js) :</b></p>
+  <pre><code>
+  describe("getUser", () => {
+    it("renvoie 200 et l'utilisateur existant", async () => {
+    // ... test existant pour le cas succès
+  });
+  // 🚩 Il manque le test pour l’utilisateur inconnu (404)
+});
+  </code></pre>
+  <aside class="notes">
+    Ce fichier ne teste que le cas où l’utilisateur existe. Il faut ajouter les cas 404 et erreur serveur.
+  </aside>
+</section>
+
+<section>
+  <h3>Après : test ajouté (userController.test.js)</h3>
+  <pre><code>
+  describe("getUser", () => {
+    it("renvoie 200 et l'utilisateur existant", async () => {
+    // ... (test existant)
+  });
+
+  it("renvoie 404 si l'utilisateur n'existe pas", async () => {
+    req.params.id = "u2";
+    vi.spyOn(User, "findById").mockResolvedValue(null);
+
+    await userController.getUser(req, res);
+
+    expect(User.findById).toHaveBeenCalledWith("u2");
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ message: "User not found" });
+  });
+});
+  </code></pre>
+  <aside class="notes">
+    Ce test garantit que si l’utilisateur est absent, la route retourne bien un 404. Ajoutez systématiquement les cas d’erreur pour chaque endpoint/service critique.
+  </aside>
+</section>
+
+<section>
+  <h3>Générer et analyser la couverture</h3>
+  <ul>
+    <li>Lancez <code>npm run coverage</code> (ou <code>vitest run --coverage</code>)</li>
+    <li>Fixez un seuil minimal (ex : 80%) dans votre CI</li>
+    <li>Repérez les “zones rouges” pour les compléter</li>
+  </ul>
+  <aside class="notes">
+    Ajoutez la commande dans le package.json si elle n’existe pas. Vérifiez le rapport HTML et priorisez les fichiers les moins couverts.
+  </aside>
+</section>
+
+<!-- ETAPE 2 : CI/CD -->
+<section>
+  <h3>2. Automatiser les tests avec GitHub Actions</h3>
+  <ul>
+    <li>Créer <code>.github/workflows/ci.yml</code></li>
+    <li>Ajouter les jobs pour lint, test et coverage</li>
+    <li>Afficher un badge “build passing” dans le README</li>
+    <li>Protéger la branche main (GitHub settings)</li>
+  </ul>
+  <pre><code>
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run coverage -- --coverage
+  </code></pre>
+  <aside class="notes">
+    Le pipeline CI assure que tout commit/PR passe la barre des tests. Ajoutez des jobs pour coverage, lint, et badge README pour la transparence.
+  </aside>
+</section>
+
+<section>
+  <h3>Exemple : badge “build passing”</h3>
+  <pre><code>
+<!-- Dans le README.md -->
+![CI](https://github.com/&lt;utilisateur&gt;/&lt;repo&gt;/actions/workflows/ci.yml/badge.svg)
+  </code></pre>
+  <aside class="notes">
+    Ce badge s’affiche en tête du README, signalant l’état du dernier build GitHub Actions. Vérifiez que le badge passe bien au vert après chaque push.
+  </aside>
+</section>
+
+<!-- ETAPE 3 : COUPLAGE -->
+<section>
+  <h3>3. Réduire le couplage entre modules</h3>
+  <ul>
+    <li>Repérer les dépendances cycliques et les “god objects”</li>
+    <li>Introduire des interfaces pour les points critiques</li>
+    <li>Découpler contrôleurs/services via injection de dépendances</li>
+    <li>Mettre à jour les tests avec des mocks/stubs</li>
+  </ul>
+  <aside class="notes">
+    Objectif : chaque composant doit pouvoir être testé/migré isolément. Préférez des dépendances passées en paramètre plutôt qu’importées en dur.
+  </aside>
+</section>
+
+<section>
+  <h3>Exemple AVANT : couplage fort</h3>
+  <pre><code>
+// controllers/userController.js
+const UserService = require('../services/userService');
+
+exports.getUser = async (req, res) => {
+  const user = await UserService.getUserById(req.params.id);
+  // ...
+};
+  </code></pre>
+  <aside class="notes">
+    Ici, le contrôleur importe directement l’implémentation concrète. Difficile à tester ou remplacer !
+  </aside>
+</section>
+
+<section>
+  <h3>Après : découplage via interface/service injecté</h3>
+  <pre><code>
+// controllers/userController.js
+exports.createUserController = (userService) => ({
+  getUser: async (req, res) => {
+    const user = await userService.getUserById(req.params.id);
+    // ...
+  }
+});
+
+// server.js/app.js
+const { createUserController } = require('./controllers/userController');
+const userController = createUserController(UserService);
+  </code></pre>
+  <aside class="notes">
+    Le contrôleur devient indépendant : on injecte le service au lieu de l’importer. Les tests peuvent passer un fake/mock service.
+  </aside>
+</section>
+
+<!-- ETAPE 4 : TYPESCRIPT -->
+<section>
+  <h3>4. Migration TypeScript</h3>
+  <ul>
+    <li>Ajouter <code>tsconfig.json</code> strict</li>
+    <li>Renommer les fichiers .js en .ts (progressivement)</li>
+    <li>Ajouter les types pour fonctions, objets, retours</li>
+    <li>Corriger les erreurs, ajuster les tests</li>
+    <li>Adapter la config Vitest/Jest (ts-jest, etc.)</li>
+  </ul>
+  <aside class="notes">
+    Le typage explicite détecte plus d’erreurs à la compilation, limite les bugs et rend la base plus robuste.
+  </aside>
+</section>
+
+<section>
+  <h3>Exemple AVANT : JavaScript “libre”</h3>
+  <pre><code>
+// models/user.js
+const mongoose = require('mongoose');
+const UserSchema = new mongoose.Schema({
+  username: String,
+  email: String
+});
+module.exports = mongoose.model('User', UserSchema);
+  </code></pre>
+  <aside class="notes">
+    Aucun type n’est vérifié, le moindre oubli ou changement de structure peut passer inaperçu.
+  </aside>
+</section>
+
+<section>
+  <h3>Après : passage TypeScript</h3>
+  <pre><code>
+// models/user.ts
+import { Schema, model, Document } from 'mongoose';
+
+export interface User extends Document {
+  username: string;
+  email: string;
+}
+
+const UserSchema = new Schema<User>({
+  username: { type: String, required: true },
+  email: { type: String, required: true }
+});
+
+export default model<User>('User', UserSchema);
+  </code></pre>
+  <aside class="notes">
+    L’interface User permet d’attraper les fautes de frappe ou d’oublis de champs à la compilation.
+  </aside>
+</section>
+
+<!-- ETAPE 5 : REORGANISATION EN COUCHES -->
+<section>
+  <h3>5. Réorganiser la structure du projet (hexagonal)</h3>
+  <ul>
+    <li>Créer les dossiers <b>domain/</b>, <b>application/</b>, <b>infrastructure/</b>, <b>interfaces/</b></li>
+    <li>Déplacer entités, use cases, adaptateurs techniques dans les bons dossiers</li>
+    <li>Mettre à jour tous les imports relatifs</li>
+    <li>Documenter la nouvelle architecture</li>
+    <li>Refactorer progressivement (PR par feature)</li>
+  </ul>
+  <aside class="notes">
+    On passe d’un MVC “fourre-tout” à une séparation claire Domain/Infra/Application, qui permet de mieux tester, remplacer et étendre l’application.
+  </aside>
+</section>
+
+<section>
+  <h3>Schéma AVANT / APRÈS</h3>
+  <ul>
+    <li>Avant :<br>
+      <pre>
+src/
+  controllers/
+  models/
+  services/
+  ...
+      </pre>
+    </li>
+    <li>Après :<br>
+      <pre>
+src/
+  domain/
+    entities/
+    valueObjects/
+    ports/
+  application/
+    usecases/
+    services/
+  infrastructure/
+    orm/
+    externalApis/
+    repositories/
+  interfaces/
+    http/
+    cli/
+      </pre>
+    </li>
+  </ul>
+  <aside class="notes">
+    On distingue clairement la logique métier (domain), l’orchestration métier (application), la technique (infrastructure), et les points d’entrée (interfaces).
+  </aside>
+</section>
+
+<section>
+  <h3>Exemple pratique de déplacement</h3>
+  <ul>
+    <li><code>models/user.ts</code> → <code>domain/entities/User.ts</code></li>
+    <li><code>services/authService.ts</code> → <code>application/services/AuthService.ts</code></li>
+    <li><code>controllers/userController.ts</code> → <code>interfaces/http/UserController.ts</code></li>
+    <li><code>models/user.js</code> (implé Mongo) → <code>infrastructure/orm/MongoUserRepository.ts</code></li>
+  </ul>
+  <aside class="notes">
+    Pour chaque fichier, demandez-vous : ce code relève-t-il du métier (domain), de l’orchestration métier (application), de la technique (infra) ou de l’IHM (interfaces) ?
+  </aside>
+</section>
+
+<!-- ETAPE 6 : HEXAGONALE -->
+<section>
+  <h3>6. Implémenter Ports & Adapters (Hexagonal)</h3>
+  <ul>
+    <li>Créer des <b>ports</b> (interfaces métier) dans <code>domain/ports/</code></li>
+    <li>Implémenter des <b>adapters</b> dans <code>infrastructure/</code></li>
+    <li>Injecter les dépendances (par constructeur, DI, factory…)</li>
+    <li>Toutes les entrées passent par l’application & le domaine</li>
+    <li>Tester le métier avec des mocks/fakes</li>
+  </ul>
+  <aside class="notes">
+    Les ports définissent “ce dont le métier a besoin”. Les adapters branchent la technique réelle (Mongo, SendGrid…) sans polluer la logique métier.
+  </aside>
+</section>
+
+<section>
+  <h3>Schéma : Architecture hexagonale</h3>
+  <pre><code>
++----------------------+ 
+| Interfaces (API)     | 
++----------+-----------+ 
+           | 
++----------v-----------+ 
+| Application          | 
++----------+-----------+ 
+           | 
++----------v-----------+ 
+| Domaine (Métier)     | 
++----------+-----------+ 
+           | 
++----------v-----------+ 
+| Ports (Interfaces)   | 
++----------+-----------+ 
+           | 
++----------v-----------+ 
+| Adapters Techniques  | 
++----------------------+
+  </code></pre>
+  <aside class="notes">
+    Le métier ne dépend plus du technique. On peut brancher une base, un mock, un API externe sans toucher au reste du code.
+  </aside>
+</section>
+
+<section>
+  <h3>Exemple : port + adapter</h3>
+  <pre><code>
+// domain/ports/UserRepository.ts
+export interface UserRepository {
+  findById(id: string): Promise&lt;User | null&gt;;
+  save(user: User): Promise&lt;User&gt;;
+}
+
+// infrastructure/orm/MongoUserRepository.ts
+import { UserRepository } from '../../domain/ports/UserRepository';
+export class MongoUserRepository implements UserRepository {
+  async findById(id) { /* ... */ }
+  async save(user) { /* ... */ }
+}
+  </code></pre>
+  <aside class="notes">
+    Le code métier ne connaît que l’interface, jamais l’implémentation technique. On “branche” la bonne implémentation au démarrage de l’appli.
+  </aside>
+</section>
+
+<section>
+  <h3>Après : injection dans l’application</h3>
+  <pre><code>
+// application/usecases/GetUser.ts
+export class GetUser {
+  constructor(private userRepository: UserRepository) {}
+  async execute(id: string) {
+    return this.userRepository.findById(id);
+  }
+}
+
+// interfaces/http/UserController.ts
+const usecase = new GetUser(new MongoUserRepository());
+app.get('/users/:id', async (req, res) => {
+  const user = await usecase.execute(req.params.id);
+  res.json(user);
+});
+  </code></pre>
+  <aside class="notes">
+    Pour tester GetUser, il suffit de passer un mock UserRepository. La route n’accède plus ni à Mongo, ni au métier directement.
+  </aside>
+</section>
+
+<section>
+  <h3>Conclusion & bonnes pratiques</h3>
+  <ul>
+    <li>Commencez par sécuriser la base avec des tests exhaustifs</li>
+    <li>Industrialisez la CI/CD dès le début</li>
+    <li>Découpez et typisez le code pour gagner en robustesse</li>
+    <li>Adoptez l’architecture hexagonale pour isoler le métier</li>
+    <li>Testez chaque couche indépendamment (mocks, fakes…)</li>
+    <li>Itérez progressivement : refactoring étape par étape</li>
+  </ul>
+  <aside class="notes">
+    Ce TP vous donne la feuille de route pour industrialiser tout projet Node.js : code plus robuste, équipe plus sereine, projet plus durable.
+  </aside>
+</section>
+
+<section>
+  <h3>Pour aller plus loin</h3>
+  <ul>
+    <li><a href="https://martinfowler.com/bliki/HexagonalArchitecture.html" target="_blank">Hexagonal Architecture (Martin Fowler)</a></li>
+    <li><a href="https://khalilstemmler.com/articles/software-design-architecture/ddd-intro/" target="_blank">DDD par l’exemple</a></li>
+    <li><a href="https://dev.to/domysee/hexagonal-architecture-in-nodejs-1efb" target="_blank">Hexagonal en Node.js</a></li>
+    <li><a href="https://testingjavascript.com/" target="_blank">Testing JavaScript (Kent C. Dodds)</a></li>
+  </ul>
+  <aside class="notes">
+    Explorez les sources, inspirez-vous pour aller plus loin dans la conception logicielle avancée et la mise en pratique du DDD/hexagonal.
+  </aside>
+</section>
