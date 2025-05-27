@@ -14,6 +14,11 @@ npm i
 npm start
 ``` 
 
+Principales slides : aller sur [http://localhost:8000/] pour voir les slides.
+
+Exemples REX : aller sur [http://localhost:8000/exemples.html] pour voir les exemples de REX.
+
+
 ## Documentation
 
 - [Reveal.js](https://revealjs.com/)
