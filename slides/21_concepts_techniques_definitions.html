@@ -15,9 +15,9 @@
 
 <section>
     <h2>🌐 Concepts et Techniques Clés</h2>
-    <p>Panorama des notions fondamentales pour la conception, le déploiement et l’évolution d’applications distribuées modernes.</p>
+    <p>Panorama des notions fondamentales pour la conception, le déploiement et l'évolution d'applications distribuées modernes.</p>
     <aside class="notes">
-      Objectifs de la session : comprendre les patterns de déploiement et de résilience, maîtriser les outils d’orchestration et de suivi, et savoir appliquer les bonnes pratiques pour l’industrialisation.
+      Objectifs de la session : comprendre les patterns de déploiement et de résilience, maîtriser les outils d'orchestration et de suivi, et savoir appliquer les bonnes pratiques pour l'industrialisation.
     </aside>
   </section>
   
@@ -36,26 +36,26 @@
       <li>🔚 Conclusion</li>
     </ul>
     <aside class="notes">
-      Parcours rapide avant d’entrer dans le détail de chaque notion.
+      Parcours rapide avant d'entrer dans le détail de chaque notion.
     </aside>
   </section>
   
   <section>
     <h2>🐤 Canary Release</h2>
-    <p><strong>Principe :</strong> déploiement progressif sur 5–10 % des utilisateurs pour valider la stabilité avant rollout global.</p>
+    <p><strong>Principe :</strong> déploiement progressif sur 5-10 % des utilisateurs pour valider la stabilité avant rollout global.</p>
     <p><strong>Avantages :</strong> réduction des risques, feedback rapide, rollback simplifié.</p>
     <p><strong>Bonnes pratiques :</strong> automatiser via CI/CD, définir des health checks, configurer alertes (erreurs 5xx, latence, saturation).</p>
     <img src="assets/canary-release-diagram.png" alt="Schéma Canary Release" style="width:80%; margin:1em 0;"/>
     <aside class="notes">
-      • « Canary » comme le canari en mine : système d’alerte précoce.<br>
+      • « Canary » comme le canari en mine : système d'alerte précoce.<br>
       • Exemple Kubernetes + Istio VirtualService pour piloter le pourcentage de trafic.<br>
-      • Plus granulaire qu’un déploiement blue–green.
+      • Plus granulaire qu'un déploiement blue-green.
     </aside>
   </section>
   
   <section>
     <h2>🔗 API Gateway</h2>
-    <p>Point d’entrée unique pour :</p>
+    <p>Point d'entrée unique pour :</p>
     <ul>
       <li>Routing vers les microservices</li>
       <li>Authentification & autorisation (JWT, OAuth2)</li>
@@ -66,7 +66,7 @@
     <img src="assets/api-gateway-architecture.png" alt="Architecture API Gateway" style="width:80%; margin:1em 0;"/>
     <aside class="notes">
       • Exemples : Kong, Ambassador, Envoy, AWS API Gateway.<br>
-      • Terminer TLS (Transport Layer Security) : protocole de chiffrement et d’authentification des communications 🔒.<br>
+      • Terminer TLS (Transport Layer Security) : protocole de chiffrement et d'authentification des communications 🔒.<br>
       • Utiliser des plugins pour observabilité et sécurité.
     </aside>
   </section>
@@ -82,7 +82,7 @@
     </ul>
     <img src="assets/event-storming-workshop.jpg" alt="Atelier Event Storming" style="width:80%; margin:1em 0;"/>
     <aside class="notes">
-      • Durée : 2–4 h par domaine métier.<br>
+      • Durée : 2-4 h par domaine métier.<br>
       • Participants : experts métier, développeurs, ops, UX.<br>
       • Livrable : mur physique ou numérique, photographié pour documentation.
     </aside>
@@ -94,7 +94,7 @@
     <ul>
       <li><strong>Orchestration</strong> : orchestrator envoie les commandes</li>
       <li><strong>Chorégraphie</strong> : services publient/consomment événements</li>
-      <li>Compensation : actions inverses en cas d’échec</li>
+      <li>Compensation : actions inverses en cas d'échec</li>
     </ul>
     <img src="assets/saga-pattern-sequence.png" alt="Diagramme Saga Pattern" style="width:80%; margin:1em 0;"/>
     <aside class="notes">
@@ -115,7 +115,7 @@
     <img src="assets/feature-toggle-dashboard.png" alt="Dashboard Feature Toggle" style="width:80%; margin:1em 0;"/>
     <aside class="notes">
       • Exemple : activation de la recherche sémantique pour 20 % des « beta ».<br>
-      • Surveiller l’accumulation de toggles pour éviter la dette technique.
+      • Surveiller l'accumulation de toggles pour éviter la dette technique.
     </aside>
   </section>
   
@@ -162,7 +162,7 @@
     </ul>
     <img src="assets/service-discovery-overview.png" alt="Schéma Service Discovery" style="width:80%; margin:1em 0;"/>
     <aside class="notes">
-      • Auto-scaling : nouvelles instances s’enregistrent automatiquement.<br>
+      • Auto-scaling : nouvelles instances s'enregistrent automatiquement.<br>
       • Sécurité : mutual TLS pour communications avec le registry.
     </aside>
   </section>
@@ -192,18 +192,18 @@
     </ul>
     <p><em>Prochaines étapes : ateliers pratiques Kubernetes, Istio, Prometheus ; POC intégrant Canary + Saga + Observabilité.</em></p>
     <aside class="notes">
-      Inviter l’audience à poser des questions et partager le repository GitHub contenant les exemples.
+      Inviter l'audience à poser des questions et partager le repository GitHub contenant les exemples.
     </aside>
   </section>
   
   <section>
     <h2>📚 Bibliographie & Liens Utiles</h2>
     <ul>
-      <li><a href="https://fr.wikipedia.org/wiki/Transport_Layer_Security" target="_blank">TLS (Transport Layer Security) – Wikipédia</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/Long-running_transaction" target="_blank">Saga Pattern – Wikipedia</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank">A/B Testing – Wikipedia</a></li>
-      <li><a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Overview – Prometheus</a></li>
-      <li><a href="https://istio.io/latest/docs/concepts/what-is-istio/" target="_blank">What is Istio? – Istio Documentation</a></li>
+      <li><a href="https://fr.wikipedia.org/wiki/Transport_Layer_Security" target="_blank">TLS (Transport Layer Security) - Wikipédia</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Long-running_transaction" target="_blank">Saga Pattern - Wikipedia</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank">A/B Testing - Wikipedia</a></li>
+      <li><a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Overview - Prometheus</a></li>
+      <li><a href="https://istio.io/latest/docs/concepts/what-is-istio/" target="_blank">What is Istio? - Istio Documentation</a></li>
     </ul>
     <aside class="notes">
       Tous les liens ont été vérifiés et sont accessibles (pas de 404).

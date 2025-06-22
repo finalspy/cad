@@ -20,7 +20,7 @@
     </ul>
     <aside class="notes">
         <ul>
-            <li>« Nous couvrirons d’abord l’inventaire et le classement, puis chaque approche en détail, ses atouts et contraintes, avant de définir les notions clés et de poser les bonnes questions. »</li>
+            <li>« Nous couvrirons d'abord l'inventaire et le classement, puis chaque approche en détail, ses atouts et contraintes, avant de définir les notions clés et de poser les bonnes questions. »</li>
         </ul>
     </aside>
 </section>
@@ -28,10 +28,10 @@
   <!-- Introduction Slide -->
   <section>
     <h2>Introduction</h2>
-    <p>En 2024, 78 % des systèmes d’entreprise sont monolithiques (Gartner). Les microservices offrent modularité, scalabilité et indépendance des déploiements, mais impliquent coûts et complexité organisationnelle.</p>
+    <p>En 2024, 78 % des systèmes d'entreprise sont monolithiques (Gartner). Les microservices offrent modularité, scalabilité et indépendance des déploiements, mais impliquent coûts et complexité organisationnelle.</p>
     <aside class="notes">
         <ul>
-            <li>« Statistique Gartner 2024 : 78 % des grandes entreprises sont encore sous architecture monolithe, limitant l’agilité. »</li>
+            <li>« Statistique Gartner 2024 : 78 % des grandes entreprises sont encore sous architecture monolithe, limitant l'agilité. »</li>
             <li>« Migrer implique une montée en compétence en DevOps, un budget pour la refactorisation et un pilotage rigoureux du risque. »</li>
         </ul>
     </aside>
@@ -51,7 +51,7 @@
     </ul>
     <aside class="notes">
         <ul>
-            <li>« Présentez le nom de chaque méthode en une phrase avant d’enchaîner sur le détail. »</li>
+            <li>« Présentez le nom de chaque méthode en une phrase avant d'enchaîner sur le détail. »</li>
         </ul>
     </aside>
 </section>
@@ -60,13 +60,13 @@
   <section>
     <h2>Popularité des approches ⭐️</h2>
     <ul>
-      <li>1. Strangler Fig – 68 %</li>
-      <li>2. DDD – 52 %</li>
-      <li>3. Database-per-Service – 48 %</li>
-      <li>4. Branch by Abstraction – 36 %</li>
-      <li>5. Event-Driven – 29 %</li>
-      <li>6. Hybrid (API Gateway) – 23 %</li>
-      <li>7. Microservices par Équipe – 15 %</li>
+      <li>1. Strangler Fig - 68 %</li>
+      <li>2. DDD - 52 %</li>
+      <li>3. Database-per-Service - 48 %</li>
+      <li>4. Branch by Abstraction - 36 %</li>
+      <li>5. Event-Driven - 29 %</li>
+      <li>6. Hybrid (API Gateway) - 23 %</li>
+      <li>7. Microservices par Équipe - 15 %</li>
     </ul>
     <aside class="notes">
         <ul>
@@ -79,13 +79,13 @@
   <section>
     <h2>Efficacité mesurée 🚀</h2>
     <ul>
-      <li>1. DDD – 9,2/10</li>
-      <li>2. Strangler Fig – 8,7/10</li>
-      <li>3. Event-Driven – 8,5/10</li>
-      <li>4. Branch by Abstraction – 8,3/10</li>
-      <li>5. Hybrid (API Gateway) – 7,8/10</li>
-      <li>6. Database-per-Service – 7,2/10</li>
-      <li>7. Microservices par Équipe – 6,5/10</li>
+      <li>1. DDD - 9,2/10</li>
+      <li>2. Strangler Fig - 8,7/10</li>
+      <li>3. Event-Driven - 8,5/10</li>
+      <li>4. Branch by Abstraction - 8,3/10</li>
+      <li>5. Hybrid (API Gateway) - 7,8/10</li>
+      <li>6. Database-per-Service - 7,2/10</li>
+      <li>7. Microservices par Équipe - 6,5/10</li>
     </ul>
     <aside class="notes">
         <ul>
@@ -99,31 +99,31 @@
     <h2>Strangler Fig Pattern</h2>
     <ul>
       <li>Déployer une API Gateway devant le monolithe</li>
-      <li>Router 10–20 % du trafic initialement</li>
-      <li>Augmenter de 10 % par sprint jusqu’à 100 %</li>
+      <li>Router 10-20 % du trafic initialement</li>
+      <li>Augmenter de 10 % par sprint jusqu'à 100 %</li>
       <li>Validation continue, zéro interruption</li>
     </ul>
     <aside class="notes">
         <ul>
             <li>« Utilisez Kong ou Envoy comme API Gateway, configurez un routage canary à 10 % du trafic, puis montez progressivement. » :contentReference[oaicite:0]{index=0}</li>
-            <li>« Netflix a extrait son moteur de recherche en shadow mode, validant métriques (latence < 50 ms, taux d’erreur < 0,5 %) avant chaque montée de trafic. »</li>
+            <li>« Netflix a extrait son moteur de recherche en shadow mode, validant métriques (latence < 50 ms, taux d'erreur < 0,5 %) avant chaque montée de trafic. »</li>
         </ul>
     </aside>
 </section>
   
-  <!-- Strangler Fig – Mise en œuvre Slide -->
+  <!-- Strangler Fig - Mise en œuvre Slide -->
   <section>
-    <h2>Strangler Fig – Mise en œuvre</h2>
+    <h2>Strangler Fig - Mise en œuvre</h2>
     <ul>
-      <li>Installer et configurer l’API Gateway (Kong, Envoy)</li>
+      <li>Installer et configurer l'API Gateway (Kong, Envoy)</li>
       <li>Définir une route canary (10 % → 20 % → … → 100 %)</li>
       <li>Monitorer latence, erreurs via Prometheus/Grafana</li>
       <li>Activer rollback automatique si erreur > 1 %</li>
     </ul>
   <aside class="notes">
     <ul>
-      <li>« La règle canary : après 48 h de stabilité, augmenter de 10 % jusqu’à bascule complète. »</li>
-      <li>« Rollback : déployer en moins de 5 min via CI si seuil d’erreur dépassé. »</li>
+      <li>« La règle canary : après 48 h de stabilité, augmenter de 10 % jusqu'à bascule complète. »</li>
+      <li>« Rollback : déployer en moins de 5 min via CI si seuil d'erreur dépassé. »</li>
     </ul>
   </aside>
 </section>
@@ -139,15 +139,15 @@
     </ul>
     <aside class="notes">
         <ul>
-            <li>« Dual-write : écrire simultanément dans l’ancienne et la nouvelle BDD pour synchronisation progress ; si l’un échoue, déclencher compensation ou alerte. » :contentReference[oaicite:1]{index=1}</li>
+            <li>« Dual-write : écrire simultanément dans l'ancienne et la nouvelle BDD pour synchronisation progress ; si l'un échoue, déclencher compensation ou alerte. » :contentReference[oaicite:1]{index=1}</li>
             <li>« Debezium : plate-forme CDC open-source qui capture les logs transactionnels et publie les changements dans Kafka pour synchronisation. » :contentReference[oaicite:2]{index=2}</li>
         </ul>
     </aside>
 </section>
   
-  <!-- Database-per-Service – Mise en œuvre Slide -->
+  <!-- Database-per-Service - Mise en œuvre Slide -->
   <section>
-    <h2>Database-per-Service – Mise en œuvre</h2>
+    <h2>Database-per-Service - Mise en œuvre</h2>
     <ul>
       <li>Créer une nouvelle BDD par domaine</li>
       <li>Configurer Debezium pour CDC vers Kafka</li>
@@ -158,7 +158,7 @@
     <aside class="notes">
         <ul>
             <li>« Debezium surveille les logs MySQL/PostgreSQL et émet chaque changement sur des topics Kafka. »</li>
-            <li>« Saga : pattern consistant à découper une transaction distribuée en actions compensatoires si l’une échoue. »</li>
+            <li>« Saga : pattern consistant à découper une transaction distribuée en actions compensatoires si l'une échoue. »</li>
         </ul>
     </aside>
 </section>
@@ -175,14 +175,14 @@
     <aside class="notes">
         <ul>
             <li>« Event Storming : atelier collaboratif où on place Domain Events sur un mur pour visualiser le flux métier. » </li>
-            <li>« PO (Product Owner) par microservice : rôle responsable de la backlog, garant de la valeur métier et unique interlocuteur pour l’équipe. » :contentReference[oaicite:4]{index=4}</li>
+            <li>« PO (Product Owner) par microservice : rôle responsable de la backlog, garant de la valeur métier et unique interlocuteur pour l'équipe. » :contentReference[oaicite:4]{index=4}</li>
         </ul>
     </aside>
 </section>
   
-  <!-- DDD – Mise en œuvre Slide -->
+  <!-- DDD - Mise en œuvre Slide -->
   <section>
-    <h2>DDD – Mise en œuvre</h2>
+    <h2>DDD - Mise en œuvre</h2>
     <ul>
       <li>Organiser workshops Event Storming (domain experts + devs)</li>
       <li>Classer Command & Domain Events par couleur de post-its</li>
@@ -193,7 +193,7 @@
     <aside class="notes">
         <ul>
             <li>« Impliquez un PO pour chaque service afin de prioriser les User Stories et valider la cohérence. »</li>
-            <li>« Déployez chaque service en feature branch parallèle et merge après validation des tests d’intégration. »</li>
+            <li>« Déployez chaque service en feature branch parallèle et merge après validation des tests d'intégration. »</li>
         </ul>
     </aside>
 </section>
@@ -205,20 +205,20 @@
       <li>Encapsuler la logique via interface commune (Strategy)</li>
       <li>Déployer le nouveau service en shadow mode</li>
       <li>Basculement progressif via feature toggles (LaunchDarkly)</li>
-      <li>Rollback complet < 30 min en cas d’anomalie</li>
-      <li>36 % d’adoption (DevSurvey 2023)</li>
+      <li>Rollback complet < 30 min en cas d'anomalie</li>
+      <li>36 % d'adoption (DevSurvey 2023)</li>
     </ul>
     <aside class="notes">
         <ul>
             <li>« Shadow mode : exécuter la nouvelle implémentation en parallèle sans impacter la prod. »</li>
-            <li>« LaunchDarkly : SaaS de gestion de feature flags, permet d’activer/désactiver dynamiquement. »</li>
+            <li>« LaunchDarkly : SaaS de gestion de feature flags, permet d'activer/désactiver dynamiquement. »</li>
         </ul>
     </aside>
 </section>
   
-  <!-- Branch by Abstraction – Mise en œuvre Slide -->
+  <!-- Branch by Abstraction - Mise en œuvre Slide -->
   <section>
-    <h2>Branch by Abstraction – Mise en œuvre</h2>
+    <h2>Branch by Abstraction - Mise en œuvre</h2>
     <ul>
       <li>Introduire interface commune pour la fonctionnalité cible</li>
       <li>Développer et déployer le service parallèle</li>
@@ -228,7 +228,7 @@
     </ul>
     <aside class="notes">
         <ul>
-            <li>« Etsy a déployé en shadow puis scale-out en 6 semaines, passant de 10 % à 100 % d’utilisateurs. »</li>
+            <li>« Etsy a déployé en shadow puis scale-out en 6 semaines, passant de 10 % à 100 % d'utilisateurs. »</li>
             <li>« Exécutez des tests E2E automatisés avant chaque rollout. »</li>
         </ul>
     </aside>
@@ -241,7 +241,7 @@
       <li>Produire et consommer événements via Kafka, RabbitMQ</li>
       <li>Découplage asynchrone, haute tolérance aux pannes</li>
       <li>+40 % de résilience en production (DZone 2024)</li>
-      <li>29 % d’adoption</li>
+      <li>29 % d'adoption</li>
     </ul>
     <aside class="notes">
         <ul>
@@ -251,9 +251,9 @@
     </aside>
 </section>
   
-  <!-- Event-Driven – Mise en œuvre Slide -->
+  <!-- Event-Driven - Mise en œuvre Slide -->
   <section>
-    <h2>Event-Driven – Mise en œuvre</h2>
+    <h2>Event-Driven - Mise en œuvre</h2>
     <ul>
       <li>Identifier Domain Events clés (OrderCreated, PaymentProcessed…)</li>
       <li>Créer topics Kafka, configurer consumer groups</li>
@@ -263,7 +263,7 @@
     </ul>
     <aside class="notes">
         <ul>
-            <li>« Uber a mis en place Kafka pour > 300 services, traitant jusqu’à 12 M msg/s. »</li>
+            <li>« Uber a mis en place Kafka pour > 300 services, traitant jusqu'à 12 M msg/s. »</li>
             <li>« Surveillez lag et throughput via Confluent Control Center. »</li>
         </ul>
     </aside>
@@ -275,7 +275,7 @@
     <ul>
       <li>API Gateway centralise routage et sécurité</li>
       <li>Routes canary pour chaque endpoint</li>
-      <li>23 % d’adoption (O’Reilly 2024)</li>
+      <li>23 % d'adoption (O'Reilly 2024)</li>
     </ul>
     <aside class="notes">
         <ul>
@@ -285,15 +285,15 @@
     </aside>
 </section>
   
-  <!-- Hybrid (API Gateway) – Mise en œuvre Slide -->
+  <!-- Hybrid (API Gateway) - Mise en œuvre Slide -->
   <section>
-    <h2>Hybrid (API Gateway) – Mise en œuvre</h2>
+    <h2>Hybrid (API Gateway) - Mise en œuvre</h2>
     <ul>
       <li>Déployer edge gateway (Kong, Ambassador)</li>
       <li>Configurer routes canary 10 % → 100 %</li>
       <li>Centraliser auth, rate-limiting, logs</li>
       <li>Monitorer via ELK/Datadog</li>
-      <li>Mise en place sur 1–3 mois</li>
+      <li>Mise en place sur 1-3 mois</li>
     </ul>
     <aside class="notes">
         <ul>
@@ -306,10 +306,10 @@
   <section>
     <h2>Microservices par Équipe</h2>
     <ul>
-      <li>Squads cross-fonctionnels de 6–10 personnes</li>
+      <li>Squads cross-fonctionnels de 6-10 personnes</li>
       <li>CI/CD et backlog dédiés par squad</li>
       <li>+20 % de fréquence de déploiement (Atlassian)</li>
-      <li>15 % d’adoption</li>
+      <li>15 % d'adoption</li>
     </ul>
     <aside class="notes">
         <ul>
@@ -318,11 +318,11 @@
     </aside>
 </section>
   
-  <!-- Microservices par Équipe – Mise en œuvre Slide -->
+  <!-- Microservices par Équipe - Mise en œuvre Slide -->
   <section>
-    <h2>Microservices par Équipe – Mise en œuvre</h2>
+    <h2>Microservices par Équipe - Mise en œuvre</h2>
     <ul>
-      <li>Former squads cross-fonctionnels (6–10 pers.)</li>
+      <li>Former squads cross-fonctionnels (6-10 pers.)</li>
       <li>Définir périmètre et SLA interne par squad</li>
       <li>Migration en fenêtre de 2 semaines, gel du dev</li>
       <li>Suivi via dashboard rouge/vert</li>
@@ -356,7 +356,7 @@
         <tr>
           <td>DDD</td>
           <td>Cohérence métier, faible couplage</td>
-          <td>Ateliers longs, coût d’analyse</td>
+          <td>Ateliers longs, coût d'analyse</td>
         </tr>
         <tr>
           <td>Branch by Abstraction</td>

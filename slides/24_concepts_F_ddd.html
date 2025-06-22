@@ -2,14 +2,14 @@
 <section>
   <h2>🗂️ Sommaire</h2>
   <ul>
-    <li>📖 Partie 1 : Théorie DDD
+    <li>📖 Partie 1 : Théorie DDD
       <ul>
-        <li>🎯 Pourquoi DDD ?</li>
+        <li>🎯 Pourquoi DDD ?</li>
         <li>🧭 Concepts stratégiques</li>
         <li>🛠️ Concepts tactiques</li>
       </ul>
     </li>
-    <li>🚀 Partie 2 : Pratique VibeReveal
+    <li>🚀 Partie 2 : Pratique VibeReveal
       <ul>
         <li>📋 Cartographie du monolithe</li>
         <li>🏗️ Extraction du Domain Model</li>
@@ -33,28 +33,28 @@
 
 <!-- Transition vers Partie 1 -->
 <section>
-  <h2>📖 Partie 1 : Théorie DDD</h2>
+  <h2>📖 Partie 1 : Théorie DDD</h2>
   <p>Comprendre les concepts clés pour modéliser un domaine riche.</p>
   <aside class="notes">
     <ul>
-      <li>Objectif : donner un langage commun et des règles d'organisation au code.</li>
+      <li>Objectif : donner un langage commun et des règles d'organisation au code.</li>
     </ul>
   </aside>
 </section>
 
 <!-- Pourquoi DDD -->
 <section>
-  <h2>🎯 Pourquoi DDD ?</h2>
+  <h2>🎯 Pourquoi DDD ?</h2>
   <ul>
     <li>Aligner le code sur le cœur métier pour rester pertinent.</li>
     <li>Réduire les malentendus avec un vocabulaire unique.</li>
-    <li>Faciliter la maintenance et l’évolution du logiciel.</li>
+    <li>Faciliter la maintenance et l'évolution du logiciel.</li>
     <li>Gérer la complexité dans les systèmes distribués.</li>
   </ul>
   <aside class="notes">
     <ul>
       <li>Sans DDD, chaque équipe peut appeler la même chose différemment.</li>
-      <li>Expliquer : 40 % des retards proviennent de ce manque d’alignement.</li>
+      <li>Expliquer : 40 % des retards proviennent de ce manque d'alignement.</li>
     </ul>
   </aside>
 </section>
@@ -63,13 +63,13 @@
 <section>
   <h2>🧭 Ubiquitous Language</h2>
   <ul>
-    <li>Créer un dictionnaire commun de termes métier (ex : Presentation, Slide).</li>
-    <li>Utiliser ces termes partout : code, docs, discussions.</li>
+    <li>Créer un dictionnaire commun de termes métier (ex : Presentation, Slide).</li>
+    <li>Utiliser ces termes partout : code, docs, discussions.</li>
     <li>Éviter tout synonyme pour un même concept.</li>
   </ul>
   <aside class="notes">
     <ul>
-      <li>Exemple : « Slide » désigne toujours une diapositive, jamais un composant UI.</li>
+      <li>Exemple : « Slide » désigne toujours une diapositive, jamais un composant UI.</li>
       <li>Maintenir ce glossaire à jour en revue de code.</li>
     </ul>
   </aside>
@@ -85,7 +85,7 @@
   </ul>
   <aside class="notes">
     <ul>
-      <li>Exemples : EditingContext pour la création, PublishingContext pour l’export.</li>
+      <li>Exemples : EditingContext pour la création, PublishingContext pour l'export.</li>
       <li>Prévenir le couplage fort avec un Anti-Corruption Layer.</li>
     </ul>
   </aside>
@@ -106,15 +106,15 @@
   </div>
   <aside class="notes">
     <ul>
-      <li>Montrer les flux d’informations et les patterns de relation.</li>
-      <li>Expliquer l’utilité d’un contexte partagé ou d’un ACL.</li>
+      <li>Montrer les flux d'informations et les patterns de relation.</li>
+      <li>Expliquer l'utilité d'un contexte partagé ou d'un ACL.</li>
     </ul>
   </aside>
 </section>
 
 <!-- Transition vers Partie 1 tactique -->
 <section>
-  <h2>🛠️ Partie 1 : Concepts Tactiques</h2>
+  <h2>🛠️ Partie 1 : Concepts Tactiques</h2>
   <p>Les règles de construction dans le code.</p>
   <aside class="notes">
     <ul>
@@ -129,11 +129,11 @@
   <ul>
     <li>Objet avec identité unique (ID).</li>
     <li>Cicatrice : peut évoluer, mais reste toujours le même.</li>
-    <li>Cycle de vie : création → modification → suppression.</li>
+    <li>Cycle de vie : création → modification → suppression.</li>
   </ul>
   <aside class="notes">
     <ul>
-      <li>Ex : Slide a toujours le même ID même si son contenu change.</li>
+      <li>Ex : Slide a toujours le même ID même si son contenu change.</li>
     </ul>
   </aside>
 </section>
@@ -143,8 +143,8 @@
   <h2>🎨 Value Object</h2>
   <ul>
     <li>Immuable : pas de modification, on crée de nouvelles instances.</li>
-    <li>Égalité par valeur : mêmes attributs → méme objet conceptuel.</li>
-    <li>Pas d’ID ; définit un concept (ex : SlideContent).</li>
+    <li>Égalité par valeur : mêmes attributs → méme objet conceptuel.</li>
+    <li>Pas d'ID ; définit un concept (ex : SlideContent).</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -155,7 +155,7 @@
 
 <!-- Example Entity vs VO -->
 <section>
-  <h2>📦 Exemple : Slide & SlideContent</h2>
+  <h2>📦 Exemple : Slide & SlideContent</h2>
   <pre><code class="language-ts">class SlideContent { constructor(text: string) { /* ... */ } }
 class Slide { constructor(id: string, content: SlideContent) { /* ... */ } }
 </code></pre>
@@ -171,27 +171,27 @@ class Slide { constructor(id: string, content: SlideContent) { /* ... */ } }
 <section>
   <h2>🌳 Aggregate</h2>
   <ul>
-    <li>Groupe cohérent d’entities et de VOs.</li>
-    <li>Aggregate Root (ex : Presentation) contrôle l’accès.</li>
-    <li>Transactional boundary : tout ou rien.</li>
+    <li>Groupe cohérent d'entities et de VOs.</li>
+    <li>Aggregate Root (ex : Presentation) contrôle l'accès.</li>
+    <li>Transactional boundary : tout ou rien.</li>
   </ul>
   <aside class="notes">
     <ul>
-      <li>Présentation agit comme la seule porte d’entrée pour ses Slides.</li>
+      <li>Présentation agit comme la seule porte d'entrée pour ses Slides.</li>
     </ul>
   </aside>
 </section>
 
 <!-- Example Aggregate -->
 <section>
-  <h2>📋 Exemple : Presentation</h2>
+  <h2>📋 Exemple : Presentation</h2>
   <pre><code class="language-ts">class Presentation { /* ... */ }
 const pres = new Presentation('p1');
 pres.addSlide(new SlideContent('Hi')); 
 </code></pre>
   <aside class="notes">
     <ul>
-      <li>Chaque ajout de slide doit passer par la racine d’agrégat.</li>
+      <li>Chaque ajout de slide doit passer par la racine d'agrégat.</li>
     </ul>
   </aside>
 </section>
@@ -201,11 +201,11 @@ pres.addSlide(new SlideContent('Hi'));
   <h2>⚙️ Domain Service</h2>
   <ul>
     <li>Logique métier transcendant plusieurs agrégats.</li>
-    <li>Ex : calcul de statistiques sur plusieurs Presentations.</li>
+    <li>Ex : calcul de statistiques sur plusieurs Presentations.</li>
   </ul>
   <aside class="notes">
     <ul>
-      <li>Ne stocke pas de données, n’appartient à aucune entité.</li>
+      <li>Ne stocke pas de données, n'appartient à aucune entité.</li>
     </ul>
   </aside>
 </section>
@@ -215,7 +215,7 @@ pres.addSlide(new SlideContent('Hi'));
   <h2>🏭 Factory</h2>
   <ul>
     <li>Produit des agrégats en garantissant des invariants.</li>
-    <li>Ex : création d’une Presentation avec une slide d’accueil.</li>
+    <li>Ex : création d'une Presentation avec une slide d'accueil.</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -229,7 +229,7 @@ pres.addSlide(new SlideContent('Hi'));
   <h2>💾 Repository</h2>
   <ul>
     <li>Abstraction de la persistence des agrégats.</li>
-    <li>Ex : interface pour MongoDB ou In-Memory.</li>
+    <li>Ex : interface pour MongoDB ou In-Memory.</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -243,11 +243,11 @@ pres.addSlide(new SlideContent('Hi'));
   <h3>🔔 Domain Event</h3>
   <ul>
     <li>Message immuable signalant un changement métier.</li>
-    <li>Déclencheur d’actions asynchrones.</li>
+    <li>Déclencheur d'actions asynchrones.</li>
   </ul>
   <aside class="notes">
     <ul>
-      <li>Ex : <code>SlideAddedEvent</code> pour lancer l’export Reveal.js.</li>
+      <li>Ex : <code>SlideAddedEvent</code> pour lancer l'export Reveal.js.</li>
     </ul>
   </aside>
 </section>
@@ -276,7 +276,7 @@ pres.addSlide(new SlideContent('Hi'));
   </div>
   <aside class="notes">
     <ul>
-      <li>Montrer la chaîne du HTTP jusqu’au bundle Reveal.js.</li>
+      <li>Montrer la chaîne du HTTP jusqu'au bundle Reveal.js.</li>
       <li>Mettre en évidence la séparation des responsabilités à chaque étape.</li>
     </ul>
   </aside>
@@ -284,7 +284,7 @@ pres.addSlide(new SlideContent('Hi'));
 
 <!-- Transition vers Partie 2 -->
 <section>
-  <h2>🚀 Partie 2 : Pratique VibeReveal</h2>
+  <h2>🚀 Partie 2 : Pratique VibeReveal</h2>
   <p>Refactoring pas-à-pas de votre monolithe vers DDD.</p>
   <aside class="notes">
     <ul>
@@ -349,8 +349,8 @@ class PresentationService {
 </code></pre>
   <aside class="notes">
     <ul>
-      <li>Séparer la validation métier, la création de l’agrégat et la persistence.</li>
-      <li>Utiliser PresentationFactory pour construire l’entité.</li>
+      <li>Séparer la validation métier, la création de l'agrégat et la persistence.</li>
+      <li>Utiliser PresentationFactory pour construire l'entité.</li>
     </ul>
   </aside>
 </section>
@@ -372,7 +372,7 @@ class MongoPresentationRepository implements PresentationRepository {
 </code></pre>
   <aside class="notes">
     <ul>
-      <li>Encapsuler l’accès à MongoDB derrière une interface.</li>
+      <li>Encapsuler l'accès à MongoDB derrière une interface.</li>
       <li>Préserver le Domain Model indépendant de la persistence.</li>
     </ul>
   </aside>
@@ -401,7 +401,7 @@ class PresentationAppService {
   </aside>
 </section>
 <section>
-  <h2>🔄 Publication d’événements et intégration Event Bus</h2>
+  <h2>🔄 Publication d'événements et intégration Event Bus</h2>
   <pre><code>// domain/events/PresentationCreated.ts
 class PresentationCreated {
   constructor(
@@ -417,7 +417,7 @@ eventBus.publish(new PresentationCreated(pres.id));
   <aside class="notes">
     <ul>
       <li>Publier un event à chaque changement critique.</li>
-      <li>Décharger l’export Reveal.js dans un consumer asynchrone.</li>
+      <li>Décharger l'export Reveal.js dans un consumer asynchrone.</li>
     </ul>
   </aside>
 </section>
@@ -434,7 +434,7 @@ eventBus.publish(new PresentationCreated(pres.id));
   </ul>
   <aside class="notes">
     <ul>
-      <li>L’Anemic Domain Model conduit à du code procédural, perdant l’encapsulation.</li>
+      <li>L'Anemic Domain Model conduit à du code procédural, perdant l'encapsulation.</li>
       <li>Agrégats trop volumineux dégradent performances (+40-60%) et maintenabilité.</li>
       <li>Privilégier la cohérence éventuelle via Domain Events plutôt que transactions cross-agrégat.</li>
       <li>Communiquer entre contexts via événements ou ACL, jamais par références directes.</li>
@@ -448,7 +448,7 @@ eventBus.publish(new PresentationCreated(pres.id));
   <h2>✅ Bonnes pratiques</h2>
   <ul>
     <li>Commencer petit : un seul bounded context à la fois.</li>
-    <li>Modélisation stratégique avant d’écrire du code (Event Storming, Context Mapping).</li>
+    <li>Modélisation stratégique avant d'écrire du code (Event Storming, Context Mapping).</li>
     <li>Tester le domaine en priorité : tests unitaires sur agrégats et services.</li>
     <li>Maintenir le langage omniprésent : vérifier en revue de code.</li>
     <li>Éviter la sur-ingénierie : DDD pour domaines complexes, pas CRUD simples.</li>
@@ -467,7 +467,7 @@ eventBus.publish(new PresentationCreated(pres.id));
   <h2>✅ Conclusion</h2>
   <ul>
     <li>Le DDD améliore la qualité et la maintenabilité de VibeReveal.</li>
-    <li>Patrons avancés : CQRS, Event Sourcing, Hexagonal Architecture.</li>
+    <li>Patrons avancés : CQRS, Event Sourcing, Hexagonal Architecture.</li>
   </ul>
   <aside class="notes">
     <ul>
@@ -480,8 +480,8 @@ eventBus.publish(new PresentationCreated(pres.id));
 <section>
   <h2>📚 Ressources</h2>
   <ul>
-    <li>Domain-Driven Design : livre par Eric Evans</li>
-    <li>Implementing Domain-Driven Design : Vaughn Vernon</li>
+    <li>Domain-Driven Design : livre par Eric Evans</li>
+    <li>Implementing Domain-Driven Design : Vaughn Vernon</li>
     <li><a href="https://www.domainlanguage.com/ddd/">domainlanguage.com/ddd</a></li>
     <li><a href="https://martinfowler.com/bliki/BoundedContext.html">martinfowler.com - Bounded Context</a></li>
   </ul>
@@ -510,12 +510,12 @@ eventBus.publish(new PresentationCreated(pres.id));
 </section>
 <section>
   <ul>
-    <li>2. Quel est le rôle de l’Aggregate Root ?
+    <li>2. Quel est le rôle de l'Aggregate Root ?
       <ul>
-        <li>A) Contrôler la consistance de l’agrégat</li>
+        <li>A) Contrôler la consistance de l'agrégat</li>
         <li>B) Publier des événements</li>
         <li>C) Gérer directement la persistance</li>
-        <li>D) Définir l’interface utilisateur</li>
+        <li>D) Définir l'interface utilisateur</li>
       </ul>
     </li>
   </ul>
@@ -546,7 +546,7 @@ eventBus.publish(new PresentationCreated(pres.id));
 </section>
 <section>
   <ul>
-    <li>5. Quel pattern protège un contexte d’influence externe ?
+    <li>5. Quel pattern protège un contexte d'influence externe ?
       <ul>
         <li>A) Shared Kernel</li>
         <li>B) Anti-Corruption Layer</li>
@@ -596,8 +596,8 @@ eventBus.publish(new PresentationCreated(pres.id));
   <ul>
     <li>9. Quelle est la Transactional Boundary ?
       <ul>
-        <li>A) La limite d’un service HTTP</li>
-        <li>B) La limite au sein de l’agrégat où la cohérence est garantie</li>
+        <li>A) La limite d'un service HTTP</li>
+        <li>B) La limite au sein de l'agrégat où la cohérence est garantie</li>
         <li>C) Un service de domaine</li>
         <li>D) Un événement métier</li>
       </ul>
@@ -606,10 +606,10 @@ eventBus.publish(new PresentationCreated(pres.id));
 </section>
 <section>
   <ul>
-    <li>10. Quel pattern permet l’autonomie des équipes en limitant les dépendances ?
+    <li>10. Quel pattern permet l'autonomie des équipes en limitant les dépendances ?
       <ul>
         <li>A) Conformist</li>
-        <li>B) Customer–Supplier</li>
+        <li>B) Customer-Supplier</li>
         <li>C) Anti-Corruption Layer</li>
         <li>D) Shared Kernel</li>
       </ul>
@@ -621,19 +621,13 @@ eventBus.publish(new PresentationCreated(pres.id));
   <aside class="notes">
     <ul>
       <li>Proposer un quiz interactif pour valider les connaissances.</li>
-      <li>Utiliser des outils comme Mentimeter ou Kahoot pour le rendre ludique.</li>
     </ul>
   <p><strong>Réponses correctes :</strong> 1:B, 2:A, 3:B, 4:B, 5:B, 6:A, 7:B, 8:B, 9:B, 10:B</p>
-  <p><strong>Politique de notation :</strong> +1 point pour chaque réponse correcte, -0,25 point pour chaque mauvaise réponse, note minimale 0, note maximale 10.</p>
-    <ul>
-      <li>Proposez d’utiliser Mentimeter pour collecter les réponses en temps réel.</li>
-      <li>Ou intégrez directement un plugin quiz dans Reveal.js (par exemple Reveal Quiz Plugin).</li>
-    </ul>
   </aside>
 </section>
 
 <section>
-  <h2>📈 Avantages & Inconvénients de l’Architecture Distribuée</h2>
+  <h2>📈 Avantages & Inconvénients de l'Architecture Distribuée</h2>
   <ul>
     <li><strong>Avantages :</strong>
       <ul>
@@ -652,7 +646,7 @@ eventBus.publish(new PresentationCreated(pres.id));
   </ul>
   <aside class="notes">
     <ul>
-      <li>Souligner l’impact sur l’organisation : nécessite des compétences DevOps et surveillance.</li>
+      <li>Souligner l'impact sur l'organisation : nécessite des compétences DevOps et surveillance.</li>
       <li>Montrer que la modélisation DDD facilite le découpage distribué.</li>
     </ul>
   </aside>
@@ -662,9 +656,9 @@ eventBus.publish(new PresentationCreated(pres.id));
   <h2>🚀 Étapes suivantes</h2>
   <ul>
     <li>1️⃣ Implémenter CQRS pour séparer lecture et écriture.</li>
-    <li>2️⃣ Introduire l’Event Sourcing pour historiser les changements.</li>
-    <li>3️⃣ Adopter l’architecture hexagonale (ports & adapters).</li>
-    <li>4️⃣ Mettre en place des tests d’intégration et des contrats.</li>
+    <li>2️⃣ Introduire l'Event Sourcing pour historiser les changements.</li>
+    <li>3️⃣ Adopter l'architecture hexagonale (ports & adapters).</li>
+    <li>4️⃣ Mettre en place des tests d'intégration et des contrats.</li>
     <li>5️⃣ Automatiser le déploiement continu pour chaque contexte.</li>
   </ul>
   <aside class="notes">

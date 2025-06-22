@@ -1,6 +1,6 @@
 <!-- Slide 1: Titre -->
 <section>
-  <h2>Event Sourcing – Patrons, Architecture et Pratique</h2>
+  <h2>Event Sourcing - Patrons, Architecture et Pratique</h2>
   <ul>
     <li>Principes</li>
     <li>Architecture</li>
@@ -8,7 +8,7 @@
     <li>Défis et meilleures pratiques</li>
   </ul>
   <aside class="notes">
-    Introduction à l’Event Sourcing : on verra les bases, l’architecture, des cas concrets JS pour une appli de présentations, et ce qu’il faut éviter ou surveiller.
+    Introduction à l'Event Sourcing : on verra les bases, l'architecture, des cas concrets JS pour une appli de présentations, et ce qu'il faut éviter ou surveiller.
   </aside>
 </section>
 
@@ -16,10 +16,10 @@
 <section>
   <h3>Objectifs du module</h3>
   <ul>
-    <li>Comprendre l’Event Sourcing et son intérêt</li>
+    <li>Comprendre l'Event Sourcing et son intérêt</li>
     <li>Illustrer sur une app de présentations</li>
     <li>Explorer défis, solutions, anti-patterns</li>
-    <li>Maîtriser les concepts avancés : snapshots, versioning, replay</li>
+    <li>Maîtriser les concepts avancés : snapshots, versioning, replay</li>
   </ul>
   <aside class="notes">
     Nous allons de la théorie à la pratique sur une base métier concrète, avec retour terrain.
@@ -52,13 +52,13 @@
 <section>
   <h3>Définition</h3>
   <ul>
-    <li>Stocke chaque modification d’état comme un <b>événement immuable</b></li>
-    <li>Le <b>journal d’événements</b> (event store) devient la source de vérité</li>
-    <li>L’état courant est <b>reconstruit</b> en “rejouant” les événements</li>
+    <li>Stocke chaque modification d'état comme un <b>événement immuable</b></li>
+    <li>Le <b>journal d'événements</b> (event store) devient la source de vérité</li>
+    <li>L'état courant est <b>reconstruit</b> en “rejouant” les événements</li>
     <li>“Event Sourcing is the pattern of storing state changes as a sequence of events” (<a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank">Martin Fowler</a>)</li>
   </ul>
   <aside class="notes">
-    L’objectif : conserver tout l’historique métier, reconstruire à tout moment l’état complet, garantir audit et conformité.
+    L'objectif : conserver tout l'historique métier, reconstruire à tout moment l'état complet, garantir audit et conformité.
   </aside>
 </section>
 
@@ -73,7 +73,7 @@
     <li>Versioning et rollback natifs</li>
   </ul>
   <aside class="notes">
-    Exemple : revenir à une version antérieure, tracer qui a fait quoi, ou recoller les morceaux après un bug.
+    Exemple : revenir à une version antérieure, tracer qui a fait quoi, ou recoller les morceaux après un bug.
   </aside>
 </section>
 
@@ -99,23 +99,23 @@ graph LR
   </div>
   <aside class="notes">
     <ul>
-      <li><b>Command Handler</b> : reçoit une commande métier (ex : créer ou modifier une présentation), vérifie les règles, construit un ou plusieurs événements.</li>
-      <li><b>Event Store</b> : stocke ces événements en séquence pour chaque agrégat (par exemple, toutes les actions sur une présentation donnée).</li>
-      <li><b>Snapshot Store</b> : optionnel, permet de garder des “sauvegardes” périodiques pour éviter de tout rejouer depuis le début (utile si >1000 events sur un même agrégat).</li>
-      <li><b>Projector</b> : écoute tous les nouveaux événements, met à jour les Read Models (ex : liste des présentations par utilisateur, statistiques, recherche…). C’est ici que se font les projections métiers et les vues de lecture optimisées.</li>
-      <li><b>Read Model</b> : stocke les vues de données prêtes à consommer, pensées pour être ultra-rapides en lecture (souvent des bases NoSQL ou indexées par cas d’usage).</li>
-      <li><b>Query Handler</b> : reçoit les requêtes de lecture de l’application, les résout contre le(s) Read Model(s), jamais contre l’Event Store.</li>
+      <li><b>Command Handler</b> : reçoit une commande métier (ex : créer ou modifier une présentation), vérifie les règles, construit un ou plusieurs événements.</li>
+      <li><b>Event Store</b> : stocke ces événements en séquence pour chaque agrégat (par exemple, toutes les actions sur une présentation donnée).</li>
+      <li><b>Snapshot Store</b> : optionnel, permet de garder des “sauvegardes” périodiques pour éviter de tout rejouer depuis le début (utile si >1000 events sur un même agrégat).</li>
+      <li><b>Projector</b> : écoute tous les nouveaux événements, met à jour les Read Models (ex : liste des présentations par utilisateur, statistiques, recherche…). C'est ici que se font les projections métiers et les vues de lecture optimisées.</li>
+      <li><b>Read Model</b> : stocke les vues de données prêtes à consommer, pensées pour être ultra-rapides en lecture (souvent des bases NoSQL ou indexées par cas d'usage).</li>
+      <li><b>Query Handler</b> : reçoit les requêtes de lecture de l'application, les résout contre le(s) Read Model(s), jamais contre l'Event Store.</li>
       <li>À retenir : séparation stricte écriture (events), lecture (read models), projections automatisées, architecture naturellement asynchrone.</li>
       <li>Attention : la synchronisation entre Event Store et Read Models peut induire une latence (consistance éventuelle).</li>
-      <li>Exemple de flux : Création d’une présentation → enregistrement d’un événement dans l’event store → le projector le détecte, met à jour le read model → une requête utilisateur retrouve immédiatement la nouvelle présentation dans la liste (après propagation).</li>
+      <li>Exemple de flux : Création d'une présentation → enregistrement d'un événement dans l'event store → le projector le détecte, met à jour le read model → une requête utilisateur retrouve immédiatement la nouvelle présentation dans la liste (après propagation).</li>
     </ul>
   </aside>
 </section>
 
-<!-- Slide 7: Exemple JS – Append d’un événement -->
+<!-- Slide 7: Exemple JS - Append d'un événement -->
 <section>
-  <h3>Exemple : Append d’événement</h3>
-  <pre><code class="language-js">// Événement métier : création de présentation
+  <h3>Exemple : Append d'événement</h3>
+  <pre><code class="language-js">// Événement métier : création de présentation
 const event = {
   type: 'PresentationCreated',
   data: {
@@ -130,13 +130,13 @@ const event = {
 await eventStore.append(event);
   </code></pre>
   <aside class="notes">
-    On stocke toujours l’événement métier, pas l’état courant.
+    On stocke toujours l'événement métier, pas l'état courant.
   </aside>
 </section>
 
-<!-- Slide 8: Autres types d’événements -->
+<!-- Slide 8: Autres types d'événements -->
 <section>
-  <h3>Exemple : Append d’update/suppression</h3>
+  <h3>Exemple : Append d'update/suppression</h3>
   <pre><code class="language-js">// Modification ou suppression
 const updateEvent = {
   type: 'PresentationUpdated',
@@ -152,14 +152,14 @@ await eventStore.append(updateEvent);
 await eventStore.append(deleteEvent);
   </code></pre>
   <aside class="notes">
-    Chaque changement métier s’exprime par un nouvel événement, jamais par modification en place.
+    Chaque changement métier s'exprime par un nouvel événement, jamais par modification en place.
   </aside>
 </section>
 
 <!-- Slide 9: Replay et reconstruction -->
 <section>
   <h3>Replay des événements</h3>
-  <pre><code class="language-js">// Rejoue tous les événements pour reconstruire l’état
+  <pre><code class="language-js">// Rejoue tous les événements pour reconstruire l'état
 async function loadPresentation(eventStore, id) {
   const events = await eventStore.getEvents('Presentation', id);
   let state = {};
@@ -178,14 +178,14 @@ function applyEvent(state, event) {
 }
   </code></pre>
   <aside class="notes">
-    On repart de l’état initial (souvent vide), puis on applique tous les événements, dans l’ordre, pour retrouver l’état courant.
+    On repart de l'état initial (souvent vide), puis on applique tous les événements, dans l'ordre, pour retrouver l'état courant.
   </aside>
 </section>
 
 <!-- Slide 10: Projection et read models -->
 <section>
   <h3>Projection & Read Model</h3>
-  <pre><code class="language-js">// Projection : vue de lecture pour la recherche par auteur
+  <pre><code class="language-js">// Projection : vue de lecture pour la recherche par auteur
 class AuthorPresentationsProjector {
   constructor(readModel) { this.readModel = readModel; }
   async handle(event) {
@@ -210,30 +210,30 @@ class AuthorPresentationsProjector {
   <h3>Audit et analyse</h3>
   <ul>
     <li>Chaque action est tracée, auditable a posteriori</li>
-    <li>Replay d’un historique : retrouver toutes les versions d’une présentation</li>
-    <li>Analyse post-mortem, debugging, restitution d’états passés</li>
+    <li>Replay d'un historique : retrouver toutes les versions d'une présentation</li>
+    <li>Analyse post-mortem, debugging, restitution d'états passés</li>
   </ul>
   <aside class="notes">
-    Idéal pour les systèmes réglementés, les audits de sécurité, ou les restaurations d’état après incident.
+    Idéal pour les systèmes réglementés, les audits de sécurité, ou les restaurations d'état après incident.
   </aside>
 </section>
 
 <!-- Slide 12: Snapshots (principe) -->
 <section>
-  <h3>Snapshots : principe</h3>
+  <h3>Snapshots : principe</h3>
   <ul>
-    <li>Snapshot = capture de l’état complet à un instant T</li>
-    <li>Permet une reconstruction rapide : replay part du dernier snapshot</li>
-    <li>Utile si volumétrie élevée d’événements</li>
+    <li>Snapshot = capture de l'état complet à un instant T</li>
+    <li>Permet une reconstruction rapide : replay part du dernier snapshot</li>
+    <li>Utile si volumétrie élevée d'événements</li>
   </ul>
   <aside class="notes">
-    Sans snapshot, la reconstruction de l’état peut prendre plusieurs secondes/minutes sur de gros agrégats (>1000 events).
+    Sans snapshot, la reconstruction de l'état peut prendre plusieurs secondes/minutes sur de gros agrégats (>1000 events).
   </aside>
 </section>
 
-<!-- Slide 13: Exemple JS – Snapshot -->
+<!-- Slide 13: Exemple JS - Snapshot -->
 <section>
-  <h3>Exemple : Création et usage d’un snapshot</h3>
+  <h3>Exemple : Création et usage d'un snapshot</h3>
   <pre><code class="language-js">// Sauvegarder un snapshot
 async function saveSnapshot(snapshotStore, id, state, version) {
   await snapshotStore.save({ id, state, version, timestamp: new Date() });
@@ -249,20 +249,20 @@ async function loadState(eventStore, snapshotStore, id) {
 }
   </code></pre>
   <aside class="notes">
-    La fréquence idéale dépend du volume et de la criticité de l’agrégat : tous les 100, 500, 1000 events, ou toutes les X heures.
+    La fréquence idéale dépend du volume et de la criticité de l'agrégat : tous les 100, 500, 1000 events, ou toutes les X heures.
   </aside>
 </section>
 
-<!-- Slide 14: Évolution des schémas d’événements -->
+<!-- Slide 14: Évolution des schémas d'événements -->
 <section>
   <h3>Évolution des schémas</h3>
   <ul>
     <li>Champ <b>version</b> dans chaque événement</li>
-    <li><b>Upcasters</b> : adapters d’anciens événements vers le schéma courant</li>
+    <li><b>Upcasters</b> : adapters d'anciens événements vers le schéma courant</li>
     <li>Compatibilité ascendante obligatoire</li>
     <li>Documenter toutes les versions</li>
   </ul>
-  <pre><code class="language-js">// Upcaster : ajoute le champ category en v2
+  <pre><code class="language-js">// Upcaster : ajoute le champ category en v2
 function upcastEvent(event) {
   if (event.type === 'PresentationCreated' && event.version === 1) {
     return { ...event, data: { ...event.data, category: 'general' }, version: 2 };
@@ -271,7 +271,7 @@ function upcastEvent(event) {
 }
   </code></pre>
   <aside class="notes">
-    Versionner les événements permet de faire évoluer le métier sans casser l’historique. Les upcasters adaptent les anciens events lors du replay.
+    Versionner les événements permet de faire évoluer le métier sans casser l'historique. Les upcasters adaptent les anciens events lors du replay.
   </aside>
 </section>
 
@@ -286,7 +286,7 @@ function upcastEvent(event) {
     <li>Scalabilité horizontale du stockage</li>
   </ul>
   <aside class="notes">
-    Anticipez les problématiques d’échelle et de fiabilité, dès la conception (architecture, monitoring, partitionnement).
+    Anticipez les problématiques d'échelle et de fiabilité, dès la conception (architecture, monitoring, partitionnement).
   </aside>
 </section>
 
@@ -296,11 +296,11 @@ function upcastEvent(event) {
   <ul>
     <li>Partitionnement (par utilisateur, domaine, etc.)</li>
     <li>Archivage des anciens événements</li>
-    <li>Purge réglementaire (RGPD, droit à l’oubli)</li>
+    <li>Purge réglementaire (RGPD, droit à l'oubli)</li>
     <li>Monitoring et alerting essentiels</li>
   </ul>
   <aside class="notes">
-    Prendre en compte le coût du stockage sur la durée, anticiper l’effacement réglementaire (droit à l’oubli), penser à l’évolutivité horizontale.
+    Prendre en compte le coût du stockage sur la durée, anticiper l'effacement réglementaire (droit à l'oubli), penser à l'évolutivité horizontale.
   </aside>
 </section>
 
@@ -308,13 +308,13 @@ function upcastEvent(event) {
 <section>
   <h3>Limites et pièges</h3>
   <ul>
-    <li>Difficulté des requêtes globales (ex : recherche plein texte)</li>
+    <li>Difficulté des requêtes globales (ex : recherche plein texte)</li>
     <li>Complexité du monitoring et du debug</li>
     <li>Migration délicate si le métier change souvent</li>
     <li>Sur-ingénierie sur des petits projets</li>
   </ul>
   <aside class="notes">
-    N’adoptez pas Event Sourcing si les besoins d’historique et d’audit ne sont pas centraux.
+    N'adoptez pas Event Sourcing si les besoins d'historique et d'audit ne sont pas centraux.
   </aside>
 </section>
 
@@ -322,14 +322,14 @@ function upcastEvent(event) {
 <section>
   <h3>Anti-patterns</h3>
   <ul>
-    <li>Stocker des événements techniques dans l’event store métier</li>
+    <li>Stocker des événements techniques dans l'event store métier</li>
     <li>Modifier ou supprimer des événements existants</li>
     <li>Projections non idempotentes</li>
     <li>Événements trop “techniques” ou “plats” (pas orientés métier)</li>
     <li>Manque de documentation ou de versioning</li>
   </ul>
   <aside class="notes">
-    La discipline métier doit primer sur la technique : chaque événement doit être utile à la reconstruction métier, pas au debug technique.
+    La discipline métier doit primer sur la technique : chaque événement doit être utile à la reconstruction métier, pas au debug technique.
   </aside>
 </section>
 
@@ -338,13 +338,13 @@ function upcastEvent(event) {
   <h3>Bonnes pratiques</h3>
   <ul>
     <li>Documenter et versionner chaque événement</li>
-    <li>Prévoir la purge, l’archivage, le partitionnement</li>
+    <li>Prévoir la purge, l'archivage, le partitionnement</li>
     <li>Mettre en place du monitoring dès le début</li>
     <li>Tester les projections sur des volumétries réelles</li>
     <li>Rendre tous les handlers idempotents</li>
   </ul>
   <aside class="notes">
-    La clé du succès en event sourcing : discipline, documentation, anticipation de la volumétrie et du changement.
+    La clé du succès en event sourcing : discipline, documentation, anticipation de la volumétrie et du changement.
   </aside>
 </section>
 
@@ -352,55 +352,55 @@ function upcastEvent(event) {
 <section>
   <h3>Glossaire</h3>
   <ul>
-    <li><b>Événement :</b> fait métier, immuable, persistant</li>
-    <li><b>Event Store :</b> base qui stocke les événements séquentiellement</li>
-    <li><b>Replay :</b> reconstruction de l’état par relecture des événements</li>
-    <li><b>Projection :</b> vue optimisée de la donnée lue</li>
-    <li><b>Snapshot :</b> copie ponctuelle de l’état pour accélérer la reconstruction</li>
-    <li><b>Upcaster :</b> adaptation d’événements anciens vers le schéma actuel</li>
-    <li><b>Idempotence :</b> capacité à tolérer le traitement répété du même événement</li>
+    <li><b>Événement :</b> fait métier, immuable, persistant</li>
+    <li><b>Event Store :</b> base qui stocke les événements séquentiellement</li>
+    <li><b>Replay :</b> reconstruction de l'état par relecture des événements</li>
+    <li><b>Projection :</b> vue optimisée de la donnée lue</li>
+    <li><b>Snapshot :</b> copie ponctuelle de l'état pour accélérer la reconstruction</li>
+    <li><b>Upcaster :</b> adaptation d'événements anciens vers le schéma actuel</li>
+    <li><b>Idempotence :</b> capacité à tolérer le traitement répété du même événement</li>
   </ul>
   <aside class="notes">
-    Maîtriser ces notions, c’est gagner du temps en conception et en debug !
+    Maîtriser ces notions, c'est gagner du temps en conception et en debug !
   </aside>
 </section>
 
-<!-- Slide 21: Cas concrets – Domaines adaptés -->
+<!-- Slide 21: Cas concrets - Domaines adaptés -->
 <section>
-  <h3>Cas concrets d’application</h3>
+  <h3>Cas concrets d'application</h3>
   <ul>
-    <li>Banque, finance : audit, anti-fraude, rollback</li>
-    <li>Gestion documentaire : versioning, trace, conformité</li>
+    <li>Banque, finance : audit, anti-fraude, rollback</li>
+    <li>Gestion documentaire : versioning, trace, conformité</li>
     <li>Collaboratif (présentations, wikis, projets partagés)</li>
     <li>Jeux, scoring, analytics avancé</li>
   </ul>
   <aside class="notes">
-    L’event sourcing est utile dès que le “qui, quoi, quand, comment” a de la valeur métier ou légale.
+    L'event sourcing est utile dès que le “qui, quoi, quand, comment” a de la valeur métier ou légale.
   </aside>
 </section>
 
-<!-- Slide 22: Retours d’expérience -->
+<!-- Slide 22: Retours d'expérience -->
 <section>
-  <h3>Retours d’expérience terrain</h3>
+  <h3>Retours d'expérience terrain</h3>
   <ul>
     <li>Bien choisir la granularité des événements</li>
     <li>Éviter les projections trop “magiques”</li>
     <li>Penser migration et suppression dès le départ</li>
-    <li>Le monitoring, c’est maintenant, pas plus tard</li>
+    <li>Le monitoring, c'est maintenant, pas plus tard</li>
     <li>La documentation sauve des migrations futures</li>
   </ul>
   <aside class="notes">
-    Les pires migrations viennent d’un mauvais design initial, pas d’un manque de code : prenez le temps de bien concevoir les événements.
+    Les pires migrations viennent d'un mauvais design initial, pas d'un manque de code : prenez le temps de bien concevoir les événements.
   </aside>
 </section>
 
 <section>
-  <h3>Retour d’expérience réel : Strava</h3>
+  <h3>Retour d'expérience réel : Strava</h3>
   <ul>
     <li>Présentation d'une implémentation concrète de l'Event Sourcing avec Elixir</li>
     <li><b>Bénéfices :</b> auditabilité complète, facilité de rollback, évolution métier accélérée</li>
-    <li><b>Challenges :</b> gestion de la volumétrie d’événements, évolution des schémas, latence entre Event Store et Read Models</li>
-    <li>Leçons tirées : importance du monitoring, du tooling pour l’event replay, anticipation du versioning</li>
+    <li><b>Challenges :</b> gestion de la volumétrie d'événements, évolution des schémas, latence entre Event Store et Read Models</li>
+    <li>Leçons tirées : importance du monitoring, du tooling pour l'event replay, anticipation du versioning</li>
     <li>Retour détaillé : <a href="https://10consulting.com/presentations/event-sourcing-in-practice/" target="_blank">Event Sourcing in Practice</a></li>
   </ul>
   <aside class="notes">
@@ -412,11 +412,11 @@ function upcastEvent(event) {
 <section>
   <h3>Quiz</h3>
   <ol>
-    <li>Pourquoi un événement n’est-il jamais modifié après append ? <span class="fragment">Pour garantir auditabilité, conformité, reproductibilité.</span></li>
-    <li>Quand faire un snapshot ? <span class="fragment">Quand le replay complet coûte trop cher, ex : >500 événements.</span></li>
-    <li>Pourquoi l’idempotence est-elle cruciale ? <span class="fragment">Pour éviter les incohérences en cas de reprocessing.</span></li>
-    <li>Citez un anti-pattern d’Event Sourcing. <span class="fragment">Modifier/supprimer les événements, projections non idempotentes…</span></li>
-    <li>Quelle différence entre projection et snapshot ? <span class="fragment">Projection : vue optimisée pour lecture, snapshot : copie ponctuelle de l’état d’un agrégat.</span></li>
+    <li>Pourquoi un événement n'est-il jamais modifié après append ? <span class="fragment">Pour garantir auditabilité, conformité, reproductibilité.</span></li>
+    <li>Quand faire un snapshot ? <span class="fragment">Quand le replay complet coûte trop cher, ex : >500 événements.</span></li>
+    <li>Pourquoi l'idempotence est-elle cruciale ? <span class="fragment">Pour éviter les incohérences en cas de reprocessing.</span></li>
+    <li>Citez un anti-pattern d'Event Sourcing. <span class="fragment">Modifier/supprimer les événements, projections non idempotentes…</span></li>
+    <li>Quelle différence entre projection et snapshot ? <span class="fragment">Projection : vue optimisée pour lecture, snapshot : copie ponctuelle de l'état d'un agrégat.</span></li>
   </ol>
   <aside class="notes">
     Utiliser le quiz pour impliquer les étudiants, puis afficher les réponses.
@@ -427,11 +427,11 @@ function upcastEvent(event) {
 <section>
   <h3>Réponses du quiz</h3>
   <ol>
-    <li>Auditabilité, conformité, reproductibilité : l’événement n’est jamais modifié.</li>
+    <li>Auditabilité, conformité, reproductibilité : l'événement n'est jamais modifié.</li>
     <li>Faire un snapshot si le replay de tous les événements devient coûteux en temps ou en ressources.</li>
-    <li>L’idempotence garantit la robustesse et la cohérence si un même événement est traité plusieurs fois.</li>
-    <li>Anti-pattern : modifier/supprimer des événements, projections non idempotentes, etc.</li>
-    <li>Projection : vue de lecture optimisée ; Snapshot : copie ponctuelle d’un état d’agrégat pour accélérer la reconstruction.</li>
+    <li>L'idempotence garantit la robustesse et la cohérence si un même événement est traité plusieurs fois.</li>
+    <li>Anti-pattern : modifier/supprimer des événements, projections non idempotentes, etc.</li>
+    <li>Projection : vue de lecture optimisée ; Snapshot : copie ponctuelle d'un état d'agrégat pour accélérer la reconstruction.</li>
   </ol>
   <aside class="notes">
     Corrigez collectivement, précisez ou débattez sur les réponses, encouragez les retours terrain.
@@ -442,13 +442,13 @@ function upcastEvent(event) {
 <section>
   <h3>Références</h3>
   <ul>
-    <li><a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank">Martin Fowler – Event Sourcing</a></li>
-    <li><a href="https://eventstore.com/blog/event-sourcing-explained/" target="_blank">Event Store – Event Sourcing Explained</a></li>
-    <li><a href="https://docs.microsoft.com/azure/architecture/patterns/event-sourcing" target="_blank">Microsoft Docs – Event Sourcing Pattern</a></li>
+    <li><a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank">Martin Fowler - Event Sourcing</a></li>
+    <li><a href="https://eventstore.com/blog/event-sourcing-explained/" target="_blank">Event Store - Event Sourcing Explained</a></li>
+    <li><a href="https://docs.microsoft.com/azure/architecture/patterns/event-sourcing" target="_blank">Microsoft Docs - Event Sourcing Pattern</a></li>
     <li><a href="https://cqrs.nu/" target="_blank">CQRS/ES Resources</a></li>
     <li><a href="https://www.youtube.com/results?search_query=event+sourcing+devoxx" target="_blank">Vidéos Devoxx Event Sourcing</a></li>
   </ul>
   <aside class="notes">
-    Liens vérifiés mai 2025, tous actifs. Consultez les pour voir des implémentations concrètes et des retours d’expérience.
+    Liens vérifiés mai 2025, tous actifs. Consultez les pour voir des implémentations concrètes et des retours d'expérience.
   </aside>
 </section>

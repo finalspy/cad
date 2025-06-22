@@ -6,14 +6,25 @@
       <li>Pourquoi une nouvelle architecture ?</li>
       <li>Définition</li>
       <li>Principe “dépendances dirigées”</li>
-      <li>Hexagone : d’où vient le nom ?</li>
+      <li>Hexagone : d'où vient le nom ?</li>
       <li>Domaine métier</li>
-      <li>Ports d’entrée</li>
+      <li>Ports d'entrée</li>
       <li>Adapters entrants</li>
       <li>Ports de sortie</li>
       <li>Adapters sortants</li>
       <li>Schéma général</li>
-      <li>Organisation dossier Node.js</li>
+</ul>
+      <aside class="notes">
+        <ul>
+          <li>Tour complet du pattern, des motivations jusqu'aux retours terrain, en insistant sur le code concret.</li>
+        </ul>
+      </aside>
+    </section>
+    <section>
+        <h2>Architecture Hexagonale<br><small>Ports & Adapters</small></h2>
+        <ul>
+            <li>Organisation dossier Node.js</li>
+
       <li>Exemple : Controller/Service “avant”</li>
       <li>Exemple : Après hexagonalisation</li>
       <li>Injection de dépendances</li>
@@ -29,7 +40,7 @@
     </ul>
     <aside class="notes">
       <ul>
-        <li>Tour complet du pattern, des motivations jusqu’aux retours terrain, en insistant sur le code concret.</li>
+        <li>Tour complet du pattern, des motivations jusqu'aux retours terrain, en insistant sur le code concret.</li>
       </ul>
     </aside>
   </section>
@@ -38,12 +49,12 @@
   <section>
     <h2>Introduction</h2>
     <ul>
-      <li>Problème classique : le code métier “dépend” de l’infrastructure (DB, APIs, UI...)</li>
+      <li>Problème classique : le code métier “dépend” de l'infrastructure (DB, APIs, UI...)</li>
       <li>Objectif : isoler le métier des changements techniques</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>On veut rendre l’application testable, évolutive, robuste face aux évolutions de la stack technique.</li>
+        <li>On veut rendre l'application testable, évolutive, robuste face aux évolutions de la stack technique.</li>
       </ul>
     </aside>
   </section>
@@ -67,12 +78,12 @@
     <h2>Définition</h2>
     <ul>
       <li>Architecture centrée sur le métier : Ports & Adapters (Alistair Cockburn, 2005)</li>
-      <li>Le “domaine” n’a jamais connaissance des technologies extérieures</li>
+      <li>Le “domaine” n'a jamais connaissance des technologies extérieures</li>
       <li>Ports (interfaces) & Adapters (implémentations techniques) connectent le core métier au reste du monde</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>Concept clef : la dépendance va TOUJOURS de l’extérieur vers le métier, jamais l’inverse.</li>
+        <li>Concept clef : la dépendance va TOUJOURS de l'extérieur vers le métier, jamais l'inverse.</li>
       </ul>
     </aside>
   </section>
@@ -81,7 +92,7 @@
   <section>
     <h2>Principe : dépendances dirigées</h2>
     <ul>
-      <li>Tout dépend du domaine, JAMAIS l’inverse</li>
+      <li>Tout dépend du domaine, JAMAIS l'inverse</li>
       <li>Permet de remplacer une dépendance externe sans toucher au métier</li>
     </ul>
     <aside class="notes">
@@ -95,12 +106,12 @@
   <section>
     <h2>Pourquoi “hexagonale” ?</h2>
     <ul>
-      <li>L’hexagone symbolise la symétrie : n’importe quel “côté” peut être une interface technique (API, CLI, Web, Batch, DB, ...)</li>
-      <li>Pas une forme technique, mais conceptuelle : 6 “faces” = plusieurs points d’entrée/sortie possibles</li>
+      <li>L'hexagone symbolise la symétrie : n'importe quel “côté” peut être une interface technique (API, CLI, Web, Batch, DB, ...)</li>
+      <li>Pas une forme technique, mais conceptuelle : 6 “faces” = plusieurs points d'entrée/sortie possibles</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>On pourrait aussi dire “octogonale”, “carrée”, etc. : l’idée est l’indépendance et la multiplicité des points d’accès.</li>
+        <li>On pourrait aussi dire “octogonale”, “carrée”, etc. : l'idée est l'indépendance et la multiplicité des points d'accès.</li>
       </ul>
     </aside>
   </section>
@@ -111,26 +122,26 @@
     <ul>
       <li>Le cœur du logiciel (business logic, entités, règles, use cases)</li>
       <li>Aucune dépendance sur une technologie tierce</li>
-      <li>Stable même si l’infrastructure change</li>
+      <li>Stable même si l'infrastructure change</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>C’est la seule partie vraiment durable d’un logiciel.</li>
+        <li>C'est la seule partie vraiment durable d'un logiciel.</li>
       </ul>
     </aside>
   </section>
   
-  <!-- Slide 8: Ports d’entrée (input ports) -->
+  <!-- Slide 8: Ports d'entrée (input ports) -->
   <section>
-    <h2>Ports d’entrée (input)</h2>
+    <h2>Ports d'entrée (input)</h2>
     <ul>
       <li>Interfaces exposées par le domaine pour recevoir des demandes (use cases, services)</li>
       <li>Ex : “PresentationService.create(presentation)”</li>
-      <li>Sépare l’API (web/cli) du métier</li>
+      <li>Sépare l'API (web/cli) du métier</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>Un port d’entrée décrit “ce qu’on sait faire”.</li>
+        <li>Un port d'entrée décrit “ce qu'on sait faire”.</li>
       </ul>
     </aside>
   </section>
@@ -139,8 +150,8 @@
   <section>
     <h2>Adapters entrants</h2>
     <ul>
-      <li>Implémentent un protocole d’entrée (ex : REST, GraphQL, CLI)</li>
-      <li>Appellent les ports d’entrée métier</li>
+      <li>Implémentent un protocole d'entrée (ex : REST, GraphQL, CLI)</li>
+      <li>Appellent les ports d'entrée métier</li>
       <li>Ne contiennent aucune logique métier</li>
     </ul>
     <aside class="notes">
@@ -159,7 +170,7 @@
     </ul>
     <aside class="notes">
       <ul>
-        <li>“J’ai besoin d’enregistrer une entité”, mais je ne sais pas comment ni où.</li>
+        <li>“J'ai besoin d'enregistrer une entité”, mais je ne sais pas comment ni où.</li>
       </ul>
     </aside>
   </section>
@@ -230,7 +241,7 @@
     </aside>
   </section>
   
-  <!-- Slide 14: Exemple Node.js – AVANT (anti-pattern) -->
+  <!-- Slide 14: Exemple Node.js - AVANT (anti-pattern) -->
   <section>
     <h2>Exemple Node.js : AVANT</h2>
     <pre><code class="language-js">
@@ -249,7 +260,7 @@
     </aside>
   </section>
   
-  <!-- Slide 15: Exemple Node.js – APRES (Hexagonal) -->
+  <!-- Slide 15: Exemple Node.js - APRES (Hexagonal) -->
   <section>
     <h2>Exemple Node.js : APRES</h2>
     <pre><code class="language-js">
@@ -267,7 +278,7 @@
     </code></pre>
     <aside class="notes">
       <ul>
-        <li>Le service métier ne dépend que d’une interface (“repo” = port de sortie).</li>
+        <li>Le service métier ne dépend que d'une interface (“repo” = port de sortie).</li>
         <li>Facile à tester sans Express ni Mongo : on injecte un mock.</li>
       </ul>
     </aside>
@@ -292,7 +303,7 @@
     <h2>Tests & Mock facilités</h2>
     <ul>
       <li>Test unitaire du service : injecter un faux “repo” qui simule la base</li>
-      <li>Test d’intégration : brancher l’adapter réel</li>
+      <li>Test d'intégration : brancher l'adapter réel</li>
       <li>Exemple (Vitest) :</li>
     </ul>
     <pre><code class="language-js">
@@ -330,10 +341,10 @@
   <section>
     <h2>Avantages</h2>
     <ul>
-      <li>Découplage fort : changez d’ORM, d’API, de base, de protocole sans toucher au métier</li>
+      <li>Découplage fort : changez d'ORM, d'API, de base, de protocole sans toucher au métier</li>
       <li>Testabilité : 90% du métier testable sans dépendance technique</li>
       <li>Lisibilité et onboarding : chaque responsabilité a sa place</li>
-      <li>Facilité d’évolution et de refonte technique</li>
+      <li>Facilité d'évolution et de refonte technique</li>
     </ul>
     <aside class="notes">
       <ul>
@@ -346,13 +357,13 @@
   <section>
     <h2>Limites réelles</h2>
     <ul>
-      <li>Architecture plus “lourde” : plus de fichiers et d’abstractions</li>
+      <li>Architecture plus “lourde” : plus de fichiers et d'abstractions</li>
       <li>Montée en compétences nécessaire sur les patterns</li>
       <li>Overkill pour un script, un POC ou une micro-feature</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>Le bénéfice se révèle à partir d’un projet de taille moyenne, dès qu’on veut “brancher” plusieurs adapters.</li>
+        <li>Le bénéfice se révèle à partir d'un projet de taille moyenne, dès qu'on veut “brancher” plusieurs adapters.</li>
       </ul>
     </aside>
   </section>
@@ -373,13 +384,13 @@
     </aside>
   </section>
   
-  <!-- Slide 22: REX général sur l’architecture hexagonale -->
+  <!-- Slide 22: REX général sur l'architecture hexagonale -->
   <section>
-    <h2>Retour d’expérience : Chiffres réels</h2>
+    <h2>Retour d'expérience : Chiffres réels</h2>
     <ul>
       <li>Projet Node.js SaaS : migration hexagonale sur 4 mois (5 devs)</li>
       <li>Couverture de tests métier passée de 55% à 92%</li>
-      <li>Temps de livraison d’un nouveau canal (API REST → CLI) : 3j → 0.5j</li>
+      <li>Temps de livraison d'un nouveau canal (API REST → CLI) : 3j → 0.5j</li>
       <li>Nombre de bugs critiques “cross-adapter” : -80% sur 1 an</li>
     </ul>
     <aside class="notes">
@@ -394,8 +405,8 @@
     <h2>REX : Application Node.js (Monolithe → Hexagonal)</h2>
     <ul>
       <li>Refonte progressive (par use-case, sans big bang)</li>
-      <li>Temps d’onboarding d’un nouveau dev : réduit de 2 semaines à 4 jours</li>
-      <li>Ajout d’un “mock” pour tous les adapters → tests E2E automatisés en 2 semaines</li>
+      <li>Temps d'onboarding d'un nouveau dev : réduit de 2 semaines à 4 jours</li>
+      <li>Ajout d'un “mock” pour tous les adapters → tests E2E automatisés en 2 semaines</li>
       <li>Migration MongoDB → PostgreSQL en 10j sans changer le métier</li>
     </ul>
     <aside class="notes">
@@ -409,39 +420,39 @@
 <section>
     <h2>FAQ / Questions courantes</h2>
     <ul>
-      <li>“Pourquoi on parle d’hexagone ?”</li>
+      <li>“Pourquoi on parle d'hexagone ?”</li>
       <li>“À quoi sert un port ?”</li>
-      <li>“Est-ce que c’est compatible avec mon framework préféré ?”</li>
-      <li>“Adapter et port, c’est la même chose ?”</li>
-      <li>“Le métier, c’est vraiment que des entités ?”</li>
-      <li>“C’est comme la Clean Architecture ?”</li>
+      <li>“Est-ce que c'est compatible avec mon framework préféré ?”</li>
+      <li>“Adapter et port, c'est la même chose ?”</li>
+      <li>“Le métier, c'est vraiment que des entités ?”</li>
+      <li>“C'est comme la Clean Architecture ?”</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>L’hexagone est un symbole de “multiples points d’entrée/sortie”.</li>
+        <li>L'hexagone est un symbole de “multiples points d'entrée/sortie”.</li>
         <li>Un port est une interface ; un adapter est une implémentation concrète de cette interface.</li>
         <li>On peut appliquer ce pattern avec presque tous les frameworks modernes : Express, Spring, .NET, Django…</li>
-        <li>Non, ce n’est pas la même chose : le port définit un contrat, l’adapter l’implémente.</li>
+        <li>Non, ce n'est pas la même chose : le port définit un contrat, l'adapter l'implémente.</li>
         <li>Le domaine = entités + logique métier + services métier.</li>
-        <li>Clean Architecture reprend la séparation métier/technique et l’inversion des dépendances, en poussant plus loin le découplage (avec des cercles concentriques).</li>
+        <li>Clean Architecture reprend la séparation métier/technique et l'inversion des dépendances, en poussant plus loin le découplage (avec des cercles concentriques).</li>
       </ul>
     </aside>
   </section>
   
   <!-- Slide : "Si j'étais un enfant de 5 ans..." -->
   <section>
-    <h2>Si j’étais un enfant de 5 ans...</h2>
+    <h2>Si j'étais un enfant de 5 ans...</h2>
     <ul>
-      <li>“À quoi ça sert l’architecture hexagonale ?”</li>
+      <li>“À quoi ça sert l'architecture hexagonale ?”</li>
       <li>“Pourquoi on ne met pas tout dans le même fichier ?”</li>
-      <li>“C’est quoi une dépendance ?”</li>
+      <li>“C'est quoi une dépendance ?”</li>
       <li>“Pourquoi je dois changer le moins de choses possible quand je veux tester ou changer de base ?”</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>L’architecture hexagonale, c’est comme une boîte à jouets où chaque jouet (adapter) peut être changé sans toucher au coffre (le métier).</li>
-        <li>Si tu ranges tout ensemble, c’est le bazar. Si tu sépares, tu retrouves tout plus vite !</li>
-        <li>Une dépendance, c’est quand une partie de ton jeu ne marche que si une autre marche aussi. On préfère que tout marche tout seul ou avec le moins d’aide possible.</li>
+        <li>L'architecture hexagonale, c'est comme une boîte à jouets où chaque jouet (adapter) peut être changé sans toucher au coffre (le métier).</li>
+        <li>Si tu ranges tout ensemble, c'est le bazar. Si tu sépares, tu retrouves tout plus vite !</li>
+        <li>Une dépendance, c'est quand une partie de ton jeu ne marche que si une autre marche aussi. On préfère que tout marche tout seul ou avec le moins d'aide possible.</li>
         <li>On gagne du temps et on fait moins de bêtises en changeant une pièce à la fois.</li>
       </ul>
     </aside>
@@ -451,18 +462,18 @@
   <section>
     <h2>Architecture hexagonale, DDD, CQRS, Saga, Event Sourcing…</h2>
     <ul>
-      <li><b>DDD</b> : la séparation du domaine métier, le “core” de l’hexagone</li>
+      <li><b>DDD</b> : la séparation du domaine métier, le “core” de l'hexagone</li>
       <li><b>CQRS</b> : chaque “port” peut être une commande (write) ou une requête (read)</li>
-      <li><b>Event Sourcing</b> : les ports/adapters peuvent manipuler des flux d’événements plutôt que des données brutes</li>
-      <li><b>Saga</b> : les orchestrateurs/gestionnaires d’événements deviennent des adapters ou des ports selon le découpage</li>
+      <li><b>Event Sourcing</b> : les ports/adapters peuvent manipuler des flux d'événements plutôt que des données brutes</li>
+      <li><b>Saga</b> : les orchestrateurs/gestionnaires d'événements deviennent des adapters ou des ports selon le découpage</li>
       <li><b>Applications distribuées</b> : le découplage métier/technique est fondamental pour faire communiquer plusieurs “hexagones”/services</li>
     </ul>
     <aside class="notes">
       <ul>
-        <li>L’architecture hexagonale s’articule naturellement avec DDD : le domaine, ce sont les entités/valeurs/aggregats DDD.</li>
-        <li>En CQRS, chaque port correspond à un cas d’usage (command, query).</li>
-        <li>Les Sagas ou la gestion des transactions distribuées s’implémentent comme des adapters spécialisés.</li>
-        <li>Event Sourcing ou l’architecture orientée événements : on peut brancher un port sur une “event store” ou un bus de messages.</li>
+        <li>L'architecture hexagonale s'articule naturellement avec DDD : le domaine, ce sont les entités/valeurs/aggregats DDD.</li>
+        <li>En CQRS, chaque port correspond à un cas d'usage (command, query).</li>
+        <li>Les Sagas ou la gestion des transactions distribuées s'implémentent comme des adapters spécialisés.</li>
+        <li>Event Sourcing ou l'architecture orientée événements : on peut brancher un port sur une “event store” ou un bus de messages.</li>
         <li>En microservices, chaque service est un hexagone : communication via adapters (REST, Kafka…)</li>
       </ul>
     </aside>
@@ -473,8 +484,8 @@
     <h2>Hexagonale vs Clean Architecture</h2>
     <ul>
       <li>Principe commun : inversion des dépendances, séparation stricte du métier</li>
-      <li>Différence principale : Clean Architecture formalise les couches (cercles), Hexagonale privilégie les points d’accès symétriques</li>
-      <li>En pratique, la “Clean Architecture” peut être vue comme une généralisation de l’hexagonale</li>
+      <li>Différence principale : Clean Architecture formalise les couches (cercles), Hexagonale privilégie les points d'accès symétriques</li>
+      <li>En pratique, la “Clean Architecture” peut être vue comme une généralisation de l'hexagonale</li>
       <li>On peut combiner les deux, hexagonale pour la structure, clean pour les niveaux de dépendance</li>
     </ul>
     <aside class="notes">
@@ -489,7 +500,7 @@
     <h2>Quelles notions connexes approfondir ?</h2>
     <ul>
       <li>Onion Architecture, Layered, Screaming Architecture</li>
-      <li>Tests d’intégration et d’acceptation (ATDD, BDD…)</li>
+      <li>Tests d'intégration et d'acceptation (ATDD, BDD…)</li>
       <li>Injection de dépendances avancée (IoC containers, patterns DI)</li>
       <li>Gestion des erreurs et du mapping exceptions</li>
       <li>Event-driven / Messaging patterns</li>
@@ -497,7 +508,7 @@
     </ul>
     <aside class="notes">
       <ul>
-        <li>Beaucoup de patterns voisins existent et complètent l’hexagonale pour adresser des besoins spécifiques.</li>
+        <li>Beaucoup de patterns voisins existent et complètent l'hexagonale pour adresser des besoins spécifiques.</li>
       </ul>
     </aside>
   </section>
@@ -523,18 +534,18 @@
   <section>
     <h2>Questions de désambiguïsation</h2>
     <ul>
-      <li>Un port et un adapter sont-ils toujours 1–1 ?</li>
+      <li>Un port et un adapter sont-ils toujours 1-1 ?</li>
       <li>Peut-on avoir plusieurs adapters pour un même port ?</li>
       <li>Peut-on brancher plusieurs ports sur un même adapter ?</li>
       <li>Est-ce utile pour une application monolithique ?</li>
-      <li>L’architecture hexagonale impose-t-elle une techno ou un framework ?</li>
+      <li>L'architecture hexagonale impose-t-elle une techno ou un framework ?</li>
     </ul>
     <aside class="notes">
       <ul>
         <li>On peut avoir plusieurs adapters pour un port (ex : prod, test, stub, in-memory, migration…)</li>
-        <li>Un adapter peut répondre à plusieurs ports, mais c’est moins courant (on préfère séparer les responsabilités).</li>
-        <li>Utile aussi bien en monolithe qu’en microservices : on gagne surtout en testabilité et évolutivité.</li>
-        <li>Le pattern est agnostique, s’adapte à tout langage ou framework.</li>
+        <li>Un adapter peut répondre à plusieurs ports, mais c'est moins courant (on préfère séparer les responsabilités).</li>
+        <li>Utile aussi bien en monolithe qu'en microservices : on gagne surtout en testabilité et évolutivité.</li>
+        <li>Le pattern est agnostique, s'adapte à tout langage ou framework.</li>
       </ul>
     </aside>
   </section>
@@ -543,9 +554,9 @@
 <section>
     <h2>Conclusion</h2>
     <ul>
-      <li>L’architecture hexagonale sépare clairement le métier et la technique</li>
+      <li>L'architecture hexagonale sépare clairement le métier et la technique</li>
       <li>Elle apporte : testabilité, évolutivité, robustesse, clarté de code</li>
-      <li>Elle s’intègre naturellement avec DDD, CQRS, Event Sourcing, microservices</li>
+      <li>Elle s'intègre naturellement avec DDD, CQRS, Event Sourcing, microservices</li>
       <li>À privilégier pour les applications à durée de vie longue ou sujettes à changement</li>
     </ul>
     <aside class="notes">
@@ -563,15 +574,15 @@
       <li>Commencer petit : extraire 1 use-case en hexagonal</li>
       <li>Documenter clairement la séparation domaine / port / adapter</li>
       <li>Utiliser les tests pour valider la migration</li>
-      <li>S’inspirer de projets open source, relire la doc officielle</li>
-      <li>Accepter l’incrémental, éviter le big bang</li>
+      <li>S'inspirer de projets open source, relire la doc officielle</li>
+      <li>Accepter l'incrémental, éviter le big bang</li>
       <li>Se former, échanger avec la communauté</li>
     </ul>
     <aside class="notes">
       <ul>
         <li>Pragmatisme : commencez par un module métier important ou fragile</li>
-        <li>Le “craft” logiciel, c’est aussi améliorer le design progressivement</li>
-        <li>Le pattern hexagonal, c’est avant tout une posture de développement durable</li>
+        <li>Le “craft” logiciel, c'est aussi améliorer le design progressivement</li>
+        <li>Le pattern hexagonal, c'est avant tout une posture de développement durable</li>
       </ul>
     </aside>
   </section>
@@ -582,16 +593,16 @@
     <h2>Quiz</h2>
     <ol>
       <li>À quoi sert un adapter entrant ?</li>
-      <li>Citez un avantage de l’injection de dépendance dans cette architecture.</li>
+      <li>Citez un avantage de l'injection de dépendance dans cette architecture.</li>
       <li>Pourquoi la séparation port/adapter simplifie les tests ?</li>
-      <li>Quelle est la principale difficulté rencontrée lors d’une migration ?</li>
+      <li>Quelle est la principale difficulté rencontrée lors d'une migration ?</li>
     </ol>
     <aside class="notes">
       <ul>
         <li>1. Exposer le domaine à des entrées multiples (REST, CLI...)</li>
         <li>2. Remplacer/mocker facilement toute dépendance technique.</li>
-        <li>3. On peut injecter un mock, le métier n’a aucune dépendance technique.</li>
-        <li>4. L’effort de refacto initial et la compréhension de l’existant.</li>
+        <li>3. On peut injecter un mock, le métier n'a aucune dépendance technique.</li>
+        <li>4. L'effort de refacto initial et la compréhension de l'existant.</li>
       </ul>
     </aside>
   </section>
@@ -618,9 +629,9 @@
     <h2>QCM 2</h2>
     <p><strong>Les ports servent à :</strong></p>
     <ol type="a">
-      <li><span class="fragment highlight-green">Définir des interfaces d’entrée ou de sortie pour le domaine</span></li>
+      <li><span class="fragment highlight-green">Définir des interfaces d'entrée ou de sortie pour le domaine</span></li>
       <li><span class="fragment highlight-red">Définir les routes Express</span></li>
-      <li><span class="fragment highlight-green">Permettre de changer d’adapter facilement</span></li>
+      <li><span class="fragment highlight-green">Permettre de changer d'adapter facilement</span></li>
       <li><span class="fragment highlight-red">Stocker les entités en mémoire</span></li>
     </ol>
     <aside class="notes">
@@ -650,7 +661,7 @@
   <!-- QCM 4 -->
   <section>
     <h2>QCM 4</h2>
-    <p><strong>Quel(s) inconvénient(s) de l’architecture hexagonale ?</strong></p>
+    <p><strong>Quel(s) inconvénient(s) de l'architecture hexagonale ?</strong></p>
     <ol type="a">
       <li><span class="fragment highlight-green">Peut paraître verbeuse sur petit projet</span></li>
       <li><span class="fragment highlight-green">Nécessite une bonne discipline</span></li>
@@ -670,7 +681,7 @@
     <p><strong>Parmi ces codes, lequel respecte le pattern hexagonal ?</strong></p>
     <ol type="a">
       <li><span class="fragment highlight-red">Le service métier require directement mongoose</span></li>
-      <li><span class="fragment highlight-green">Le controller appelle un service qui dépend d’un port repository</span></li>
+      <li><span class="fragment highlight-green">Le controller appelle un service qui dépend d'un port repository</span></li>
       <li><span class="fragment highlight-red">Les tests unitaires appellent une vraie base de données</span></li>
       <li><span class="fragment highlight-green">Le domaine ne dépend que de ses ports</span></li>
     </ol>
@@ -684,12 +695,12 @@
   <!-- QCM 6 -->
   <section>
     <h2>QCM 6</h2>
-    <p><strong>L’avantage principal des adapters “mock” est :</strong></p>
+    <p><strong>L'avantage principal des adapters “mock” est :</strong></p>
     <ol type="a">
       <li><span class="fragment highlight-green">Rendre les tests rapides et indépendants</span></li>
       <li><span class="fragment highlight-green">Permettre de simuler tous les cas (succès/échec)</span></li>
       <li><span class="fragment highlight-red">Obliger à écrire plus de code métier</span></li>
-      <li><span class="fragment highlight-red">Rendre l’architecture monolithique</span></li>
+      <li><span class="fragment highlight-red">Rendre l'architecture monolithique</span></li>
     </ol>
     <aside class="notes">
       <ul>
@@ -701,12 +712,12 @@
   <!-- QCM 7 -->
   <section>
     <h2>QCM 7</h2>
-    <p><strong>Qu’est-ce qui caractérise un port d’entrée ?</strong></p>
+    <p><strong>Qu'est-ce qui caractérise un port d'entrée ?</strong></p>
     <ol type="a">
-      <li><span class="fragment highlight-green">Il expose les fonctionnalités métier à l’extérieur</span></li>
+      <li><span class="fragment highlight-green">Il expose les fonctionnalités métier à l'extérieur</span></li>
       <li><span class="fragment highlight-red">Il contient la logique de conversion HTTP/JSON</span></li>
       <li><span class="fragment highlight-red">Il stocke les entités dans la base</span></li>
-      <li><span class="fragment highlight-green">C’est souvent une interface ou une classe abstraite</span></li>
+      <li><span class="fragment highlight-green">C'est souvent une interface ou une classe abstraite</span></li>
     </ol>
     <aside class="notes">
       <ul>
@@ -718,12 +729,12 @@
   <!-- QCM 8 -->
   <section>
     <h2>QCM 8</h2>
-    <p><strong>Quel scénario rend l’architecture hexagonale indispensable ?</strong></p>
+    <p><strong>Quel scénario rend l'architecture hexagonale indispensable ?</strong></p>
     <ol type="a">
       <li><span class="fragment highlight-green">Migration de MongoDB vers PostgreSQL sans réécrire le métier</span></li>
-      <li><span class="fragment highlight-green">Ajout d’une API CLI en plus de l’API REST</span></li>
+      <li><span class="fragment highlight-green">Ajout d'une API CLI en plus de l'API REST</span></li>
       <li><span class="fragment highlight-red">POC jetable en 2 jours</span></li>
-      <li><span class="fragment highlight-green">Ajout d’une couche de cache Redis en sortie</span></li>
+      <li><span class="fragment highlight-green">Ajout d'une couche de cache Redis en sortie</span></li>
     </ol>
     <aside class="notes">
       <ul>
@@ -735,12 +746,12 @@
   <!-- QCM 9 -->
   <section>
     <h2>QCM 9</h2>
-    <p><strong>Pour migrer un projet existant vers l’architecture hexagonale, il vaut mieux :</strong></p>
+    <p><strong>Pour migrer un projet existant vers l'architecture hexagonale, il vaut mieux :</strong></p>
     <ol type="a">
       <li><span class="fragment highlight-green">Migrer progressivement par use-case</span></li>
       <li><span class="fragment highlight-red">Faire un big bang global</span></li>
       <li><span class="fragment highlight-green">Extraire les ports/adapters sur une feature pilote</span></li>
-      <li><span class="fragment highlight-red">Tout refaire d’un coup</span></li>
+      <li><span class="fragment highlight-red">Tout refaire d'un coup</span></li>
     </ol>
     <aside class="notes">
       <ul>

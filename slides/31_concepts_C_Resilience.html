@@ -25,8 +25,8 @@
   <h2>🛡️ Résilience et Scalabilité</h2>
   <aside class="notes">
     <ul>
-      <li>Objectif : Continuité de service face aux pannes et aux pics de charge.</li>
-      <li>Principes clés : design for failure, isolation, élasticité, observabilité.</li>
+      <li>Objectif : Continuité de service face aux pannes et aux pics de charge.</li>
+      <li>Principes clés : design for failure, isolation, élasticité, observabilité.</li>
     </ul>
   </aside>
 </section>
@@ -65,7 +65,7 @@
   <aside class="notes">
     <ul>
       <li>Simple et rapide pour des montées en charge modestes.</li>
-      <li>Devient coûteux et plafonné avec l’évolution des serveurs.</li>
+      <li>Devient coûteux et plafonné avec l'évolution des serveurs.</li>
       <li>Un seul serveur de plus en plus puissant</li>
       <li>Limites physiques/matérielles</li>
       <li>Fréquent sur les bases de données historiques, applications monolithiques</li>
@@ -137,7 +137,7 @@
       <li>Combine horizontal et vertical selon des règles définies.</li>
       <li>Essentiel pour les charges de travail variables.</li>
       <li>Le nombre de serveurs varie automatiquement selon la charge</li>
-      <li>Pay-as-you-go (cloud), optimal pour pics et creux d’utilisation</li>
+      <li>Pay-as-you-go (cloud), optimal pour pics et creux d'utilisation</li>
       <li>Nécessite une architecture adaptée (stateless, etc.)</li>
       <li>🚀 "L'infrastructure suit la demande en temps réel !"</li>
     </ul>
@@ -159,7 +159,7 @@
     <tbody>
       <tr>
         <td><b>Principe</b></td>
-        <td>Augmenter la puissance d’un nœud unique</td>
+        <td>Augmenter la puissance d'un nœud unique</td>
         <td>Ajouter des nœuds identiques</td>
         <td>Adapter dynamiquement le nombre de nœuds</td>
       </tr>
@@ -254,8 +254,8 @@
     <ul>
       <li>Configurer via AWS console ou IaC.</li>
       <li>Assure une réponse rapide aux variations de charge.</li>
-      <li><b>Auto-scaling</b> : capacité d’ajuster automatiquement le nombre de ressources (VM, conteneurs) en fonction de la charge et de règles prédéfinies (CPU, mémoire, requêtes/minute).</li>
-      <li>Permet de dimensionner dynamiquement l’infrastructure et d’optimiser les coûts.</li>
+      <li><b>Auto-scaling</b> : capacité d'ajuster automatiquement le nombre de ressources (VM, conteneurs) en fonction de la charge et de règles prédéfinies (CPU, mémoire, requêtes/minute).</li>
+      <li>Permet de dimensionner dynamiquement l'infrastructure et d'optimiser les coûts.</li>
       <li>Assure une réponse rapide aux variations de charge.</li>
       <li>Les <b>Auto Scaling Groups</b> sont une notion AWS, mais le principe existe chez tous les grands clouds (GCP, Azure, OVHcloud, etc.).</li>
     </ul>
@@ -267,7 +267,7 @@
   <h2>Load Balancing</h2>
   <ul>
     <li>DNS round-robin, appliances matérielles</li>
-    <li>Équilibreurs logiciels :
+    <li>Équilibreurs logiciels :
       <ul>
         <li><a href="https://nginx.org/" target="_blank">NGINX</a> — <a href="https://github.com/nginx/nginx" target="_blank">GitHub</a></li>
         <li><a href="https://aws.amazon.com/elasticloadbalancing/" target="_blank">AWS ELB</a></li>
@@ -289,9 +289,9 @@
       <li>Répartit le trafic pour garantir la haute disponibilité.</li>
       <li>Permet la montée en charge et tolérance aux pannes.</li>
       <li>Un <b>load balancer</b> (équilibreur de charge) distribue les requêtes réseau entre plusieurs serveurs pour garantir la disponibilité et l'efficacité.</li>
-      <li><b>DNS round-robin</b> : méthode simple de répartition où le serveur DNS retourne une adresse IP différente à chaque requête, permettant d’équilibrer la charge sur plusieurs serveurs.</li>
+      <li><b>DNS round-robin</b> : méthode simple de répartition où le serveur DNS retourne une adresse IP différente à chaque requête, permettant d'équilibrer la charge sur plusieurs serveurs.</li>
       <li>Une <b>appliance matérielle</b> est un équipement réseau dédié au load balancing, utilisé pour les grosses infrastructures (ex : F5, Citrix NetScaler).</li>
-      <li>Un <b>équilibreur logiciel</b> est une application (ex : NGINX, HAProxy) qui joue le même rôle mais s’exécute sur un serveur standard.</li>
+      <li>Un <b>équilibreur logiciel</b> est une application (ex : NGINX, HAProxy) qui joue le même rôle mais s'exécute sur un serveur standard.</li>
       <li>Répartit le trafic pour garantir la haute disponibilité.</li>
       <li>Permet la montée en charge et tolérance aux pannes.</li>
     </ul>
@@ -317,9 +317,9 @@
     <ul>
       <li>Important pour les bases de données massives.</li>
       <li>Chaque shard peut être répliqué pour la haute disponibilité.</li>
-      <li><b>Sharding</b> : découpage horizontal d’une base en plusieurs fragments indépendants (shards), chacun stocké sur un serveur distinct.</li>
+      <li><b>Sharding</b> : découpage horizontal d'une base en plusieurs fragments indépendants (shards), chacun stocké sur un serveur distinct.</li>
       <li><b>Partitioning</b> : découpage logique ou physique de la base, selon des critères définis (clé, plage de valeurs, hash).</li>
-      <li>Exemple : découper la base clients par plage d’ID pour répartir la charge. À ne pas confondre avec la réplication, qui duplique les mêmes données sur plusieurs nœuds.</li>
+      <li>Exemple : découper la base clients par plage d'ID pour répartir la charge. À ne pas confondre avec la réplication, qui duplique les mêmes données sur plusieurs nœuds.</li>
     </ul>
   </aside>
 </section>
@@ -346,13 +346,13 @@
   <aside class="notes">
     <ul>
       <li>Réduit la latence et la charge sur la base de données.</li>
-      <li>Améliore l’expérience utilisateur pour accès fréquents.</li>
+      <li>Améliore l'expérience utilisateur pour accès fréquents.</li>
       <li><b>CDN</b> (Content Delivery Network) : réseau mondial de serveurs placés stratégiquement pour diffuser rapidement du contenu statique (images, vidéos, JS/CSS) à proximité de l'utilisateur.</li>
       <li><b>Cache distribué</b> : mécanisme de mémoire partagée entre plusieurs instances applicatives, permettant de stocker temporairement des résultats de requêtes pour réduire la latence et le trafic vers la base de données.</li>
       <li><b>Redis</b> : base de données clé/valeur ultra rapide, souvent utilisée comme cache, supporte la persistance et des structures de données avancées.</li>
       <li><b>Memcached</b> : système de cache mémoire distribué, très simple, rapide, mais ne supporte pas la persistance.</li>
       <li>Réduit la latence et la charge sur la base de données.</li>
-      <li>Améliore l’expérience utilisateur pour accès fréquents.</li>
+      <li>Améliore l'expérience utilisateur pour accès fréquents.</li>
     </ul>
   </aside>
 </section>
@@ -369,9 +369,9 @@
     <ul>
       <li>Aperçu des patterns pour optimiser flux et coûts.</li>
       <li>Chaque notion détaillée ensuite.</li>
-      <li><b>CQRS</b> : séparation des opérations de lecture et d’écriture pour optimiser les performances et la scalabilité. Exemple : dans une appli e-commerce, lecture rapide des fiches produits via un modèle dédié, écriture des commandes via un autre.</li>
-      <li><b>Event Sourcing</b> : toutes les modifications d’état sont stockées sous forme d’événements. Exemple : un compte bancaire garde l’historique de chaque opération (crédit, débit), et l’état courant est reconstruit par relecture des événements.</li>
-      <li><b>Lambda/Serverless</b> : exécution de fonctions à la demande, sans gérer de serveur. Exemple : générer une miniature d’image à l’upload via une fonction Lambda, sans serveur dédié.</li>
+      <li><b>CQRS</b> : séparation des opérations de lecture et d'écriture pour optimiser les performances et la scalabilité. Exemple : dans une appli e-commerce, lecture rapide des fiches produits via un modèle dédié, écriture des commandes via un autre.</li>
+      <li><b>Event Sourcing</b> : toutes les modifications d'état sont stockées sous forme d'événements. Exemple : un compte bancaire garde l'historique de chaque opération (crédit, débit), et l'état courant est reconstruit par relecture des événements.</li>
+      <li><b>Lambda/Serverless</b> : exécution de fonctions à la demande, sans gérer de serveur. Exemple : générer une miniature d'image à l'upload via une fonction Lambda, sans serveur dédié.</li>
     </ul>
   </aside>
 </section>
@@ -421,10 +421,10 @@
     <ul>
       <li>Dashboards pour visualisation temps réel.</li>
       <li>Alerte et escalade automatique pour incidents critiques.</li>
-      <li><b>Monitoring</b> : surveillance continue de la santé, des performances et de la disponibilité des services via des métriques (CPU, latence, taux d’erreur…)</li>
-      <li><b>Alerting</b> : notifications automatiques lors d’incidents ou de dépassement de seuils critiques.</li>
-      <li>Indicateurs courants : taux d’erreur HTTP 5xx, latence moyenne, taux d’utilisation CPU/mémoire.</li>
-      <li>Exemple d’alerte : « plus de 10% d’erreurs 500 sur 5 minutes → alerte PagerDuty ».</li>
+      <li><b>Monitoring</b> : surveillance continue de la santé, des performances et de la disponibilité des services via des métriques (CPU, latence, taux d'erreur…)</li>
+      <li><b>Alerting</b> : notifications automatiques lors d'incidents ou de dépassement de seuils critiques.</li>
+      <li>Indicateurs courants : taux d'erreur HTTP 5xx, latence moyenne, taux d'utilisation CPU/mémoire.</li>
+      <li>Exemple d'alerte : « plus de 10% d'erreurs 500 sur 5 minutes → alerte PagerDuty ».</li>
     </ul>
   </aside>
 </section>
@@ -438,10 +438,10 @@
   </ul>
   <aside class="notes">
     <ul>
-      <li>Identifier les goulets d’étranglement.</li>
+      <li>Identifier les goulets d'étranglement.</li>
       <li>Intégrer aux pipelines CI/CD.</li>
       <li><b>Test de charge</b> : simulation de nombreux utilisateurs/transactions pour mesurer la capacité et la robustesse du système.</li>
-      <li>Exemple : tester la résistance d’une API avec 1000 utilisateurs virtuels générant chacun 10 requêtes/s pendant 5 minutes.</li>
+      <li>Exemple : tester la résistance d'une API avec 1000 utilisateurs virtuels générant chacun 10 requêtes/s pendant 5 minutes.</li>
     </ul>
   </aside>
 </section>
@@ -476,7 +476,7 @@
   <aside class="notes">
     <ul>
       <li>Protège contre la saturation du service en panne.</li>
-      <li>S’ouvre et se referme selon seuils de réussite.</li>
+      <li>S'ouvre et se referme selon seuils de réussite.</li>
     </ul>
   </aside>
 </section>
@@ -491,9 +491,9 @@
   <aside class="notes">
     <ul>
       <li>Minimise les erreurs temporaires.</li>
-      <li>Configurable pour différents codes d’erreur.</li>
-      <li><b>Backoff :</b> délai croissant entre chaque tentative pour éviter la surcharge.</li>
-      <li><b>Jitter :</b> ajout d’une variation aléatoire au délai pour éviter les pics simultanés.</li>
+      <li>Configurable pour différents codes d'erreur.</li>
+      <li><b>Backoff :</b> délai croissant entre chaque tentative pour éviter la surcharge.</li>
+      <li><b>Jitter :</b> ajout d'une variation aléatoire au délai pour éviter les pics simultanés.</li>
     </ul>
   </aside>
 </section>
@@ -522,9 +522,9 @@
   </ul>
   <aside class="notes">
     <ul>
-      <li>S’inspire des compartiments étanches d’un navire.</li>
+      <li>S'inspire des compartiments étanches d'un navire.</li>
       <li>Chaque compartiment a ses ressources dédiées.</li>
-      <li><b>Bulkhead</b> : principe d’isolation pour éviter qu’une panne dans une partie du système n’affecte les autres. Exemple : séparation du service paiement et du service recommandations dans un site e-commerce. Si le service recommandations tombe, les paiements restent accessibles.</li>
+      <li><b>Bulkhead</b> : principe d'isolation pour éviter qu'une panne dans une partie du système n'affecte les autres. Exemple : séparation du service paiement et du service recommandations dans un site e-commerce. Si le service recommandations tombe, les paiements restent accessibles.</li>
     </ul>
   </aside>
 </section>
@@ -540,7 +540,7 @@
     <ul>
       <li>Maintien fonctionnalités essentielles.</li>
       <li>Réduit impact surcharge.</li>
-      <li><b>Graceful Degradation</b> : capacité à fournir un service dégradé plutôt que de tomber en panne totale lors d’une surcharge ou d’un incident. Exemple : lors d’une forte affluence, désactivation du chat en ligne ou des animations non essentielles pour préserver le cœur de l’application.</li>
+      <li><b>Graceful Degradation</b> : capacité à fournir un service dégradé plutôt que de tomber en panne totale lors d'une surcharge ou d'un incident. Exemple : lors d'une forte affluence, désactivation du chat en ligne ou des animations non essentielles pour préserver le cœur de l'application.</li>
     </ul>
   </aside>
 </section>
@@ -573,11 +573,11 @@
   <aside class="notes">
     <ul>
       <li>Assure santé continue des services.</li>
-      <li>Réduit l’intervention manuelle.</li>
-      <li><b>Self-healing</b> : capacité d’un système à détecter automatiquement ses propres défaillances et à s’auto-réparer, sans intervention humaine.</li>
+      <li>Réduit l'intervention manuelle.</li>
+      <li><b>Self-healing</b> : capacité d'un système à détecter automatiquement ses propres défaillances et à s'auto-réparer, sans intervention humaine.</li>
       <li><b>Liveness probe</b> : mécanisme Kubernetes pour vérifier si un conteneur fonctionne toujours. Si lprobe échoue, le conteneur est redémarré automatiquement.</li>
-      <li><b>Readiness probe</b> : vérifie si l’application est prête à recevoir du trafic. Tant qu’elle échoue, le pod ne reçoit pas de trafic du load balancer.</li>
-      <li>Réduit l’intervention manuelle.</li>
+      <li><b>Readiness probe</b> : vérifie si l'application est prête à recevoir du trafic. Tant qu'elle échoue, le pod ne reçoit pas de trafic du load balancer.</li>
+      <li>Réduit l'intervention manuelle.</li>
     </ul>
   </aside>
 </section>
@@ -598,47 +598,47 @@
   </aside>
 </section>
 
-<!-- Slide : Retour d’expérience réel — Scalabilité chez Netflix -->
+<!-- Slide : Retour d'expérience réel — Scalabilité chez Netflix -->
 <section>
-  <h2>Retour d’expérience réel : Scalabilité chez Netflix</h2>
+  <h2>Retour d'expérience réel : Scalabilité chez Netflix</h2>
   <ul>
     <li>Migration du monolithe vers le cloud AWS pour accompagner la croissance.</li>
     <li><b>Problèmes initiaux :</b> limitations matérielles, déploiements lents, difficulté à supporter les pics.</li>
     <li><b>Solutions :</b> Microservices, auto-scaling, load balancing avancé, cache distribué (EVCache).</li>
-    <li><b>Résultats :</b> Disponibilité 24/7, capacité à servir des millions d’utilisateurs simultanés.</li>
+    <li><b>Résultats :</b> Disponibilité 24/7, capacité à servir des millions d'utilisateurs simultanés.</li>
     <li>Voir : <a href="https://www.infoq.com/presentations/netflix-architecture/" target="_blank">Netflix Architecture Evolution (InfoQ)</a></li>
   </ul>
   <aside class="notes">
-    Netflix est passé de serveurs physiques à AWS entre 2008 et 2016. Chaque microservice gère sa résilience ; l’infrastructure peut croître ou décroître dynamiquement. Ils ont inventé le Chaos Engineering pour tester la résistance en production.
+    Netflix est passé de serveurs physiques à AWS entre 2008 et 2016. Chaque microservice gère sa résilience ; l'infrastructure peut croître ou décroître dynamiquement. Ils ont inventé le Chaos Engineering pour tester la résistance en production.
   </aside>
 </section>
 
-<!-- Slide : Retour d’expérience réel — Résilience chez ING Bank -->
+<!-- Slide : Retour d'expérience réel — Résilience chez ING Bank -->
 <section>
-  <h2>Retour d’expérience réel : Résilience chez ING Bank</h2>
+  <h2>Retour d'expérience réel : Résilience chez ING Bank</h2>
   <ul>
     <li>Refonte complète autour de CQRS, Event Sourcing et microservices pour les applications bancaires.</li>
-    <li><b>Problèmes :</b> indisponibilité en période de pointe, difficultés d’audit, complexité du rollback.</li>
+    <li><b>Problèmes :</b> indisponibilité en période de pointe, difficultés d'audit, complexité du rollback.</li>
     <li><b>Solutions :</b> CQRS, Event Sourcing, circuit breaker, monitoring centralisé (ELK, Prometheus).</li>
-    <li><b>Résultats :</b> Haute résilience, conformité réglementaire, rollback facilité, moins d’incidents critiques.</li>
+    <li><b>Résultats :</b> Haute résilience, conformité réglementaire, rollback facilité, moins d'incidents critiques.</li>
     <li>Voir : <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank">Martin Fowler — CQRS @ ING</a></li>
   </ul>
   <aside class="notes">
-    ING a réussi à restaurer rapidement l’état des comptes après des incidents grâce à l’historique d’événements. Les régulateurs financiers apprécient la traçabilité de chaque modification.
+    ING a réussi à restaurer rapidement l'état des comptes après des incidents grâce à l'historique d'événements. Les régulateurs financiers apprécient la traçabilité de chaque modification.
   </aside>
 </section>
 
-<!-- Slide : Retour d’expérience — Monitoring chez Zalando -->
+<!-- Slide : Retour d'expérience — Monitoring chez Zalando -->
 <section>
-  <h2>Retour d’expérience — Monitoring chez Zalando</h2>
+  <h2>Retour d'expérience — Monitoring chez Zalando</h2>
   <ul>
     <li>Plus de 2000 microservices monitorés avec Prometheus et Grafana.</li>
     <li><b>Défis :</b> homogénéité des métriques, gestion des alertes, visibilité transverse entre équipes.</li>
-    <li><b>Leçons :</b> la réussite du monitoring repose sur une culture DevOps et l’automatisation des dashboards et alertes.</li>
+    <li><b>Leçons :</b> la réussite du monitoring repose sur une culture DevOps et l'automatisation des dashboards et alertes.</li>
     <li>Voir : <a href="https://engineering.zalando.com/posts/2019/09/monitoring-at-scale-with-prometheus.html" target="_blank">Zalando Engineering — Monitoring at Scale</a></li>
   </ul>
   <aside class="notes">
-    Chaque équipe développe ses propres métriques, mais Zalando a standardisé l’export et la visualisation. Les incidents critiques sont remontés via PagerDuty, ce qui accélère la résolution.
+    Chaque équipe développe ses propres métriques, mais Zalando a standardisé l'export et la visualisation. Les incidents critiques sont remontés via PagerDuty, ce qui accélère la résolution.
   </aside>
 </section>
 
@@ -647,27 +647,27 @@
   <h2>Quiz : Scalabilité et Résilience</h2>
   <ol>
     <li>Pourquoi Netflix a-t-il migré vers une architecture microservices cloud-native ?</li>
-    <li>Quel est l’intérêt d’un circuit breaker chez ING Bank ?</li>
+    <li>Quel est l'intérêt d'un circuit breaker chez ING Bank ?</li>
     <li>Quelle est la différence entre scaling horizontal et vertical ?</li>
     <li>Citez un outil open-source utilisé pour le monitoring à grande échelle.</li>
     <li>Que se passe-t-il si le load balancer est mal configuré ?</li>
   </ol>
   <aside class="notes">
-    Ces questions permettent d’évaluer la compréhension des principaux enjeux de la scalabilité et de la résilience dans des contextes réels.
+    Ces questions permettent d'évaluer la compréhension des principaux enjeux de la scalabilité et de la résilience dans des contextes réels.
   </aside>
 </section>
 <!-- Réponses Quiz 1 -->
 <section>
   <h2>Réponses au Quiz</h2>
   <ol>
-    <li>Pour l’élasticité, la disponibilité 24/7, absorber la croissance rapide et déployer sans interruption.</li>
-    <li>Éviter la propagation des pannes d’un service vers l’ensemble du SI. Le circuit breaker coupe les appels défaillants pour préserver le reste du système.</li>
-    <li>Vertical : augmenter la puissance d’un seul serveur. Horizontal : ajouter des serveurs identiques. L’élastique combine les deux en s’adaptant à la demande.</li>
+    <li>Pour l'élasticité, la disponibilité 24/7, absorber la croissance rapide et déployer sans interruption.</li>
+    <li>Éviter la propagation des pannes d'un service vers l'ensemble du SI. Le circuit breaker coupe les appels défaillants pour préserver le reste du système.</li>
+    <li>Vertical : augmenter la puissance d'un seul serveur. Horizontal : ajouter des serveurs identiques. L'élastique combine les deux en s'adaptant à la demande.</li>
     <li>Prometheus, Grafana, ELK…</li>
-    <li>Certaine requêtes surchargent un serveur tandis que d’autres sont inactifs, risque de ralentissements ou pannes partielles.</li>
+    <li>Certaine requêtes surchargent un serveur tandis que d'autres sont inactifs, risque de ralentissements ou pannes partielles.</li>
   </ol>
   <aside class="notes">
-    La plupart de ces réponses s’observent dans les études de cas Netflix, ING et Zalando. Discuter des cas d’incidents vécus dans l’industrie.
+    La plupart de ces réponses s'observent dans les études de cas Netflix, ING et Zalando. Discuter des cas d'incidents vécus dans l'industrie.
   </aside>
 </section>
 
@@ -675,12 +675,12 @@
 <section>
   <h2>Quiz : Cas concrets</h2>
   <ol>
-    <li>Donnez une situation où le “graceful degradation” est préférable à l’arrêt complet du service.</li>
-    <li>Pourquoi l’auto-scaling peut-il parfois générer des effets négatifs (“thrashing”) ?</li>
+    <li>Donnez une situation où le “graceful degradation” est préférable à l'arrêt complet du service.</li>
+    <li>Pourquoi l'auto-scaling peut-il parfois générer des effets négatifs (“thrashing”) ?</li>
     <li>À quoi sert un CDN dans une architecture distribuée ?</li>
   </ol>
   <aside class="notes">
-    Ces cas concrets sont régulièrement rencontrés dans l’exploitation d’applications cloud natives ou e-commerce.
+    Ces cas concrets sont régulièrement rencontrés dans l'exploitation d'applications cloud natives ou e-commerce.
   </aside>
 </section>
 <!-- Réponses Quiz 2 -->
@@ -688,11 +688,11 @@
   <h2>Réponses au Quiz</h2>
   <ol>
     <li>En cas de surcharge, on désactive des fonctions secondaires (chat, recommandations) pour garantir le paiement ou le cœur du service.</li>
-    <li>Si la configuration est trop agressive, l’infrastructure peut osciller en permanence (démarrages/arrêts rapides), d’où coûts imprévus et instabilité.</li>
-    <li>À rapprocher les ressources statiques (images, vidéos, CSS) de l’utilisateur pour accélérer le chargement et alléger la charge des serveurs centraux.</li>
+    <li>Si la configuration est trop agressive, l'infrastructure peut osciller en permanence (démarrages/arrêts rapides), d'où coûts imprévus et instabilité.</li>
+    <li>À rapprocher les ressources statiques (images, vidéos, CSS) de l'utilisateur pour accélérer le chargement et alléger la charge des serveurs centraux.</li>
   </ol>
   <aside class="notes">
-    Ce sont des scénarios réellement observés chez Netflix et de nombreux e-commerçants lors de pics de trafic ou d’événements spéciaux.
+    Ce sont des scénarios réellement observés chez Netflix et de nombreux e-commerçants lors de pics de trafic ou d'événements spéciaux.
   </aside>
 </section>
 
@@ -701,24 +701,24 @@
   <h2>QCM 1 : Scalabilité</h2>
   <p>Quelle stratégie favorise la tolérance aux pannes dans une architecture distribuée ?</p>
   <ul>
-    <li>A. Mise à l’échelle verticale uniquement</li>
+    <li>A. Mise à l'échelle verticale uniquement</li>
     <li>B. Ajout de redondance et réplication</li>
     <li>C. Suppression du cache</li>
-    <li>D. Utilisation d’une seule base de données centrale</li>
+    <li>D. Utilisation d'une seule base de données centrale</li>
   </ul>
 </section>
 <section>
   <h2>Réponse QCM 1</h2>
   <p><b>B. Ajout de redondance et réplication</b></p>
   <aside class="notes">
-    La redondance et la réplication des ressources (serveurs, bases de données, etc.) permettent d’assurer la continuité de service même en cas de panne.
+    La redondance et la réplication des ressources (serveurs, bases de données, etc.) permettent d'assurer la continuité de service même en cas de panne.
   </aside>
 </section>
 
 <!-- QCM 2 -->
 <section>
   <h2>QCM 2 : Résilience</h2>
-  <p>Quel est le rôle principal d’un circuit breaker ?</p>
+  <p>Quel est le rôle principal d'un circuit breaker ?</p>
   <ul>
     <li>A. Optimiser la latence du réseau</li>
     <li>B. Couper temporairement les appels vers un service défaillant</li>
@@ -730,7 +730,7 @@
   <h2>Réponse QCM 2</h2>
   <p><b>B. Couper temporairement les appels vers un service défaillant</b></p>
   <aside class="notes">
-    Le circuit breaker empêche qu’une panne locale ne se propage à tout le système, en ouvrant le “circuit” et en stoppant temporairement les appels.
+    Le circuit breaker empêche qu'une panne locale ne se propage à tout le système, en ouvrant le “circuit” et en stoppant temporairement les appels.
   </aside>
 </section>
 
@@ -749,16 +749,16 @@
   <h2>Réponse QCM 3</h2>
   <p><b>B. Prometheus</b></p>
   <aside class="notes">
-    Prometheus collecte et stocke des métriques pour des infrastructures distribuées. Il s’intègre très bien avec Grafana pour la visualisation.
+    Prometheus collecte et stocke des métriques pour des infrastructures distribuées. Il s'intègre très bien avec Grafana pour la visualisation.
   </aside>
 </section>
 
 <!-- QCM 4 -->
 <section>
   <h2>QCM 4 : Auto-scaling</h2>
-  <p>Quel risque peut apparaître en cas de mauvais paramétrage de l’auto-scaling ?</p>
+  <p>Quel risque peut apparaître en cas de mauvais paramétrage de l'auto-scaling ?</p>
   <ul>
-    <li>A. Thrashing (création/destruction en boucle d’instances)</li>
+    <li>A. Thrashing (création/destruction en boucle d'instances)</li>
     <li>B. Temps de latence réduit</li>
     <li>C. Réduction des coûts uniquement</li>
     <li>D. Blocage complet du système</li>
@@ -766,16 +766,16 @@
 </section>
 <section>
   <h2>Réponse QCM 4</h2>
-  <p><b>A. Thrashing (création/destruction en boucle d’instances)</b></p>
+  <p><b>A. Thrashing (création/destruction en boucle d'instances)</b></p>
   <aside class="notes">
-    Le thrashing survient quand l’auto-scaling ajoute et supprime trop rapidement des ressources, causant instabilité et surcoûts.
+    Le thrashing survient quand l'auto-scaling ajoute et supprime trop rapidement des ressources, causant instabilité et surcoûts.
   </aside>
 </section>
 
 <!-- QCM 5 -->
 <section>
   <h2>QCM 5 : Caching distribué</h2>
-  <p>Quel est le principal avantage d’un cache distribué ?</p>
+  <p>Quel est le principal avantage d'un cache distribué ?</p>
   <ul>
     <li>A. Augmenter la sécurité des accès</li>
     <li>B. Réduire la latence et la charge sur les bases de données</li>
@@ -787,7 +787,7 @@
   <h2>Réponse QCM 5</h2>
   <p><b>B. Réduire la latence et la charge sur les bases de données</b></p>
   <aside class="notes">
-    Le cache distribué (Redis, Memcached…) sert à accélérer l’accès aux données fréquemment consultées, ce qui diminue la pression sur la base de données.
+    Le cache distribué (Redis, Memcached…) sert à accélérer l'accès aux données fréquemment consultées, ce qui diminue la pression sur la base de données.
   </aside>
 </section>
 
@@ -834,24 +834,24 @@
   <h2>QCM 8 : Graceful Degradation</h2>
   <p>Que signifie “graceful degradation” ?</p>
   <ul>
-    <li>A. Arrêter tous les services en cas d’incident</li>
-    <li>B. Maintenir un service minimal fonctionnel lors d’une panne partielle</li>
+    <li>A. Arrêter tous les services en cas d'incident</li>
+    <li>B. Maintenir un service minimal fonctionnel lors d'une panne partielle</li>
     <li>C. Optimiser la base de données</li>
     <li>D. Doubler le nombre de serveurs</li>
   </ul>
 </section>
 <section>
   <h2>Réponse QCM 8</h2>
-  <p><b>B. Maintenir un service minimal fonctionnel lors d’une panne partielle</b></p>
+  <p><b>B. Maintenir un service minimal fonctionnel lors d'une panne partielle</b></p>
   <aside class="notes">
-    L’idée est de dégrader le service de façon contrôlée, pour éviter une panne totale et préserver les fonctionnalités essentielles.
+    L'idée est de dégrader le service de façon contrôlée, pour éviter une panne totale et préserver les fonctionnalités essentielles.
   </aside>
 </section>
 
 <!-- QCM 9 -->
 <section>
   <h2>QCM 9 : CDN</h2>
-  <p>Quel est le rôle d’un CDN (Content Delivery Network) ?</p>
+  <p>Quel est le rôle d'un CDN (Content Delivery Network) ?</p>
   <ul>
     <li>A. Optimiser le routage DNS</li>
     <li>B. Distribuer le contenu statique au plus proche des utilisateurs</li>
@@ -882,7 +882,7 @@
   <h2>Réponse QCM 10</h2>
   <p><b>B. Isoler des composants pour limiter la propagation des pannes</b></p>
   <aside class="notes">
-    Inspiré des cloisons étanches d’un navire, le bulkhead préserve le reste du système si une partie est en panne.
+    Inspiré des cloisons étanches d'un navire, le bulkhead préserve le reste du système si une partie est en panne.
   </aside>
 </section>
 
@@ -890,19 +890,19 @@
 <section>
   <h2>🔗 Sources & Bibliographie</h2>
   <ul>
-    <li><a href="https://en.wikipedia.org/wiki/Scalability" target="_blank">Wikipedia – Scalability</a></li>
-    <li><a href="https://martinfowler.com/articles/resilience.html" target="_blank">Martin Fowler – Patterns for Resilience</a></li>
-    <li><a href="https://microservices.io/patterns/reliability/index.html" target="_blank">Microservices.io – Reliability Patterns</a></li>
-    <li><a href="https://aws.amazon.com/autoscaling/" target="_blank">AWS – Auto Scaling</a></li>
-    <li><a href="https://sre.google/sre-book/table-of-contents/" target="_blank">Google SRE Book – Table des matières</a></li>
-    <li><a href="https://opentelemetry.io/docs/" target="_blank">OpenTelemetry – Documentation</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Scalability" target="_blank">Wikipedia - Scalability</a></li>
+    <li><a href="https://martinfowler.com/articles/resilience.html" target="_blank">Martin Fowler - Patterns for Resilience</a></li>
+    <li><a href="https://microservices.io/patterns/reliability/index.html" target="_blank">Microservices.io - Reliability Patterns</a></li>
+    <li><a href="https://aws.amazon.com/autoscaling/" target="_blank">AWS - Auto Scaling</a></li>
+    <li><a href="https://sre.google/sre-book/table-of-contents/" target="_blank">Google SRE Book - Table des matières</a></li>
+    <li><a href="https://opentelemetry.io/docs/" target="_blank">OpenTelemetry - Documentation</a></li>
     <li><a href="https://www.reactivemanifesto.org/" target="_blank">The Reactive Manifesto</a></li>
   </ul>
   <aside class="notes">
     <ul>
       <li>Références académiques et industrielles pour approfondir.</li>
-      <li>Livres blancs et RFC d’OpenTelemetry.</li>
-      <li>Ressources d’implémentations concrètes.</li>
+      <li>Livres blancs et RFC d'OpenTelemetry.</li>
+      <li>Ressources d'implémentations concrètes.</li>
     </ul>
   </aside>
 </section>

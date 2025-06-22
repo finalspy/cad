@@ -1,10 +1,10 @@
 <!-- Exo 1 -->
 <section>
-<h2>Exercice 1 : Présentation de l’application de base</h2>
+<h2>Exercice 1 : Présentation de l'application de base</h2>
 <p>Explorez le monolithe modulaire fourni (arborescence src.zip).</p>
 <aside class="notes">
     <ul>
-    <li>Routes : gèrent les points d’entrée HTTP (authRoutes, userRoutes, presentationRoutes).</li>
+    <li>Routes : gèrent les points d'entrée HTTP (authRoutes, userRoutes, presentationRoutes).</li>
     <li>Controllers : orchestrent la logique (authController, userController, presentationController).</li>
     <li>Services : contiennent la logique métier (authService, presentationService).</li>
     <li>Models : schémas MongoDB (user.js, presentation.js).</li>
@@ -23,7 +23,7 @@
     <li>Couplage fort : controllers accèdent directement aux services et aux modèles sans abstraction.</li>
     <li>Difficulté de maintenance : tests et déploiements liés à un artefact unique.</li>
     <li>Aucune dépendance circulaire explicite dans le code fourni ; les modules sont importés selon le schéma Routes → Controllers → Services → Models.</li>
-    <li>La logique métier n’est pas isolée, rendant l’écriture de tests unitaires plus complexe.</li>
+    <li>La logique métier n'est pas isolée, rendant l'écriture de tests unitaires plus complexe.</li>
     </ul>
 </aside>
 </section>
@@ -35,9 +35,9 @@
 <aside class="notes">
     <ul>
     <li>Scalabilité indépendante des composants.</li>
-    <li>Exemple : scaling du service Présentations sans toucher à l’authentification.</li>
+    <li>Exemple : scaling du service Présentations sans toucher à l'authentification.</li>
     <li>Haute disponibilité et tolérance aux pannes.</li>
-    <li>Exemple : panne du service d’événements n’impacte pas l’API utilisateur.</li>
+    <li>Exemple : panne du service d'événements n'impacte pas l'API utilisateur.</li>
     <li>Déploiements autonomes et rapides.</li>
     <li>Exemple : mises à jour ciblées via pipeline CI/CD dédié à chaque service.</li>
     </ul>
@@ -52,7 +52,7 @@
     <ul>
     <li>Contexts : Authentification, Utilisateurs, Présentations.</li>
     <li>Agrégats principaux : User (username, email, mot de passe), Presentation (title, content, isPublic, authorId).</li>
-    <li>Invariants : unicité username/email, droits d’accès selon authorId.</li>
+    <li>Invariants : unicité username/email, droits d'accès selon authorId.</li>
     </ul>
 </aside>
 </section>
@@ -72,7 +72,7 @@
     <li>Domain : classes Presentation et User, avec leurs propriétés et comportements.</li>
     <li>Use Cases : CreatePresentation, UpdatePresentation, GetPresentation.</li>
     <li>Interface Adapters : controllers REST qui implémentent les ports des use cases.</li>
-    <li>Frameworks & DB : MongoosePresentationRepository, MongooseUserRepository dans l’infrastructure.</li>
+    <li>Frameworks & DB : MongoosePresentationRepository, MongooseUserRepository dans l'infrastructure.</li>
     </ul>
 </aside>
 </section>
@@ -80,7 +80,7 @@
 <!-- Exo 6 -->
 <section>
 <h2>Exercice 6 : Architecture Hexagonale</h2>
-<p>Implémentez ports et adapters pour l’accès DB.</p>
+<p>Implémentez ports et adapters pour l'accès DB.</p>
 <aside class="notes">
     <ul>
     <li>Port : interface PresentationRepository (find, save, findById).</li>
@@ -153,7 +153,7 @@
     <li>Controllers : orchestrent la réception des requêtes et la réponse.</li>
     <li>Services : logique métier, validation et coordination des modèles.</li>
     <li>Models : schémas Mongoose et accès direct à la BD.</li>
-    <li>Utils : fonctions d’aide (validation, conversions).</li>
+    <li>Utils : fonctions d'aide (validation, conversions).</li>
 </ul>
 </section>
 <section>
@@ -161,7 +161,7 @@
 <ul>
     <li>Couplage : controllers dépendent fortement de la BD via Mongoose.</li>
     <li>Scalabilité : aucune isolation des charges entre composants.</li>
-    <li>Tests : monolithe rend difficile l’exécution de tests unitaires isolés.</li>
+    <li>Tests : monolithe rend difficile l'exécution de tests unitaires isolés.</li>
     <li>Aucune dépendance circulaire explicite dans le code fourni.</li>
 </ul>
 </section>
@@ -176,63 +176,63 @@
 <section>
 <h3>Exercice 3</h3>
 <ul>
-    <li>Scalabilité : scale-out individuel pour gérer pics sur un service.</li>
-    <li>Haute disponibilité : redondance sur services critiques.</li>
-    <li>CI/CD : pipelines dédiés pour chaque service, déploiement rapide.</li>
+    <li>Scalabilité : scale-out individuel pour gérer pics sur un service.</li>
+    <li>Haute disponibilité : redondance sur services critiques.</li>
+    <li>CI/CD : pipelines dédiés pour chaque service, déploiement rapide.</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 4</h3>
 <ul>
-    <li>Bounded Context Auth : gestion sessions, tokens.</li>
-    <li>Bounded Context Users : profil, mise à jour.</li>
-    <li>Bounded Context Presentations : création, accès, publication.</li>
+    <li>Bounded Context Auth : gestion sessions, tokens.</li>
+    <li>Bounded Context Users : profil, mise à jour.</li>
+    <li>Bounded Context Presentations : création, accès, publication.</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 5</h3>
 <ul>
-    <li>Domain : class Presentation { constructor(title, content, author) ... }</li>
-    <li>Use Case : class CreatePresentation { execute(data) { ... } }</li>
-    <li>Adapters : HTTP controllers implémentant les ports.</li>
-    <li>Infrastructure : MongoosePresentationRepository.</li>
+    <li>Domain : class Presentation { constructor(title, content, author) ... }</li>
+    <li>Use Case : class CreatePresentation { execute(data) { ... } }</li>
+    <li>Adapters : HTTP controllers implémentant les ports.</li>
+    <li>Infrastructure : MongoosePresentationRepository.</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 6</h3>
 <ul>
-    <li>Port PresentationRepository : interface find, save, delete.</li>
-    <li>Adapter : Mongoose implementation wrapping PresentationModel.</li>
+    <li>Port PresentationRepository : interface find, save, delete.</li>
+    <li>Adapter : Mongoose implementation wrapping PresentationModel.</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 7</h3>
 <ul>
-    <li>Exposé via Express : POST /presentations, GET /presentations/:id.</li>
-    <li>Dockerfile simple : node:alpine, WORKDIR, COPY, RUN npm install, CMD node app.js.</li>
-    <li>Test : curl -X POST localhost:3000/presentations -d '{...}'.</li>
+    <li>Exposé via Express : POST /presentations, GET /presentations/:id.</li>
+    <li>Dockerfile simple : node:alpine, WORKDIR, COPY, RUN npm install, CMD node app.js.</li>
+    <li>Test : curl -X POST localhost:3000/presentations -d '{...}'.</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 8</h3>
 <ul>
-    <li>proto file : message CreateRequest { string title = 1; ... }</li>
-    <li>Server : grpc.loadPackageDefinition(protoDef), server.addService(...).</li>
+    <li>proto file : message CreateRequest { string title = 1; ... }</li>
+    <li>Server : grpc.loadPackageDefinition(protoDef), server.addService(...).</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 9</h3>
 <ul>
-    <li>Events collection : { type: 'PresentationCreated', data: {...} }.</li>
-    <li>Publisher : save event puis notifier le bus.</li>
-    <li>Reconstruction : rejouer events pour reconstituer l’état.</li>
+    <li>Events collection : { type: 'PresentationCreated', data: {...} }.</li>
+    <li>Publisher : save event puis notifier le bus.</li>
+    <li>Reconstruction : rejouer events pour reconstituer l'état.</li>
 </ul>
 </section>
 <section>
 <h3>Exercice 10</h3>
 <ul>
-    <li>Write : commandes envoyées au service via HTTP ou gRPC.</li>
-    <li>Read : projection MongoDB optimisée pour requêtes front.</li>
-    <li>Subscriber : consomme events et met à jour read-model.</li>
+    <li>Write : commandes envoyées au service via HTTP ou gRPC.</li>
+    <li>Read : projection MongoDB optimisée pour requêtes front.</li>
+    <li>Subscriber : consomme events et met à jour read-model.</li>
 </ul>
 </section>

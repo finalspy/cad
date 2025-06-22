@@ -18,10 +18,10 @@
   <h2>Sommaire</h2>
   <ul>
     <li>🎯 <strong>Introduction</strong> : définitions et enjeux</li>
-    <li>🚪 <strong>API Gateway</strong> : rôle, cas d’usage, bonnes pratiques</li>
+    <li>🚪 <strong>API Gateway</strong> : rôle, cas d'usage, bonnes pratiques</li>
     <li>🔗 <strong>Communication synchrone</strong> : principes, avantages/inconvénients</li>
     <li>📬 <strong>Communication asynchrone</strong> : patterns, brokers, résilience</li>
-    <li>📝 <strong>Event Sourcing</strong> : concept, cas d’usage, défis</li>
+    <li>📝 <strong>Event Sourcing</strong> : concept, cas d'usage, défis</li>
     <li>🔄 <strong>CQRS</strong> : principes, exemples, limites</li>
     <li>❓ <strong>Quiz & questions</strong></li>
     <li>📚 <strong>Sources & liens utiles</strong></li>
@@ -55,12 +55,12 @@
   </div>
   <aside class="notes">
     <ul>
-      <li>Un <b>API Gateway</b> agit comme la porte d’entrée unique (« front door ») centralisant le trafic entrant, la sécurité et la surveillance de vos microservices.</li>
+      <li>Un <b>API Gateway</b> agit comme la porte d'entrée unique (« front door ») centralisant le trafic entrant, la sécurité et la surveillance de vos microservices.</li>
       <li>Il gère le routage, l'authentification, le monitoring, la <b>limitation de débit</b> (<i>rate limiting</i>) et la transformation de requêtes/réponses.</li>
-      <li>Découplage : le client ne connaît pas les détails des services backend ni leurs évolutions.</li>
-      <li>Analogie : c’est le portier d’un immeuble, qui filtre les visiteurs et les oriente vers les bons étages.</li>
-      <li>Outils : <a href="https://konghq.com/" target="_blank">Kong</a> (open source), <a href="https://tyk.io/" target="_blank">Tyk</a>, <a href="https://aws.amazon.com/api-gateway/" target="_blank">AWS API Gateway</a>.</li>
-      <li>À ne pas faire : ne surchargez pas votre gateway avec toute la logique métier — restez sur l'orchestration et la sécurité.</li>
+      <li>Découplage : le client ne connaît pas les détails des services backend ni leurs évolutions.</li>
+      <li>Analogie : c'est le portier d'un immeuble, qui filtre les visiteurs et les oriente vers les bons étages.</li>
+      <li>Outils : <a href="https://konghq.com/" target="_blank">Kong</a> (open source), <a href="https://tyk.io/" target="_blank">Tyk</a>, <a href="https://aws.amazon.com/api-gateway/" target="_blank">AWS API Gateway</a>.</li>
+      <li>À ne pas faire : ne surchargez pas votre gateway avec toute la logique métier — restez sur l'orchestration et la sécurité.</li>
     </ul>
   </aside>
 </section>
@@ -76,10 +76,10 @@
   <aside class="notes">
     <ul>
       <li>Exposer une fonction <b>serverless</b> (AWS Lambda, Azure Function, GCP Function) comme API HTTP facilement.</li>
-      <li>Agrégation : exemple d’un endpoint “Mon Profil” qui compose les infos utilisateur, commandes et notifications via plusieurs microservices.</li>
+      <li>Agrégation : exemple d'un endpoint “Mon Profil” qui compose les infos utilisateur, commandes et notifications via plusieurs microservices.</li>
       <li>Gestion des versions : le Gateway permet de migrer vers de nouvelles versions sans perturber les clients.</li>
-      <li>Expérience terrain : les API Gateway sont utilisés dans toutes les architectures modernes à grande échelle (e-commerce, SaaS, jeux en ligne).</li>
-      <li>Outils complémentaires : <a href="https://www.apigee.com/" target="_blank">Google Apigee</a>, <a href="https://www.nginx.com/products/nginx-api-gateway/" target="_blank">NGINX API Gateway</a>.</li>
+      <li>Expérience terrain : les API Gateway sont utilisés dans toutes les architectures modernes à grande échelle (e-commerce, SaaS, jeux en ligne).</li>
+      <li>Outils complémentaires : <a href="https://www.apigee.com/" target="_blank">Google Apigee</a>, <a href="https://www.nginx.com/products/nginx-api-gateway/" target="_blank">NGINX API Gateway</a>.</li>
     </ul>
   </aside>
 </section>
@@ -101,12 +101,12 @@
   </div>
   <aside class="notes">
     <ul>
-      <li>Dans un modèle synchrone, le client émet une requête et attend la réponse : le flux est bloqué en attendant.</li>
-      <li>Exemples courants : REST (HTTP/HTTPS), gRPC, SOAP.</li>
-      <li>Analogie : comme passer un appel téléphonique : la conversation ne progresse que si l’interlocuteur répond.</li>
+      <li>Dans un modèle synchrone, le client émet une requête et attend la réponse : le flux est bloqué en attendant.</li>
+      <li>Exemples courants : REST (HTTP/HTTPS), gRPC, SOAP.</li>
+      <li>Analogie : comme passer un appel téléphonique : la conversation ne progresse que si l'interlocuteur répond.</li>
       <li>Ce modèle offre une forte traçabilité (un appel ↔ une réponse), idéal pour le debug.</li>
-      <li>Outils open source : <a href="https://grpc.io/" target="_blank">gRPC</a>, <a href="https://expressjs.com/" target="_blank">Express.js</a> (Node.js), <a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot</a> (Java).</li>
-      <li>⚠️ Attention à la <b>dépendance de disponibilité</b> : si un service est lent ou indisponible, toute la chaîne s’arrête.</li>
+      <li>Outils open source : <a href="https://grpc.io/" target="_blank">gRPC</a>, <a href="https://expressjs.com/" target="_blank">Express.js</a> (Node.js), <a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot</a> (Java).</li>
+      <li>⚠️ Attention à la <b>dépendance de disponibilité</b> : si un service est lent ou indisponible, toute la chaîne s'arrête.</li>
       <li>Bonnes pratiques : ajouter des timeouts et des mécanismes de retry, utiliser des circuit breakers.</li>
     </ul>
   </aside>
@@ -121,12 +121,12 @@
   </ul>
   <aside class="notes">
     <ul>
-      <li>La simplicité et la visibilité du chemin d’exécution facilitent le monitoring.</li>
-      <li>Le couplage fort limite l’agilité : les équipes sont plus dépendantes les unes des autres.</li>
-      <li>Utilisation du pattern <b>circuit breaker</b> (disjoncteur) : il coupe le flux si trop d’erreurs sont détectées, pour éviter une avalanche de pannes.</li>
+      <li>La simplicité et la visibilité du chemin d'exécution facilitent le monitoring.</li>
+      <li>Le couplage fort limite l'agilité : les équipes sont plus dépendantes les unes des autres.</li>
+      <li>Utilisation du pattern <b>circuit breaker</b> (disjoncteur) : il coupe le flux si trop d'erreurs sont détectées, pour éviter une avalanche de pannes.</li>
       <li>À éviter dans les systèmes nécessitant une haute disponibilité ou devant absorber des pics de charge importants.</li>
-      <li>Exemple : dans un SI bancaire, une requête de virement peut échouer si le service anti-fraude n’est pas disponible à l’instant t.</li>
-      <li>Bonnes pratiques : isoler les dépendances critiques, monitorer les temps de réponse, prévoir un fallback ou une file d’attente de secours.</li>
+      <li>Exemple : dans un SI bancaire, une requête de virement peut échouer si le service anti-fraude n'est pas disponible à l'instant t.</li>
+      <li>Bonnes pratiques : isoler les dépendances critiques, monitorer les temps de réponse, prévoir un fallback ou une file d'attente de secours.</li>
     </ul>
   </aside>
 </section>
@@ -149,13 +149,13 @@
   </div>
   <aside class="notes">
     <ul>
-      <li>Ici, le producteur envoie un message dans une file ou un topic : il n’attend pas de réponse immédiate, ce qui améliore la résilience et la montée en charge.</li>
+      <li>Ici, le producteur envoie un message dans une file ou un topic : il n'attend pas de réponse immédiate, ce qui améliore la résilience et la montée en charge.</li>
       <li>Modèles pub/sub (plusieurs consommateurs), ou point-à-point (un seul destinataire).</li>
-      <li>Analogie : poster une lettre (asynchrone) plutôt que téléphoner (synchrone) : la lettre arrivera quand elle pourra.</li>
-      <li>Cas métier : notification d’un paiement, traitement différé d’un upload de document, diffusion de newsletters…</li>
-      <li>Outils open source : <a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>, <a href="https://www.rabbitmq.com/" target="_blank">RabbitMQ</a>, <a href="https://activemq.apache.org/" target="_blank">ActiveMQ</a>.</li>
+      <li>Analogie : poster une lettre (asynchrone) plutôt que téléphoner (synchrone) : la lettre arrivera quand elle pourra.</li>
+      <li>Cas métier : notification d'un paiement, traitement différé d'un upload de document, diffusion de newsletters…</li>
+      <li>Outils open source : <a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>, <a href="https://www.rabbitmq.com/" target="_blank">RabbitMQ</a>, <a href="https://activemq.apache.org/" target="_blank">ActiveMQ</a>.</li>
       <li>Piège à éviter : ne pas monitorer la saturation des files (dead letter queue).</li>
-      <li>Best practice : documenter les schémas d’événements, prévoir un plan de migration lors de changements de structure.</li>
+      <li>Best practice : documenter les schémas d'événements, prévoir un plan de migration lors de changements de structure.</li>
     </ul>
   </aside>
 </section>
@@ -170,10 +170,10 @@
   <aside class="notes">
     <ul>
       <li>La <b>consistance éventuelle</b> (<i>eventual consistency</i>) signifie que le système mettra un certain temps avant que toutes les copies de la donnée soient à jour.</li>
-      <li>La latence est plus difficile à prédire, mais l’ensemble est plus robuste face aux pannes ponctuelles.</li>
-      <li>Gestion des schémas d’événements : attention aux breaking changes, aux compatibilités ascendantes/descendantes.</li>
-      <li>Cas réel : la plateforme Netflix utilise massivement l’asynchrone pour la distribution de vidéos et le suivi de logs utilisateurs.</li>
-      <li>Bonnes pratiques : prévoir des outils de monitoring dédiés (ex : Prometheus, Grafana), intégrer des alertes sur la taille des files et les délais de traitement.</li>
+      <li>La latence est plus difficile à prédire, mais l'ensemble est plus robuste face aux pannes ponctuelles.</li>
+      <li>Gestion des schémas d'événements : attention aux breaking changes, aux compatibilités ascendantes/descendantes.</li>
+      <li>Cas réel : la plateforme Netflix utilise massivement l'asynchrone pour la distribution de vidéos et le suivi de logs utilisateurs.</li>
+      <li>Bonnes pratiques : prévoir des outils de monitoring dédiés (ex : Prometheus, Grafana), intégrer des alertes sur la taille des files et les délais de traitement.</li>
     </ul>
   </aside>
 </section>
@@ -196,12 +196,12 @@
   </div>
   <aside class="notes">
     <ul>
-      <li>Chaque événement représente une modification d’état (commande passée, paiement validé…)</li>
-      <li>Le <b>journal d’événements</b> (event store) est le référentiel central : il permet de reconstituer l’état actuel, d’investiguer les bugs par <b>replay</b>, de revenir en arrière (rollback).</li>
-      <li>Analogie : un livre de comptes ou carnet de bord d’un navire, on sait tout ce qui s’est passé et on peut rejouer l’histoire.</li>
-      <li>Bonnes pratiques : s’assurer de l’immuabilité des événements, versionner les schémas d’événements.</li>
-      <li>Outils open source : <a href="https://eventstore.com/" target="_blank">EventStoreDB</a>, <a href="https://axoniq.io/" target="_blank">Axon Framework</a> (Java), <a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank">martinfowler.com</a>.</li>
-      <li>À ne pas faire : stocker des données sensibles sans encryption dans l’event store, ou ignorer le volume croissant du journal.</li>
+      <li>Chaque événement représente une modification d'état (commande passée, paiement validé…)</li>
+      <li>Le <b>journal d'événements</b> (event store) est le référentiel central : il permet de reconstituer l'état actuel, d'investiguer les bugs par <b>replay</b>, de revenir en arrière (rollback).</li>
+      <li>Analogie : un livre de comptes ou carnet de bord d'un navire, on sait tout ce qui s'est passé et on peut rejouer l'histoire.</li>
+      <li>Bonnes pratiques : s'assurer de l'immuabilité des événements, versionner les schémas d'événements.</li>
+      <li>Outils open source : <a href="https://eventstore.com/" target="_blank">EventStoreDB</a>, <a href="https://axoniq.io/" target="_blank">Axon Framework</a> (Java), <a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank">martinfowler.com</a>.</li>
+      <li>À ne pas faire : stocker des données sensibles sans encryption dans l'event store, ou ignorer le volume croissant du journal.</li>
     </ul>
   </aside>
 </section>
@@ -216,12 +216,12 @@
   </ul>
   <aside class="notes">
     <ul>
-      <li><b>Audit trail</b> : indispensable pour l’audit réglementaire, ex : finance ou santé.</li>
-      <li>Le <b>replay</b> permet de rejouer toute la vie d’un objet métier pour reproduire un bug ou comprendre une anomalie.</li>
-      <li><b>Snapshot</b> : « photo » prise régulièrement de l’état courant, pour éviter de rejouer tout le journal depuis l’origine.</li>
+      <li><b>Audit trail</b> : indispensable pour l'audit réglementaire, ex : finance ou santé.</li>
+      <li>Le <b>replay</b> permet de rejouer toute la vie d'un objet métier pour reproduire un bug ou comprendre une anomalie.</li>
+      <li><b>Snapshot</b> : « photo » prise régulièrement de l'état courant, pour éviter de rejouer tout le journal depuis l'origine.</li>
       <li>Gestion des évolutions : prévoir le versioning des événements, des scripts de migration, et documenter les projections.</li>
-      <li>Orchestration : s’assurer que toutes les vues projetées se mettent à jour correctement et gérer les échecs de projection.</li>
-      <li>Exemple concret : compte bancaire (toutes les opérations sont enregistrées, l’état du compte est la somme de toutes les opérations), historique d’actions en jeu vidéo, etc.</li>
+      <li>Orchestration : s'assurer que toutes les vues projetées se mettent à jour correctement et gérer les échecs de projection.</li>
+      <li>Exemple concret : compte bancaire (toutes les opérations sont enregistrées, l'état du compte est la somme de toutes les opérations), historique d'actions en jeu vidéo, etc.</li>
     </ul>
   </aside>
 </section>
@@ -250,12 +250,12 @@
   </div>
   <aside class="notes">
     <ul>
-      <li>CQRS = Command Query Responsibility Segregation : chaque action d’écriture (commande) et de lecture passe par des modèles séparés.</li>
-      <li>On peut alors scaler indépendamment la lecture (ex : via une base NoSQL rapide) et l’écriture (orientée événement).</li>
+      <li>CQRS = Command Query Responsibility Segregation : chaque action d'écriture (commande) et de lecture passe par des modèles séparés.</li>
+      <li>On peut alors scaler indépendamment la lecture (ex : via une base NoSQL rapide) et l'écriture (orientée événement).</li>
       <li>Typiquement, on couple CQRS à Event Sourcing pour maximiser la traçabilité et la performance.</li>
-      <li>Analogie : guichet unique versus guichets spécialisés pour chaque opération bancaire.</li>
-      <li>Outils open source : <a href="https://axoniq.io/" target="_blank">Axon Framework</a>, <a href="https://github.com/jgauffin/griffin">Griffin CQRS</a> (.NET), <a href="https://mediatR.net/" target="_blank">MediatR</a> (.NET).</li>
-      <li>À ne pas faire : appliquer CQRS sur un simple CRUD ou dans des contextes à faible volumétrie, c’est trop complexe pour peu de bénéfices.</li>
+      <li>Analogie : guichet unique versus guichets spécialisés pour chaque opération bancaire.</li>
+      <li>Outils open source : <a href="https://axoniq.io/" target="_blank">Axon Framework</a>, <a href="https://github.com/jgauffin/griffin">Griffin CQRS</a> (.NET), <a href="https://mediatR.net/" target="_blank">MediatR</a> (.NET).</li>
+      <li>À ne pas faire : appliquer CQRS sur un simple CRUD ou dans des contextes à faible volumétrie, c'est trop complexe pour peu de bénéfices.</li>
       <li>Voir : <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank">Martin Fowler</a>.</li>
     </ul>
   </aside>
@@ -271,12 +271,12 @@
   <aside class="notes">
     <ul>
       <li>Permet de spécialiser chaque modèle pour son usage, donc optimiser lecture et écriture selon des exigences différentes.</li>
-      <li>La <b>consistance éventuelle</b> : il existe toujours une légère latence entre l’écriture d’un événement et sa disponibilité côté lecture.</li>
+      <li>La <b>consistance éventuelle</b> : il existe toujours une légère latence entre l'écriture d'un événement et sa disponibilité côté lecture.</li>
       <li>Effort supplémentaire pour la synchronisation, versioning, et monitoring.</li>
-      <li>Ne convient pas à tous les systèmes : sur un CRUD simple ou une petite équipe, c’est surdimensionné.</li>
-      <li>Expérience terrain : CQRS très utilisé dans l’e-commerce (Amazon, Cdiscount) pour gérer la volumétrie sur la consultation de catalogue vs. passage de commande.</li>
-      <li>Piège : ne pas anticiper les besoins de reporting et d’administration sur la partie lecture.</li>
-      <li>Best practice : bien documenter la séparation des responsabilités, prévoir des outils de supervision dédiés, surveiller la latence entre écriture et disponibilité de lecture.</li>
+      <li>Ne convient pas à tous les systèmes : sur un CRUD simple ou une petite équipe, c'est surdimensionné.</li>
+      <li>Expérience terrain : CQRS très utilisé dans l'e-commerce (Amazon, Cdiscount) pour gérer la volumétrie sur la consultation de catalogue vs. passage de commande.</li>
+      <li>Piège : ne pas anticiper les besoins de reporting et d'administration sur la partie lecture.</li>
+      <li>Best practice : bien documenter la séparation des responsabilités, prévoir des outils de supervision dédiés, surveiller la latence entre écriture et disponibilité de lecture.</li>
     </ul>
   </aside>
 </section>
@@ -312,17 +312,17 @@
     <li>Pourquoi séparer lecture et écriture en CQRS ?</li>
     <li>(Vrai/Faux) Une API Gateway doit inclure toute la logique métier du backend.</li>
     <li>(Vrai/Faux) En asynchrone, le producteur de message attend toujours la réponse du consommateur.</li>
-    <li>(Vrai/Faux) Event Sourcing facilite l’auditabilité et le rollback.</li>
+    <li>(Vrai/Faux) Event Sourcing facilite l'auditabilité et le rollback.</li>
   </ol>
   <aside class="notes">
     <ul>
       <li><b>1.</b> Centraliser le routage, la sécurité, la gestion des accès et le monitoring pour les APIs.</li>
-      <li><b>2.</b> Avantage : simplicité/traçabilité ; Inconvénient : couplage fort/moindre résilience.</li>
-      <li><b>3.</b> Stocker chaque modification d’état sous forme d’événement immuable, permettant audit, replay et rollback.</li>
+      <li><b>2.</b> Avantage : simplicité/traçabilité ; Inconvénient : couplage fort/moindre résilience.</li>
+      <li><b>3.</b> Stocker chaque modification d'état sous forme d'événement immuable, permettant audit, replay et rollback.</li>
       <li><b>4.</b> Pour optimiser séparément lecture (performance) et écriture (audit, validations), et scaler chaque partie indépendamment.</li>
-      <li><b>5.</b> Faux : la logique métier reste dans les services, la gateway s’occupe de l’orchestration et de la sécurité.</li>
-      <li><b>6.</b> Faux : en asynchrone, le producteur n’attend pas la réponse, il poste et oublie.</li>
-      <li><b>7.</b> Vrai : Event Sourcing est conçu pour faciliter l’auditabilité et le retour en arrière (rollback).</li>
+      <li><b>5.</b> Faux : la logique métier reste dans les services, la gateway s'occupe de l'orchestration et de la sécurité.</li>
+      <li><b>6.</b> Faux : en asynchrone, le producteur n'attend pas la réponse, il poste et oublie.</li>
+      <li><b>7.</b> Vrai : Event Sourcing est conçu pour faciliter l'auditabilité et le retour en arrière (rollback).</li>
     </ul>
   </aside>
 </section>

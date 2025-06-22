@@ -6,7 +6,7 @@
     <li>Travail progressif, exemples concrets, code AVANT/APRÈS et schémas</li>
   </ul>
   <aside class="notes">
-    Ce TP vous guide pour moderniser une appli Node.js en suivant les meilleures pratiques du marché, de la mise en place des tests à l’architecture hexagonale.
+    Ce TP vous guide pour moderniser une appli Node.js en suivant les meilleures pratiques du marché, de la mise en place des tests à l'architecture hexagonale.
   </aside>
 </section>
 
@@ -42,7 +42,7 @@ views/
   ...
   </code></pre>
   <aside class="notes">
-    Structure typique Express MVC. L’objectif est de la rendre plus maintenable, testée et prête pour l’extension.
+    Structure typique Express MVC. L'objectif est de la rendre plus maintenable, testée et prête pour l'extension.
   </aside>
 </section>
 
@@ -56,7 +56,7 @@ views/
     <li>Préparer la future migration vers les microservices</li>
   </ul>
   <aside class="notes">
-    La démarche vise la fiabilité, la clarté du code, et la pérennité de l’application.
+    La démarche vise la fiabilité, la clarté du code, et la pérennité de l'application.
   </aside>
 </section>
 
@@ -70,7 +70,7 @@ views/
     <li>Documenter et taguer les tests legacy</li>
   </ul>
   <aside class="notes">
-    Avant toute refonte, sécuriser le code pour détecter d’éventuelles régressions. On vise une couverture de 80 % minimum.
+    Avant toute refonte, sécuriser le code pour détecter d'éventuelles régressions. On vise une couverture de 80 % minimum.
   </aside>
 </section>
 
@@ -83,7 +83,7 @@ views/
     <li><b>4. Documenter :</b> Les cas legacy ou tests instables.</li>
   </ul>
   <aside class="notes">
-    Utilisez la couverture générée (HTML, lcov) pour repérer rapidement les fichiers oubliés. Documenter dans un fichier TESTPLAN.md les cas d’usage, les legacy et les limites connues.
+    Utilisez la couverture générée (HTML, lcov) pour repérer rapidement les fichiers oubliés. Documenter dans un fichier TESTPLAN.md les cas d'usage, les legacy et les limites connues.
   </aside>
 </section>
 
@@ -96,11 +96,11 @@ views/
     it("renvoie 200 et l'utilisateur existant", async () => {
     // ... test existant pour le cas succès
   });
-  // 🚩 Il manque le test pour l’utilisateur inconnu (404)
+  // 🚩 Il manque le test pour l'utilisateur inconnu (404)
 });
   </code></pre>
   <aside class="notes">
-    Ce fichier ne teste que le cas où l’utilisateur existe. Il faut ajouter les cas 404 et erreur serveur.
+    Ce fichier ne teste que le cas où l'utilisateur existe. Il faut ajouter les cas 404 et erreur serveur.
   </aside>
 </section>
 
@@ -125,7 +125,7 @@ views/
 });
   </code></pre>
   <aside class="notes">
-    Ce test garantit que si l’utilisateur est absent, la route retourne bien un 404. Ajoutez systématiquement les cas d’erreur pour chaque endpoint/service critique.
+    Ce test garantit que si l'utilisateur est absent, la route retourne bien un 404. Ajoutez systématiquement les cas d'erreur pour chaque endpoint/service critique.
   </aside>
 </section>
 
@@ -137,7 +137,7 @@ views/
     <li>Repérez les “zones rouges” pour les compléter</li>
   </ul>
   <aside class="notes">
-    Ajoutez la commande dans le package.json si elle n’existe pas. Vérifiez le rapport HTML et priorisez les fichiers les moins couverts.
+    Ajoutez la commande dans le package.json si elle n'existe pas. Vérifiez le rapport HTML et priorisez les fichiers les moins couverts.
   </aside>
 </section>
 
@@ -180,7 +180,7 @@ jobs:
 ![CI](https://github.com/&lt;utilisateur&gt;/&lt;repo&gt;/actions/workflows/ci.yml/badge.svg)
   </code></pre>
   <aside class="notes">
-    Ce badge s’affiche en tête du README, signalant l’état du dernier build GitHub Actions. Vérifiez que le badge passe bien au vert après chaque push.
+    Ce badge s'affiche en tête du README, signalant l'état du dernier build GitHub Actions. Vérifiez que le badge passe bien au vert après chaque push.
   </aside>
 </section>
 
@@ -194,7 +194,7 @@ jobs:
     <li>Mettre à jour les tests avec des mocks/stubs</li>
   </ul>
   <aside class="notes">
-    Objectif : chaque composant doit pouvoir être testé/migré isolément. Préférez des dépendances passées en paramètre plutôt qu’importées en dur.
+    Objectif : chaque composant doit pouvoir être testé/migré isolément. Préférez des dépendances passées en paramètre plutôt qu'importées en dur.
   </aside>
 </section>
 
@@ -210,7 +210,7 @@ exports.getUser = async (req, res) => {
 };
   </code></pre>
   <aside class="notes">
-    Ici, le contrôleur importe directement l’implémentation concrète. Difficile à tester ou remplacer !
+    Ici, le contrôleur importe directement l'implémentation concrète. Difficile à tester ou remplacer !
   </aside>
 </section>
 
@@ -230,7 +230,7 @@ const { createUserController } = require('./controllers/userController');
 const userController = createUserController(UserService);
   </code></pre>
   <aside class="notes">
-    Le contrôleur devient indépendant : on injecte le service au lieu de l’importer. Les tests peuvent passer un fake/mock service.
+    Le contrôleur devient indépendant : on injecte le service au lieu de l'importer. Les tests peuvent passer un fake/mock service.
   </aside>
 </section>
 
@@ -245,7 +245,7 @@ const userController = createUserController(UserService);
     <li>Adapter la config Vitest/Jest (ts-jest, etc.)</li>
   </ul>
   <aside class="notes">
-    Le typage explicite détecte plus d’erreurs à la compilation, limite les bugs et rend la base plus robuste.
+    Le typage explicite détecte plus d'erreurs à la compilation, limite les bugs et rend la base plus robuste.
   </aside>
 </section>
 
@@ -261,7 +261,7 @@ const UserSchema = new mongoose.Schema({
 module.exports = mongoose.model('User', UserSchema);
   </code></pre>
   <aside class="notes">
-    Aucun type n’est vérifié, le moindre oubli ou changement de structure peut passer inaperçu.
+    Aucun type n'est vérifié, le moindre oubli ou changement de structure peut passer inaperçu.
   </aside>
 </section>
 
@@ -284,7 +284,7 @@ const UserSchema = new Schema<User>({
 export default model<User>('User', UserSchema);
   </code></pre>
   <aside class="notes">
-    L’interface User permet d’attraper les fautes de frappe ou d’oublis de champs à la compilation.
+    L'interface User permet d'attraper les fautes de frappe ou d'oublis de champs à la compilation.
   </aside>
 </section>
 
@@ -299,7 +299,7 @@ export default model<User>('User', UserSchema);
     <li>Refactorer progressivement (PR par feature)</li>
   </ul>
   <aside class="notes">
-    On passe d’un MVC “fourre-tout” à une séparation claire Domain/Infra/Application, qui permet de mieux tester, remplacer et étendre l’application.
+    On passe d'un MVC “fourre-tout” à une séparation claire Domain/Infra/Application, qui permet de mieux tester, remplacer et étendre l'application.
   </aside>
 </section>
 
@@ -336,7 +336,7 @@ src/
     </li>
   </ul>
   <aside class="notes">
-    On distingue clairement la logique métier (domain), l’orchestration métier (application), la technique (infrastructure), et les points d’entrée (interfaces).
+    On distingue clairement la logique métier (domain), l'orchestration métier (application), la technique (infrastructure), et les points d'entrée (interfaces).
   </aside>
 </section>
 
@@ -349,7 +349,7 @@ src/
     <li><code>models/user.js</code> (implé Mongo) → <code>infrastructure/orm/MongoUserRepository.ts</code></li>
   </ul>
   <aside class="notes">
-    Pour chaque fichier, demandez-vous : ce code relève-t-il du métier (domain), de l’orchestration métier (application), de la technique (infra) ou de l’IHM (interfaces) ?
+    Pour chaque fichier, demandez-vous : ce code relève-t-il du métier (domain), de l'orchestration métier (application), de la technique (infra) ou de l'IHM (interfaces) ?
   </aside>
 </section>
 
@@ -360,7 +360,7 @@ src/
     <li>Créer des <b>ports</b> (interfaces métier) dans <code>domain/ports/</code></li>
     <li>Implémenter des <b>adapters</b> dans <code>infrastructure/</code></li>
     <li>Injecter les dépendances (par constructeur, DI, factory…)</li>
-    <li>Toutes les entrées passent par l’application & le domaine</li>
+    <li>Toutes les entrées passent par l'application & le domaine</li>
     <li>Tester le métier avec des mocks/fakes</li>
   </ul>
   <aside class="notes">
@@ -413,12 +413,12 @@ export class MongoUserRepository implements UserRepository {
 }
   </code></pre>
   <aside class="notes">
-    Le code métier ne connaît que l’interface, jamais l’implémentation technique. On “branche” la bonne implémentation au démarrage de l’appli.
+    Le code métier ne connaît que l'interface, jamais l'implémentation technique. On “branche” la bonne implémentation au démarrage de l'appli.
   </aside>
 </section>
 
 <section>
-  <h3>Après : injection dans l’application</h3>
+  <h3>Après : injection dans l'application</h3>
   <pre><code>
 // application/usecases/GetUser.ts
 export class GetUser {
@@ -436,7 +436,7 @@ app.get('/users/:id', async (req, res) => {
 });
   </code></pre>
   <aside class="notes">
-    Pour tester GetUser, il suffit de passer un mock UserRepository. La route n’accède plus ni à Mongo, ni au métier directement.
+    Pour tester GetUser, il suffit de passer un mock UserRepository. La route n'accède plus ni à Mongo, ni au métier directement.
   </aside>
 </section>
 
@@ -446,7 +446,7 @@ app.get('/users/:id', async (req, res) => {
     <li>Commencez par sécuriser la base avec des tests exhaustifs</li>
     <li>Industrialisez la CI/CD dès le début</li>
     <li>Découpez et typisez le code pour gagner en robustesse</li>
-    <li>Adoptez l’architecture hexagonale pour isoler le métier</li>
+    <li>Adoptez l'architecture hexagonale pour isoler le métier</li>
     <li>Testez chaque couche indépendamment (mocks, fakes…)</li>
     <li>Itérez progressivement : refactoring étape par étape</li>
   </ul>
@@ -459,7 +459,7 @@ app.get('/users/:id', async (req, res) => {
   <h3>Pour aller plus loin</h3>
   <ul>
     <li><a href="https://martinfowler.com/bliki/HexagonalArchitecture.html" target="_blank">Hexagonal Architecture (Martin Fowler)</a></li>
-    <li><a href="https://khalilstemmler.com/articles/software-design-architecture/ddd-intro/" target="_blank">DDD par l’exemple</a></li>
+    <li><a href="https://khalilstemmler.com/articles/software-design-architecture/ddd-intro/" target="_blank">DDD par l'exemple</a></li>
     <li><a href="https://dev.to/domysee/hexagonal-architecture-in-nodejs-1efb" target="_blank">Hexagonal en Node.js</a></li>
     <li><a href="https://testingjavascript.com/" target="_blank">Testing JavaScript (Kent C. Dodds)</a></li>
   </ul>
