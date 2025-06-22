@@ -40,8 +40,8 @@
   <section>
     <h2>Types de Sagas</h2>
     <ul>
-      <li><b>Orchestration :</b> Un service central (“orchestrator”) contrôle l'ordre et déclenche les compensations.</li>
-      <li><b>Chorégraphie :</b> Chaque service réagit aux événements, pas de coordination centrale.</li>
+      <li><b>Orchestration :</b> Un service central (“orchestrator”) contrôle l'ordre et déclenche les compensations.</li>
+      <li><b>Chorégraphie :</b> Chaque service réagit aux événements, pas de coordination centrale.</li>
     </ul>
     <aside class="notes">
       <ul>
@@ -53,7 +53,7 @@
   
   <!-- Slide 4: Schéma Mermaid Saga (Orchestration) -->
   <section>
-    <h2>Schéma : Saga orchestrée</h2>
+    <h2>Schéma : Saga orchestrée</h2>
     <div class="mermaid">
   sequenceDiagram
     participant Client
@@ -70,14 +70,14 @@
   </div>
     <aside class="notes">
       <ul>
-        <li>Le client initie la transaction ; l'orchestrateur contrôle chaque étape et lance les actions compensatoires en cas d'échec.</li>
+        <li>Le client initie la transaction ; l'orchestrateur contrôle chaque étape et lance les actions compensatoires en cas d'échec.</li>
       </ul>
     </aside>
   </section>
   
   <!-- Slide 5: Exemple d'application basée sur Node.js/Mongoose (pseudo-code) -->
   <section>
-    <h2>Exemple Node.js : Saga Orchestrée (pseudo-code)</h2>
+    <h2>Exemple Node.js : Saga Orchestrée (pseudo-code)</h2>
     <pre><code class="language-js">
   // Réservation d'une présentation et notification email
   async function bookPresentationSaga(data) {
@@ -103,7 +103,7 @@
   
   <!-- Slide 6: Saga chorégraphiée Mermaid -->
   <section>
-    <h2>Schéma : Saga chorégraphiée</h2>
+    <h2>Schéma : Saga chorégraphiée</h2>
     <div class="mermaid">
   sequenceDiagram
     participant ServiceA
@@ -192,7 +192,7 @@
   
   <!-- Slide 11: Retour d'expérience réel -->
   <section>
-    <h2>Retour d'expérience : Booking.com</h2>
+    <h2>Retour d'expérience : Booking.com</h2>
     <ul>
       <li>Mise en place de Sagas pour gérer réservations atomiques multi-services (paiement, stock, confirmation, emails)</li>
       <li>Orchestration centralisée avec logs de corrélation</li>
@@ -201,8 +201,8 @@
     </ul>
     <aside class="notes">
       <ul>
-        <li>Lisez l'article pour des retours précis sur les succès et difficultés de Booking.com à grande échelle !</li>
-        <li>Points clés : l'automatisation de la compensation, le monitoring, et la documentation sont essentiels.</li>
+        <li>Lisez l'article pour des retours précis sur les succès et difficultés de Booking.com à grande échelle !</li>
+        <li>Points clés : l'automatisation de la compensation, le monitoring, et la documentation sont essentiels.</li>
       </ul>
     </aside>
   </section>
@@ -211,14 +211,14 @@
   <section>
     <h2>Quiz</h2>
     <ol>
-      <li>Quelle différence principale entre orchestration et chorégraphie ?</li>
-      <li>Quel est le rôle des actions de compensation ?</li>
+      <li>Quelle différence principale entre orchestration et chorégraphie ?</li>
+      <li>Quel est le rôle des actions de compensation ?</li>
       <li>Citez un antipattern courant avec Saga.</li>
-      <li>Peut-on tout faire avec Saga ?</li>
+      <li>Peut-on tout faire avec Saga ?</li>
     </ol>
     <aside class="notes">
       <ul>
-        <li>1. Orchestration : centralisée, Chorégraphie : décentralisée.</li>
+        <li>1. Orchestration : centralisée, Chorégraphie : décentralisée.</li>
         <li>2. Revenir à un état cohérent en cas d'échec d'une étape.</li>
         <li>3. Oublier la compensation, mélanger orchestré et chorégraphié sans justification.</li>
         <li>4. Non, ce n'est pas adapté à toutes les transactions (overkill pour l'atome simple).</li>
@@ -229,7 +229,7 @@
   <!-- Slide 13: QCM 1 -->
   <section>
     <h2>QCM</h2>
-    <p><strong>Pourquoi utilise-t-on le Saga pattern ?</strong></p>
+    <p><strong>Pourquoi utilise-t-on le Saga pattern ?</strong></p>
     <ol type="a">
       <li>Pour verrouiller toutes les bases de données</li>
       <li>Pour gérer des transactions distribuées avec compensation</li>
@@ -259,7 +259,7 @@
   <!-- Slide 15: QCM 3 -->
   <section>
     <h2>QCM</h2>
-    <p><strong>Le principal piège d'une saga ?</strong></p>
+    <p><strong>Le principal piège d'une saga ?</strong></p>
     <ol type="a">
       <li>D'oublier d'implémenter les compensations</li>
       <li>De tout faire dans un seul service</li>
@@ -274,7 +274,7 @@
   <!-- Slide 16: QCM 4 -->
   <section>
     <h2>QCM</h2>
-    <p><strong>Dans quel cas NE PAS utiliser Saga ?</strong></p>
+    <p><strong>Dans quel cas NE PAS utiliser Saga ?</strong></p>
     <ol type="a">
       <li>Pour une transaction simple sans effet collatéral</li>
       <li>Pour des workflows longs avec rollback possible</li>
@@ -289,7 +289,7 @@
   <!-- Slide 17: QCM 5 -->
   <section>
     <h2>QCM</h2>
-    <p><strong>Quel outil peut faciliter la gestion des sagas ?</strong></p>
+    <p><strong>Quel outil peut faciliter la gestion des sagas ?</strong></p>
     <ol type="a">
       <li>Kafka ou RabbitMQ (bus d'événements)</li>
       <li>Excel</li>

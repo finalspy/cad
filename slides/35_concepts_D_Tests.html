@@ -64,7 +64,7 @@
     <li>Documentation vivante du code</li>
   </ul>
   <aside class="notes">
-    L'exécution rapide permet des cycles courts : commit, test, correction, recommit. Les tests unitaires facilitent le refactoring.
+    L'exécution rapide permet des cycles courts : commit, test, correction, recommit. Les tests unitaires facilitent le refactoring.
   </aside>
 </section>
 <!-- Unit Tests: Inconvénients & Limites -->
@@ -125,7 +125,7 @@
     <li>Difficulté à isoler la cause d'un échec</li>
   </ul>
   <aside class="notes">
-    Attention à ne pas tout tester via l'intégration : la pyramide des tests reste valide.
+    Attention à ne pas tout tester via l'intégration : la pyramide des tests reste valide.
   </aside>
 </section>
 <!-- Integration Tests: Bonnes pratiques -->
@@ -135,7 +135,7 @@
     <li>Utiliser des bases ou conteneurs éphémères</li>
     <li>Nettoyer les données entre les tests</li>
     <li>Tracer chaque étape (logs dédiés)</li>
-    <li>Limiter la portée : pas de E2E déguisé !</li>
+    <li>Limiter la portée : pas de E2E déguisé !</li>
   </ul>
   <aside class="notes">
     Les tests d'intégration doivent rester prévisibles, reproductibles, et rapides autant que possible.
@@ -174,7 +174,7 @@
     <li>Gestion complexe des versions de contrat</li>
   </ul>
   <aside class="notes">
-    Le contract testing ne remplace pas l'intégration réelle : il garantit l'interface, pas le comportement global.
+    Le contract testing ne remplace pas l'intégration réelle : il garantit l'interface, pas le comportement global.
   </aside>
 </section>
 <!-- Contract Tests: Bonnes pratiques -->
@@ -223,7 +223,7 @@
     <li>Difficiles à déboguer en cas d'échec</li>
   </ul>
   <aside class="notes">
-    Le ratio recommandé : peu de tests E2E, beaucoup de tests unitaires/intégration.
+    Le ratio recommandé : peu de tests E2E, beaucoup de tests unitaires/intégration.
   </aside>
 </section>
 <!-- E2E Tests: Bonnes pratiques -->
@@ -244,7 +244,7 @@
 <section>
   <h2>Performance Testing — But</h2>
   <ul>
-    <li>Évaluer la robustesse sous charge : pics, volume, stress, endurance</li>
+    <li>Évaluer la robustesse sous charge : pics, volume, stress, endurance</li>
     <li>Identifier les goulets d'étranglement</li>
   </ul>
   <aside class="notes">
@@ -260,7 +260,7 @@
     <li>Optimiser le coût d'infrastructure</li>
   </ul>
   <aside class="notes">
-    Le monitoring permanent est complémentaire : un test de performance ponctuel ne suffit pas.
+    Le monitoring permanent est complémentaire : un test de performance ponctuel ne suffit pas.
   </aside>
 </section>
 <!-- Performance Testing: Inconvénients & Écueils -->
@@ -272,7 +272,7 @@
     <li>Risques de “polluer” l'environnement réel si mal isolé</li>
   </ul>
   <aside class="notes">
-    Attention à ne pas saturer une prod : réaliser les tests sur un environnement dédié ou simulé.
+    Attention à ne pas saturer une prod : réaliser les tests sur un environnement dédié ou simulé.
   </aside>
 </section>
 <!-- Performance Testing: Bonnes pratiques -->
@@ -375,7 +375,7 @@
     <li>Fournir une traçabilité et un historique détaillé</li>
   </ul>
   <aside class="notes">
-    Les logs sont la première source d'information lors d'un incident : erreurs, warnings, info métier.
+    Les logs sont la première source d'information lors d'un incident : erreurs, warnings, info métier.
   </aside>
 </section>
 <!-- Logging: Avantages -->
@@ -394,9 +394,9 @@
 <section>
   <h2>Logging — Inconvénients & Écueils</h2>
   <ul>
-    <li>Volume massif : peut saturer le stockage ou le réseau</li>
+    <li>Volume massif : peut saturer le stockage ou le réseau</li>
     <li>Données sensibles exposées si logs non filtrés</li>
-    <li>“Log Spam” : bruit inutile</li>
+    <li>“Log Spam” : bruit inutile</li>
   </ul>
   <aside class="notes">
     Les logs doivent être filtrés, rotatés et surveillés. Ne jamais logger de secrets ou de PII sans masquage.
@@ -421,7 +421,7 @@
   <h2>Metrics — But</h2>
   <ul>
     <li>Mesurer l'état et la performance du système</li>
-    <li>Fournir des indicateurs quantitatifs : CPU, mémoire, requêtes, erreurs, temps de réponse…</li>
+    <li>Fournir des indicateurs quantitatifs : CPU, mémoire, requêtes, erreurs, temps de réponse…</li>
   </ul>
   <aside class="notes">
     Les métriques servent à établir des seuils, des tendances, et détecter les incidents en temps réel.
@@ -485,7 +485,7 @@
     <li>Visualisation graphique du parcours complet</li>
   </ul>
   <aside class="notes">
-    Outils : Jaeger, Zipkin, OpenTelemetry pour tracer automatiquement chaque requête.
+    Outils : Jaeger, Zipkin, OpenTelemetry pour tracer automatiquement chaque requête.
   </aside>
 </section>
 <!-- Tracing: Inconvénients & Écueils -->
@@ -509,7 +509,7 @@
     <li>Visualiser et annoter les parcours métiers clés</li>
   </ul>
   <aside class="notes">
-    Corréler systématiquement traces, logs, métriques : c'est l'observabilité “360°”.
+    Corréler systématiquement traces, logs, métriques : c'est l'observabilité “360°”.
   </aside>
 </section>
 
@@ -555,13 +555,13 @@
     <li>Revoir périodiquement la pertinence des alertes</li>
   </ul>
   <aside class="notes">
-    Les alertes doivent déclencher une action concrète et utile : évitez les “alertes de confort”.
+    Les alertes doivent déclencher une action concrète et utile : évitez les “alertes de confort”.
   </aside>
 </section>
 
 <!-- Synthèse Observabilité -->
 <section>
-  <h2>Synthèse : observabilité 360°</h2>
+  <h2>Synthèse : observabilité 360°</h2>
   <ul>
     <li>Corréler logs, métriques, traces pour une compréhension globale</li>
     <li>Rendre les signaux accessibles et compréhensibles</li>
@@ -575,160 +575,160 @@
 
 <!-- Clarification : Logging vs Tracing -->
 <section>
-  <h2>Logging et Tracing : est-ce la même chose ?</h2>
+  <h2>Logging et Tracing : est-ce la même chose ?</h2>
   <ul>
-    <li>Quelle est la différence fondamentale entre logging et tracing dans un système distribué ?</li>
+    <li>Quelle est la différence fondamentale entre logging et tracing dans un système distribué ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Logging vs Tracing</h2>
+  <h2>Réponse : Logging vs Tracing</h2>
   <ul>
     <li>Le <b>logging</b> capture des événements ou messages (erreurs, infos, étapes métier) de façon linéaire par service ou composant.</li>
     <li>Le <b>tracing</b> reconstitue le parcours complet d'une requête à travers tous les services, en chaînant les événements corrélés par un identifiant unique (<code>traceId</code>).</li>
-    <li>Conclusion : Le logging décrit ce qui se passe localement ; le tracing éclaire le flux global et les dépendances.</li>
+    <li>Conclusion : Le logging décrit ce qui se passe localement ; le tracing éclaire le flux global et les dépendances.</li>
   </ul>
 </section>
 
 <!-- Clarification : Monitoring vs Observabilité -->
 <section>
-  <h2>Monitoring et Observabilité : même chose ?</h2>
+  <h2>Monitoring et Observabilité : même chose ?</h2>
   <ul>
-    <li>En quoi le monitoring diffère-t-il de l'observabilité ?</li>
+    <li>En quoi le monitoring diffère-t-il de l'observabilité ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Monitoring vs Observabilité</h2>
+  <h2>Réponse : Monitoring vs Observabilité</h2>
   <ul>
     <li>Le <b>monitoring</b> collecte des métriques pré-définies (CPU, erreurs, latence) et déclenche des alertes sur seuils connus.</li>
-    <li>L'<b>observabilité</b> permet de comprendre l'état interne d'un système à partir de signaux externes : logs, métriques, traces. C'est une démarche d'analyse, pas seulement d'alerte.</li>
-    <li>Conclusion : le monitoring répond à « est-ce que ça va ? », l'observabilité à « pourquoi ça va (ou non) ? »</li>
+    <li>L'<b>observabilité</b> permet de comprendre l'état interne d'un système à partir de signaux externes : logs, métriques, traces. C'est une démarche d'analyse, pas seulement d'alerte.</li>
+    <li>Conclusion : le monitoring répond à « est-ce que ça va ? », l'observabilité à « pourquoi ça va (ou non) ? »</li>
   </ul>
 </section>
 
 <!-- Clarification : Test d'intégration vs E2E -->
 <section>
-  <h2>Test d'intégration et E2E, est-ce pareil ?</h2>
+  <h2>Test d'intégration et E2E, est-ce pareil ?</h2>
   <ul>
-    <li>Quelle différence entre test d'intégration et test end-to-end ?</li>
+    <li>Quelle différence entre test d'intégration et test end-to-end ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Intégration vs E2E</h2>
+  <h2>Réponse : Intégration vs E2E</h2>
   <ul>
     <li>Le <b>test d'intégration</b> vérifie la collaboration de plusieurs composants (DB, API, files) sans forcément simuler l'utilisateur final.</li>
     <li>Le <b>test E2E</b> rejoue un parcours utilisateur complet, comme en prod, de l'UI à la DB.</li>
-    <li>Conclusion : E2E = vision métier réelle ; intégration = interaction technique.</li>
+    <li>Conclusion : E2E = vision métier réelle ; intégration = interaction technique.</li>
   </ul>
 </section>
 
 <!-- Clarification : Performance vs Chaos Testing -->
 <section>
-  <h2>Performance testing et Chaos engineering : même finalité ?</h2>
+  <h2>Performance testing et Chaos engineering : même finalité ?</h2>
   <ul>
-    <li>Les tests de performance et de chaos servent-ils le même but ?</li>
+    <li>Les tests de performance et de chaos servent-ils le même but ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Performance vs Chaos</h2>
+  <h2>Réponse : Performance vs Chaos</h2>
   <ul>
-    <li><b>Performance testing</b> mesure les limites du système sous charge normale ou extrême : vitesse, capacité, stabilité.</li>
+    <li><b>Performance testing</b> mesure les limites du système sous charge normale ou extrême : vitesse, capacité, stabilité.</li>
     <li><b>Chaos engineering</b> injecte des défaillances (pannes, latence, coupures) pour vérifier la résilience réelle du système.</li>
-    <li>Conclusion : Performance = « jusqu'où ça tient ? » ; Chaos = « comment ça réagit en cas d'incident ? »</li>
+    <li>Conclusion : Performance = « jusqu'où ça tient ? » ; Chaos = « comment ça réagit en cas d'incident ? »</li>
   </ul>
 </section>
 
 <!-- Clarification : Contract vs Integration tests -->
 <section>
-  <h2>Contract Test vs Integration Test : ambiguïté fréquente</h2>
+  <h2>Contract Test vs Integration Test : ambiguïté fréquente</h2>
   <ul>
-    <li>Un contract test garantit-il que deux services fonctionnent ensemble ?</li>
+    <li>Un contract test garantit-il que deux services fonctionnent ensemble ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Contract vs Integration</h2>
+  <h2>Réponse : Contract vs Integration</h2>
   <ul>
     <li>Le <b>contract test</b> vérifie que l'API respecte bien le contrat d'échange (formats, statuts), pas le fonctionnement global de bout en bout.</li>
     <li>L'<b>integration test</b> vérifie le fonctionnement réel entre composants interconnectés, y compris la configuration, la DB, le réseau, etc.</li>
-    <li>Conclusion : Contract test = accord d'interface, Integration test = comportement global réel.</li>
+    <li>Conclusion : Contract test = accord d'interface, Integration test = comportement global réel.</li>
   </ul>
 </section>
 
 <!-- Clarification : Logging vs Monitoring -->
 <section>
-  <h2>Logging et Monitoring : est-ce la même catégorie ?</h2>
+  <h2>Logging et Monitoring : est-ce la même catégorie ?</h2>
   <ul>
-    <li>Les logs servent-ils à monitorer ?</li>
+    <li>Les logs servent-ils à monitorer ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Logging vs Monitoring</h2>
+  <h2>Réponse : Logging vs Monitoring</h2>
   <ul>
-    <li>Les <b>logs</b> donnent une vision fine d'événements individuels : erreurs, actions métiers, traces de debug.</li>
-    <li>Le <b>monitoring</b> agrège des métriques issues du système (et parfois des logs !) pour alerter sur un comportement anormal.</li>
-    <li>Conclusion : les logs sont une source ; le monitoring est une analyse continue pour détecter les incidents.</li>
+    <li>Les <b>logs</b> donnent une vision fine d'événements individuels : erreurs, actions métiers, traces de debug.</li>
+    <li>Le <b>monitoring</b> agrège des métriques issues du système (et parfois des logs !) pour alerter sur un comportement anormal.</li>
+    <li>Conclusion : les logs sont une source ; le monitoring est une analyse continue pour détecter les incidents.</li>
   </ul>
 </section>
 
 <!-- Clarification : Metrics vs Logs -->
 <section>
-  <h2>Metrics vs Logs : comment choisir ?</h2>
+  <h2>Metrics vs Logs : comment choisir ?</h2>
   <ul>
-    <li>Quand préférer collecter une métrique plutôt qu'un log ?</li>
+    <li>Quand préférer collecter une métrique plutôt qu'un log ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Metrics vs Logs</h2>
+  <h2>Réponse : Metrics vs Logs</h2>
   <ul>
     <li>Une <b>métrique</b> mesure un phénomène quantitatif sur la durée (CPU, latence, taux d'erreur).</li>
     <li>Un <b>log</b> capture une information instantanée, utile pour l'analyse détaillée ou la reconstitution a posteriori.</li>
-    <li>Conclusion : métrique = tendance ; log = détail, diagnostic précis.</li>
+    <li>Conclusion : métrique = tendance ; log = détail, diagnostic précis.</li>
   </ul>
 </section>
 
 <!-- Clarification : Alerting vs Monitoring -->
 <section>
-  <h2>Monitoring et Alerting, confusion ?</h2>
+  <h2>Monitoring et Alerting, confusion ?</h2>
   <ul>
-    <li>L'alerting est-il une partie du monitoring ?</li>
+    <li>L'alerting est-il une partie du monitoring ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Alerting vs Monitoring</h2>
+  <h2>Réponse : Alerting vs Monitoring</h2>
   <ul>
-    <li>Le <b>monitoring</b> collecte et analyse des signaux ; l'<b>alerting</b> déclenche une action (notification, escalade) sur événement anormal détecté.</li>
-    <li>Conclusion : monitoring = surveillance ; alerting = réaction automatisée.</li>
+    <li>Le <b>monitoring</b> collecte et analyse des signaux ; l'<b>alerting</b> déclenche une action (notification, escalade) sur événement anormal détecté.</li>
+    <li>Conclusion : monitoring = surveillance ; alerting = réaction automatisée.</li>
   </ul>
 </section>
 
 <!-- Clarification : Observability = Visibility ? -->
 <section>
-  <h2>Observabilité = Visibilité ?</h2>
+  <h2>Observabilité = Visibilité ?</h2>
   <ul>
-    <li>Ces deux termes sont-ils interchangeables ?</li>
+    <li>Ces deux termes sont-ils interchangeables ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Observabilité vs Visibilité</h2>
+  <h2>Réponse : Observabilité vs Visibilité</h2>
   <ul>
     <li>La <b>visibilité</b> décrit la capacité à voir ce qui se passe (logs, dashboards).</li>
     <li>L'<b>observabilité</b> est la capacité à comprendre pourquoi ça se passe, à partir des signaux collectés.</li>
-    <li>Conclusion : Visibilité = “voir” ; Observabilité = “comprendre et diagnostiquer”.</li>
+    <li>Conclusion : Visibilité = “voir” ; Observabilité = “comprendre et diagnostiquer”.</li>
   </ul>
 </section>
 
 <!-- Clarification : Tests automatisés vs manuels -->
 <section>
-  <h2>Tests automatisés vs manuels : opposition ?</h2>
+  <h2>Tests automatisés vs manuels : opposition ?</h2>
   <ul>
-    <li>Les tests manuels sont-ils toujours inférieurs aux tests automatisés ?</li>
+    <li>Les tests manuels sont-ils toujours inférieurs aux tests automatisés ?</li>
   </ul>
 </section>
 <section>
-  <h2>Réponse : Automatisés vs Manuels</h2>
+  <h2>Réponse : Automatisés vs Manuels</h2>
   <ul>
     <li>Les <b>tests automatisés</b> assurent la répétabilité, la rapidité et la non-régression continue.</li>
     <li>Les <b>tests manuels</b> sont indispensables pour l'exploration, les cas limites, l'UX, les scénarios inattendus.</li>
-    <li>Conclusion : complémentarité, pas opposition.</li>
+    <li>Conclusion : complémentarité, pas opposition.</li>
   </ul>
 </section>
 
@@ -736,12 +736,12 @@
 <section>
   <h2>Quiz Testabilité & Observabilité</h2>
   <ol>
-    <li>À quoi sert principalement un test de contrat ?</li>
-    <li>Quelle est la première cause de logs inutiles ?</li>
-    <li>Pourquoi limiter les tests E2E ?</li>
-    <li>Quel outil pour le tracing distribué ?</li>
-    <li>Un piège classique des alertes ?</li>
-    <li>SLI/SLO : c'est quoi ?</li>
+    <li>À quoi sert principalement un test de contrat ?</li>
+    <li>Quelle est la première cause de logs inutiles ?</li>
+    <li>Pourquoi limiter les tests E2E ?</li>
+    <li>Quel outil pour le tracing distribué ?</li>
+    <li>Un piège classique des alertes ?</li>
+    <li>SLI/SLO : c'est quoi ?</li>
   </ol>
 </section>
 <section>
@@ -751,7 +751,7 @@
     <li>Le log spam ou l'absence de filtrage de niveau.</li>
     <li>Parce qu'ils sont longs, fragiles, coûteux à maintenir.</li>
     <li>Jaeger, Zipkin, OpenTelemetry.</li>
-    <li>Le “bruit” (trop d'alertes) : on finit par les ignorer.</li>
+    <li>Le “bruit” (trop d'alertes) : on finit par les ignorer.</li>
     <li>Indicateurs et objectifs de qualité de service.</li>
   </ol>
 </section>
@@ -768,7 +768,7 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Contract test</strong> (b) : Il valide le respect du contrat d'API, indépendamment de l'implémentation complète.</p>
+  <p><strong>Contract test</strong> (b) : Il valide le respect du contrat d'API, indépendamment de l'implémentation complète.</p>
 </section>
 
 <!-- QCM 2 -->
@@ -783,13 +783,13 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Visualiser le flux complet d'une requête</strong> (a) : Le tracing reconstitue le parcours d'une requête dans tout le système.</p>
+  <p><strong>Visualiser le flux complet d'une requête</strong> (a) : Le tracing reconstitue le parcours d'une requête dans tout le système.</p>
 </section>
 
 <!-- QCM 3 -->
 <section>
   <h2>QCM</h2>
-  <p><strong>Lequel n'est pas un outil de monitoring ?</strong></p>
+  <p><strong>Lequel n'est pas un outil de monitoring ?</strong></p>
   <ol type="a">
     <li>Prometheus</li>
     <li>Grafana</li>
@@ -798,13 +798,13 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Gatling</strong> (c) : Gatling est un outil de tests de performance, pas de monitoring.</p>
+  <p><strong>Gatling</strong> (c) : Gatling est un outil de tests de performance, pas de monitoring.</p>
 </section>
 
 <!-- QCM 4 -->
 <section>
   <h2>QCM</h2>
-  <p><strong>Pourquoi limiter le nombre de tests E2E ?</strong></p>
+  <p><strong>Pourquoi limiter le nombre de tests E2E ?</strong></p>
   <ol type="a">
     <li>C'est coûteux et fragile</li>
     <li>Ça garantit toute la qualité</li>
@@ -813,7 +813,7 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>C'est coûteux et fragile</strong> (a) : Les E2E sont longs à exécuter, sensibles à l'environnement, et peu maintenables en grand nombre.</p>
+  <p><strong>C'est coûteux et fragile</strong> (a) : Les E2E sont longs à exécuter, sensibles à l'environnement, et peu maintenables en grand nombre.</p>
 </section>
 
 <!-- QCM 5 -->
@@ -828,7 +828,7 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Quantitative, actionnable, corrélable</strong> (a) : Les métriques servent à piloter et alerter efficacement.</p>
+  <p><strong>Quantitative, actionnable, corrélable</strong> (a) : Les métriques servent à piloter et alerter efficacement.</p>
 </section>
 
 <!-- QCM 6 -->
@@ -843,13 +843,13 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Injecter des pannes contrôlées</strong> (a) : Le chaos engineering valide la résilience en conditions réelles.</p>
+  <p><strong>Injecter des pannes contrôlées</strong> (a) : Le chaos engineering valide la résilience en conditions réelles.</p>
 </section>
 
 <!-- QCM 7 -->
 <section>
   <h2>QCM</h2>
-  <p><strong>La différence clé entre un log et une métrique ?</strong></p>
+  <p><strong>La différence clé entre un log et une métrique ?</strong></p>
   <ol type="a">
     <li>Un log est événementiel, la métrique est agrégée</li>
     <li>Un log mesure la latence</li>
@@ -858,7 +858,7 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Un log est événementiel, la métrique est agrégée</strong> (a) : Les logs détaillent chaque événement ; les métriques agrègent l'information.</p>
+  <p><strong>Un log est événementiel, la métrique est agrégée</strong> (a) : Les logs détaillent chaque événement ; les métriques agrègent l'information.</p>
 </section>
 
 <!-- QCM 8 -->
@@ -873,13 +873,13 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>De diagnostiquer les causes d'incident</strong> (a) : L'observabilité offre une compréhension profonde du système.</p>
+  <p><strong>De diagnostiquer les causes d'incident</strong> (a) : L'observabilité offre une compréhension profonde du système.</p>
 </section>
 
 <!-- QCM 9 -->
 <section>
   <h2>QCM</h2>
-  <p><strong>Quelle est la meilleure pratique pour le logging ?</strong></p>
+  <p><strong>Quelle est la meilleure pratique pour le logging ?</strong></p>
   <ol type="a">
     <li>Logger tout au niveau debug</li>
     <li>Utiliser des niveaux et log structuré</li>
@@ -888,7 +888,7 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Utiliser des niveaux et log structuré</strong> (b) : Les logs doivent être hiérarchisés (info, warn, error…) et structurés pour l'analyse.</p>
+  <p><strong>Utiliser des niveaux et log structuré</strong> (b) : Les logs doivent être hiérarchisés (info, warn, error…) et structurés pour l'analyse.</p>
 </section>
 
 <!-- QCM 10 -->
@@ -903,5 +903,5 @@
 </section>
 <section>
   <h2>Réponse</h2>
-  <p><strong>Saturer l'environnement de prod</strong> (a) : Mal paramétré, un test de charge peut causer une vraie panne !</p>
+  <p><strong>Saturer l'environnement de prod</strong> (a) : Mal paramétré, un test de charge peut causer une vraie panne !</p>
 </section>

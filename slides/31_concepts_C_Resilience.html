@@ -609,7 +609,7 @@
     <li>Voir : <a href="https://www.infoq.com/presentations/netflix-architecture/" target="_blank">Netflix Architecture Evolution (InfoQ)</a></li>
   </ul>
   <aside class="notes">
-    Netflix est passé de serveurs physiques à AWS entre 2008 et 2016. Chaque microservice gère sa résilience ; l'infrastructure peut croître ou décroître dynamiquement. Ils ont inventé le Chaos Engineering pour tester la résistance en production.
+    Netflix est passé de serveurs physiques à AWS entre 2008 et 2016. Chaque microservice gère sa résilience ; l'infrastructure peut croître ou décroître dynamiquement. Ils ont inventé le Chaos Engineering pour tester la résistance en production.
   </aside>
 </section>
 
@@ -646,11 +646,11 @@
 <section>
   <h2>Quiz : Scalabilité et Résilience</h2>
   <ol>
-    <li>Pourquoi Netflix a-t-il migré vers une architecture microservices cloud-native ?</li>
-    <li>Quel est l'intérêt d'un circuit breaker chez ING Bank ?</li>
-    <li>Quelle est la différence entre scaling horizontal et vertical ?</li>
+    <li>Pourquoi Netflix a-t-il migré vers une architecture microservices cloud-native ?</li>
+    <li>Quel est l'intérêt d'un circuit breaker chez ING Bank ?</li>
+    <li>Quelle est la différence entre scaling horizontal et vertical ?</li>
     <li>Citez un outil open-source utilisé pour le monitoring à grande échelle.</li>
-    <li>Que se passe-t-il si le load balancer est mal configuré ?</li>
+    <li>Que se passe-t-il si le load balancer est mal configuré ?</li>
   </ol>
   <aside class="notes">
     Ces questions permettent d'évaluer la compréhension des principaux enjeux de la scalabilité et de la résilience dans des contextes réels.
@@ -662,7 +662,7 @@
   <ol>
     <li>Pour l'élasticité, la disponibilité 24/7, absorber la croissance rapide et déployer sans interruption.</li>
     <li>Éviter la propagation des pannes d'un service vers l'ensemble du SI. Le circuit breaker coupe les appels défaillants pour préserver le reste du système.</li>
-    <li>Vertical : augmenter la puissance d'un seul serveur. Horizontal : ajouter des serveurs identiques. L'élastique combine les deux en s'adaptant à la demande.</li>
+    <li>Vertical : augmenter la puissance d'un seul serveur. Horizontal : ajouter des serveurs identiques. L'élastique combine les deux en s'adaptant à la demande.</li>
     <li>Prometheus, Grafana, ELK…</li>
     <li>Certaine requêtes surchargent un serveur tandis que d'autres sont inactifs, risque de ralentissements ou pannes partielles.</li>
   </ol>
@@ -676,8 +676,8 @@
   <h2>Quiz : Cas concrets</h2>
   <ol>
     <li>Donnez une situation où le “graceful degradation” est préférable à l'arrêt complet du service.</li>
-    <li>Pourquoi l'auto-scaling peut-il parfois générer des effets négatifs (“thrashing”) ?</li>
-    <li>À quoi sert un CDN dans une architecture distribuée ?</li>
+    <li>Pourquoi l'auto-scaling peut-il parfois générer des effets négatifs (“thrashing”) ?</li>
+    <li>À quoi sert un CDN dans une architecture distribuée ?</li>
   </ol>
   <aside class="notes">
     Ces cas concrets sont régulièrement rencontrés dans l'exploitation d'applications cloud natives ou e-commerce.
@@ -699,7 +699,7 @@
 <!-- QCM 1 -->
 <section>
   <h2>QCM 1 : Scalabilité</h2>
-  <p>Quelle stratégie favorise la tolérance aux pannes dans une architecture distribuée ?</p>
+  <p>Quelle stratégie favorise la tolérance aux pannes dans une architecture distribuée ?</p>
   <ul>
     <li>A. Mise à l'échelle verticale uniquement</li>
     <li>B. Ajout de redondance et réplication</li>
@@ -718,7 +718,7 @@
 <!-- QCM 2 -->
 <section>
   <h2>QCM 2 : Résilience</h2>
-  <p>Quel est le rôle principal d'un circuit breaker ?</p>
+  <p>Quel est le rôle principal d'un circuit breaker ?</p>
   <ul>
     <li>A. Optimiser la latence du réseau</li>
     <li>B. Couper temporairement les appels vers un service défaillant</li>
@@ -737,7 +737,7 @@
 <!-- QCM 3 -->
 <section>
   <h2>QCM 3 : Monitoring</h2>
-  <p>Quel outil open source est souvent utilisé pour la collecte de métriques et le monitoring distribué ?</p>
+  <p>Quel outil open source est souvent utilisé pour la collecte de métriques et le monitoring distribué ?</p>
   <ul>
     <li>A. Apache JMeter</li>
     <li>B. Prometheus</li>
@@ -756,7 +756,7 @@
 <!-- QCM 4 -->
 <section>
   <h2>QCM 4 : Auto-scaling</h2>
-  <p>Quel risque peut apparaître en cas de mauvais paramétrage de l'auto-scaling ?</p>
+  <p>Quel risque peut apparaître en cas de mauvais paramétrage de l'auto-scaling ?</p>
   <ul>
     <li>A. Thrashing (création/destruction en boucle d'instances)</li>
     <li>B. Temps de latence réduit</li>
@@ -775,7 +775,7 @@
 <!-- QCM 5 -->
 <section>
   <h2>QCM 5 : Caching distribué</h2>
-  <p>Quel est le principal avantage d'un cache distribué ?</p>
+  <p>Quel est le principal avantage d'un cache distribué ?</p>
   <ul>
     <li>A. Augmenter la sécurité des accès</li>
     <li>B. Réduire la latence et la charge sur les bases de données</li>
@@ -794,7 +794,7 @@
 <!-- QCM 6 -->
 <section>
   <h2>QCM 6 : Load balancing</h2>
-  <p>Quel type de load balancing est le plus simple à mettre en place, mais souvent limité ?</p>
+  <p>Quel type de load balancing est le plus simple à mettre en place, mais souvent limité ?</p>
   <ul>
     <li>A. DNS round-robin</li>
     <li>B. Least Connections</li>
@@ -813,7 +813,7 @@
 <!-- QCM 7 -->
 <section>
   <h2>QCM 7 : Microservices</h2>
-  <p>Quel est un risque courant des architectures microservices sans observabilité centralisée ?</p>
+  <p>Quel est un risque courant des architectures microservices sans observabilité centralisée ?</p>
   <ul>
     <li>A. Surveillance simplifiée</li>
     <li>B. Difficulté à diagnostiquer et corriger les pannes</li>
@@ -832,7 +832,7 @@
 <!-- QCM 8 -->
 <section>
   <h2>QCM 8 : Graceful Degradation</h2>
-  <p>Que signifie “graceful degradation” ?</p>
+  <p>Que signifie “graceful degradation” ?</p>
   <ul>
     <li>A. Arrêter tous les services en cas d'incident</li>
     <li>B. Maintenir un service minimal fonctionnel lors d'une panne partielle</li>
@@ -851,7 +851,7 @@
 <!-- QCM 9 -->
 <section>
   <h2>QCM 9 : CDN</h2>
-  <p>Quel est le rôle d'un CDN (Content Delivery Network) ?</p>
+  <p>Quel est le rôle d'un CDN (Content Delivery Network) ?</p>
   <ul>
     <li>A. Optimiser le routage DNS</li>
     <li>B. Distribuer le contenu statique au plus proche des utilisateurs</li>
@@ -870,7 +870,7 @@
 <!-- QCM 10 -->
 <section>
   <h2>QCM 10 : Bulkhead</h2>
-  <p>Le pattern “bulkhead” sert à :</p>
+  <p>Le pattern “bulkhead” sert à :</p>
   <ul>
     <li>A. Répartir le cache sur plusieurs régions</li>
     <li>B. Isoler des composants pour limiter la propagation des pannes</li>

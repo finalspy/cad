@@ -70,7 +70,7 @@ views/
     <li>Documenter et taguer les tests legacy</li>
   </ul>
   <aside class="notes">
-    Avant toute refonte, sécuriser le code pour détecter d'éventuelles régressions. On vise une couverture de 80 % minimum.
+    Avant toute refonte, sécuriser le code pour détecter d'éventuelles régressions. On vise une couverture de 80 % minimum.
   </aside>
 </section>
 
@@ -194,7 +194,7 @@ jobs:
     <li>Mettre à jour les tests avec des mocks/stubs</li>
   </ul>
   <aside class="notes">
-    Objectif : chaque composant doit pouvoir être testé/migré isolément. Préférez des dépendances passées en paramètre plutôt qu'importées en dur.
+    Objectif : chaque composant doit pouvoir être testé/migré isolément. Préférez des dépendances passées en paramètre plutôt qu'importées en dur.
   </aside>
 </section>
 
@@ -230,7 +230,7 @@ const { createUserController } = require('./controllers/userController');
 const userController = createUserController(UserService);
   </code></pre>
   <aside class="notes">
-    Le contrôleur devient indépendant : on injecte le service au lieu de l'importer. Les tests peuvent passer un fake/mock service.
+    Le contrôleur devient indépendant : on injecte le service au lieu de l'importer. Les tests peuvent passer un fake/mock service.
   </aside>
 </section>
 
@@ -349,7 +349,7 @@ src/
     <li><code>models/user.js</code> (implé Mongo) → <code>infrastructure/orm/MongoUserRepository.ts</code></li>
   </ul>
   <aside class="notes">
-    Pour chaque fichier, demandez-vous : ce code relève-t-il du métier (domain), de l'orchestration métier (application), de la technique (infra) ou de l'IHM (interfaces) ?
+    Pour chaque fichier, demandez-vous : ce code relève-t-il du métier (domain), de l'orchestration métier (application), de la technique (infra) ou de l'IHM (interfaces) ?
   </aside>
 </section>
 
@@ -418,7 +418,7 @@ export class MongoUserRepository implements UserRepository {
 </section>
 
 <section>
-  <h3>Après : injection dans l'application</h3>
+  <h3>Après : injection dans l'application</h3>
   <pre><code>
 // application/usecases/GetUser.ts
 export class GetUser {
@@ -448,10 +448,10 @@ app.get('/users/:id', async (req, res) => {
     <li>Découpez et typisez le code pour gagner en robustesse</li>
     <li>Adoptez l'architecture hexagonale pour isoler le métier</li>
     <li>Testez chaque couche indépendamment (mocks, fakes…)</li>
-    <li>Itérez progressivement : refactoring étape par étape</li>
+    <li>Itérez progressivement : refactoring étape par étape</li>
   </ul>
   <aside class="notes">
-    Ce TP vous donne la feuille de route pour industrialiser tout projet Node.js : code plus robuste, équipe plus sereine, projet plus durable.
+    Ce TP vous donne la feuille de route pour industrialiser tout projet Node.js : code plus robuste, équipe plus sereine, projet plus durable.
   </aside>
 </section>
 
